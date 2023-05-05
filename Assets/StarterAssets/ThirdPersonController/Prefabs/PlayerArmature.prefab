@@ -205,6 +205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3893294197879345259}
   - component: {fileID: 4416926081852918491}
+  - component: {fileID: 8928859158606709320}
   - component: {fileID: 4416926081852918490}
   - component: {fileID: 5885216827943657505}
   - component: {fileID: 135756642000475821}
@@ -251,6 +252,18 @@ CharacterController:
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &8928859158606709320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416926081852918481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7578b04719c670d4b8912419883e3b3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4416926081852918490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e54e5a728a9234ab24fcf1460ed8a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  momentumVerticalVelocity: 0
   moveSpeed: 4
   airMoveSpeed: 0.5
   boostAxis: {x: 1.3, y: 1.3, z: 1}
@@ -431,9 +445,9 @@ MonoBehaviour:
     m_ActionName: Player/Teleport[/Keyboard/t,/XInputControllerWindows/buttonWest]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 135756642000475821}
-        m_TargetAssemblyTypeName: StarterAssets.StarterAssetsInputs, Assembly-CSharp
-        m_MethodName: GROSSEButton
+      - m_Target: {fileID: 8928859158606709320}
+        m_TargetAssemblyTypeName: CS_F_Attack, Assembly-CSharp
+        m_MethodName: OnAttack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
