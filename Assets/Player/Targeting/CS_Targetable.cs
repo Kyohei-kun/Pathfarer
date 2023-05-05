@@ -1,17 +1,21 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
-public class S_TxtDistance : MonoBehaviour
+public class CS_Targetable : MonoBehaviour
 {
-    [SerializeField] Transform playerTr;
-    [SerializeField] TMP_Text text;
+    Transform playerTr;
 
     float dist;
     Vector3 playerLook;
     Vector3 ennemyRelativePos;
     float targetingWeight;
+
+    private void Start()
+    {
+        playerTr = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
     void Update()
     {
@@ -20,15 +24,17 @@ public class S_TxtDistance : MonoBehaviour
         ennemyRelativePos = transform.position - playerTr.position;
         targetingWeight = Vector3.Dot(ennemyRelativePos, playerLook) - (dist * 1.5f);
 
-        if (dist > playerTr.GetComponent<S_TestTargeting>().GetRangeUntargeting())
+        if (dist > playerTr.GetComponent<CS_F_Targeting>().GetRangeUntargeting())
         {
-            playerTr.GetComponent<S_TestTargeting>().RemoveFromTargetableList(gameObject);
+            playerTr.GetComponent<CS_F_Targeting>().RemoveFromTargetableList(gameObject);
             enabled = false;
         }
-
-        text.text = $"{Mathf.Round(targetingWeight * 100)/100}";
     }
 
+    /// <summary>
+    /// Renvois le poids de piorité de targeting.
+    /// </summary>
+    /// <returns>float targetingWeight</returns>
     public float GetTargetingWeight()
     {
         return targetingWeight;

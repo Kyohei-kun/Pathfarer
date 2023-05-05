@@ -1,22 +1,32 @@
-using System;
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class S_TestTargeting : MonoBehaviour
+public class CS_F_Targeting : MonoBehaviour
 {
-    readonly float cdDuration = 1;
+    [Foldout("Valeurs Gameplay")]
+    [MinValue(0.0f)]
+    [SerializeField] float cdDuration = 1;
     float actualTime = 0;
 
     Dictionary<GameObject, float> targetableObjects = new Dictionary<GameObject, float>();
     int actualIndex = 0;
     GameObject actualTarget;
 
-    readonly float targetingMaxHauteur = 10;
-    readonly float targetingMargeHauteur = 2;
-    readonly float targetingRange = 10;
-    readonly float targetingMargeRange = 2;
+    [Foldout("Valeurs LD")]
+    [MinValue(0.0f)]
+    [SerializeField] float targetingMaxHauteur = 10;
+    [Foldout("Valeurs LD")]
+    [MinValue(0.0f)]
+    [SerializeField] float targetingMargeHauteur = 2;
+    [Foldout("Valeurs LD")]
+    [MinValue(0.0f)]
+    [SerializeField] float targetingRange = 10;
+    [Foldout("Valeurs LD")]
+    [MinValue(0.0f)]
+    [SerializeField] float targetingMargeRange = 2;
 
     void Update()
     {
@@ -48,7 +58,7 @@ public class S_TestTargeting : MonoBehaviour
             if (viaInput)
             {
                 SetActualIndex(true);
-            }                
+            }
         }
 
         actualTime = 0;
@@ -63,7 +73,7 @@ public class S_TestTargeting : MonoBehaviour
     {
         foreach (GameObject g in targetableObjects.Keys.ToList())
         {
-            g.TryGetComponent(out S_TxtDistance scriptWright);
+            g.TryGetComponent(out CS_Targetable scriptWright);
 
             if (scriptWright != null)
             {
@@ -80,7 +90,7 @@ public class S_TestTargeting : MonoBehaviour
 
         for (int i = 0; i < others.Length; i++)
         {
-            others[i].TryGetComponent(out S_TxtDistance scriptWright);
+            others[i].TryGetComponent(out CS_Targetable scriptWright);
 
             if (scriptWright != null && OnSameLevel(others[i].gameObject) && !targetableObjects.ContainsKey(others[i].gameObject))
             {
@@ -95,11 +105,11 @@ public class S_TestTargeting : MonoBehaviour
         // MaJ les poids de targeting
         foreach (GameObject g in targetableObjects.Keys.ToList())
         {
-            g.TryGetComponent(out S_TxtDistance c);
+            g.TryGetComponent(out CS_Targetable c);
             targetableObjects[g] = c.GetTargetingWeight();
         }
 
-        Dictionary<GameObject, float>  sortedTargetableObjects = targetableObjects.OrderByDescending(key => key.Value).ToDictionary(x => x.Key, x => x.Value);
+        Dictionary<GameObject, float> sortedTargetableObjects = targetableObjects.OrderByDescending(key => key.Value).ToDictionary(x => x.Key, x => x.Value);
         targetableObjects.Clear();
         targetableObjects = sortedTargetableObjects;
     }
@@ -138,7 +148,7 @@ public class S_TestTargeting : MonoBehaviour
         {
             actualTarget.transform.Find("Target").gameObject.SetActive(false);
         }
-        
+
         actualTarget = g;
         actualTarget.transform.Find("Target").gameObject.SetActive(true);
     }

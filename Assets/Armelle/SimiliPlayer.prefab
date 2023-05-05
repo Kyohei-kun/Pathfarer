@@ -157,6 +157,7 @@ GameObject:
   - component: {fileID: 6086929428388173191}
   - component: {fileID: 8040936110446660445}
   - component: {fileID: 2460829065179931500}
+  - component: {fileID: 1294710418599469764}
   m_Layer: 2
   m_Name: SimiliPlayer
   m_TagString: Untagged
@@ -268,4 +269,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 146415be15461e0468cbe5b11dd3bcbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetingRange: {fileID: 3352463159245217026}
+--- !u!114 &1294710418599469764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5462796312687786444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7901c6996972847bc3058dfe92c816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cdDuration: 1
+  targetingMaxHauteur: 10
+  targetingMargeHauteur: 2
+  targetingRange: 10
+  targetingMargeRange: 2
