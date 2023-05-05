@@ -5,24 +5,37 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class CS_F_FireFlies : MonoBehaviour
 {
-    //Movment
+    GameObject player;
+    bool snaped = false;
+
+    //Input
     private Vector2 move;
+    private bool recall;
+
+
+    //Movment
+    [SerializeField] float moveSpeed = 3.0f;
+    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] float thresholdUnSnap = 0.4f;
     private float _speed;
     private bool grounded = true;
-    [SerializeField] float GroundedOffset = -0.14f;
-    [SerializeField] float GroundedRadius = 0.28f;
-    [SerializeField] LayerMask GroundLayers;
-    [SerializeField] float moveSpeed = 3.0f;
-    [SerializeField] float SpeedChangeRate = 10.0f;
+    float GroundedOffset = -0.14f;
+    float GroundedRadius = 0.28f;
+    LayerMask GroundLayers;
+    float SpeedChangeRate = 10.0f;
     float _targetRotation = 0.0f;
     private GameObject _mainCamera;
     float RotationSmoothTime = 0.12f;
     private CharacterController _controller;
     private float _verticalVelocity;
     private float _terminalVelocity = 53.0f;
-    [SerializeField] private float gravity = -9.81f;
     private float _rotationVelocity;
 
+    float _jumpTimeoutDelta;
+    float _fallTimeoutDelta;
+    float FallTimeout = 0.15f;
+    float JumpTimeout = 0.50f;
+    float JumpHeight = 1.2f;
 
     private void Awake()
     {
@@ -35,17 +48,54 @@ public class CS_F_FireFlies : MonoBehaviour
     private void Start()
     {
         _controller = GetComponent<CharacterController>();
+        // reset our timeouts on start
+        _jumpTimeoutDelta = JumpTimeout;
+        _fallTimeoutDelta = FallTimeout;
+
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Update()
     {
-        GroundedCheck();
-        Move();
+        if (snaped)
+        {
+            transform.position = player.transform.position;
+        }
+        else
+        {
+            JumpAndGravity();
+            GroundedCheck();
+            Move();
+        }
     }
 
     public void OnMoveFireFlies(CallbackContext context)
     {
-        move = context.ReadValue<Vector2>();
+        Vector2 tempMove = context.ReadValue<Vector2>();
+        if (snaped)
+        {
+            if (tempMove.magnitude > thresholdUnSnap)
+            {
+                snaped = false;
+                _controller.enabled = true;
+                move = tempMove;
+            }
+        }
+        else
+        {
+            _controller.enabled = true;
+            move = tempMove;
+        }
+    }
+
+    public void OnRecall(CallbackContext context)
+    {
+        if (context.ReadValueAsButton())
+        {
+            _controller.enabled = false;
+            transform.position = player.transform.position;
+            snaped = true;
+        }
     }
 
     private void GroundedCheck()
@@ -66,8 +116,8 @@ public class CS_F_FireFlies : MonoBehaviour
         // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
         // if there is no input, set the target speed to 0
         if (move == Vector2.zero) targetSpeed = 0.0f;
-        
-      
+
+
 
         // a reference to the players current horizontal velocity
         float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.y).magnitude;
@@ -79,15 +129,17 @@ public class CS_F_FireFlies : MonoBehaviour
         {
             // creates curved result rather than a linear one giving a more organic speed change
             // note T in Lerp is clamped, so we don't need to clamp our speed
-            _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * move.magnitude, Time.deltaTime * SpeedChangeRate);
+            //_speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * move.magnitude, Time.deltaTime * SpeedChangeRate);
 
             // round speed to 3 decimal places
-            _speed = Mathf.Round(_speed * 1000f) / 1000f;
+            //_speed = Mathf.Round(_speed * 1000f) / 1000f;
         }
         else
         {
-            _speed = targetSpeed;
+            //_speed = targetSpeed;
         }
+
+        _speed = targetSpeed * move.magnitude;
 
         // normalise input direction
         Vector3 inputDirection = new Vector3(move.x, 0.0f, move.y).normalized;
@@ -105,14 +157,48 @@ public class CS_F_FireFlies : MonoBehaviour
 
         Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
+        targetDirection = targetDirection.normalized;
+
+        // move the player
+        _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+    }
+
+    private void JumpAndGravity()
+    {
+        if (grounded)
+        {
+            // reset the fall timeout timer
+            _fallTimeoutDelta = FallTimeout;
+
+            // stop our velocity dropping infinitely when grounded
+            if (_verticalVelocity < 0.0f)
+            {
+                _verticalVelocity = -2f;
+            }
+
+            // jump timeout
+            if (_jumpTimeoutDelta >= 0.0f)
+            {
+                _jumpTimeoutDelta -= Time.deltaTime;
+            }
+        }
+        else
+        {
+            // reset the jump timeout timer
+            _jumpTimeoutDelta = JumpTimeout;
+
+            // fall timeout
+            if (_fallTimeoutDelta >= 0.0f)
+            {
+                _fallTimeoutDelta -= Time.deltaTime;
+            }
+
+        }
+
         // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
         if (_verticalVelocity < _terminalVelocity)
         {
             _verticalVelocity += gravity * Time.deltaTime;
         }
-
-        // move the player
-        _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
-
     }
 }

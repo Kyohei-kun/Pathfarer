@@ -5,13 +5,11 @@ using UnityEngine;
 
 public class CS_CameraUtilities : MonoBehaviour
 {
-    private Camera cam;
     private CinemachineBrain cinemachineBrain;
 
 
     private void Start()
     {
-        cam = GetComponent<Camera>();
         cinemachineBrain = GetComponent<CinemachineBrain>();
     }
 
@@ -34,7 +32,16 @@ public class CS_CameraUtilities : MonoBehaviour
 
     private void OnDestroy()
     {
-        CinemachineBasicMultiChannelPerlin noise = cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        CinemachineBasicMultiChannelPerlin noise;
+
+        try
+        {
+            noise = cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        }
+        catch (System.Exception)
+        {
+            return;
+        }
         noise.m_AmplitudeGain = 0;
         noise.m_FrequencyGain = 0;
     }

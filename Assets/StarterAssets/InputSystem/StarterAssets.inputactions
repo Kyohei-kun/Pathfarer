@@ -278,7 +278,7 @@
                 {
                     "name": "",
                     "id": "7838cca7-f11a-405c-9154-60b7bb7a2954",
-                    "path": "<Joystick>/stick/down",
+                    "path": "<Gamepad>/rightStickPress",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",

@@ -1,4 +1,4 @@
-﻿ using UnityEngine;
+﻿using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -14,6 +14,8 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
+        [SerializeField] float momentumVerticalVelocity;
+        bool inMomentum = false;
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float moveSpeed = 2.0f;
@@ -124,6 +126,7 @@ namespace StarterAssets
             }
         }
 
+        public bool InMomentum { get => inMomentum; set => inMomentum = value; }
 
         private void Awake()
         {
@@ -137,7 +140,7 @@ namespace StarterAssets
         private void Start()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-            
+
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
@@ -157,7 +160,7 @@ namespace StarterAssets
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
-            
+
             JumpAndGravity();
             GroundedCheck();
             Move();
@@ -199,7 +202,7 @@ namespace StarterAssets
             // if there is no input, set the target speed to 0
             if (_input.Move == Vector2.zero) targetSpeed = 0.0f;
 
-            
+
             // a reference to the players current horizontal velocity
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
@@ -226,7 +229,7 @@ namespace StarterAssets
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
             // normalise input direction
-            Vector3 inputDirection = new Vector3(_input.Move.x , 0.0f, _input.Move.y).normalized;
+            Vector3 inputDirection = new Vector3(_input.Move.x, 0.0f, _input.Move.y).normalized;
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
@@ -243,7 +246,7 @@ namespace StarterAssets
 
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
-            
+
             // move the player
             _controller.Move((targetDirection.normalized * (_speed * Time.deltaTime)) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
@@ -278,7 +281,7 @@ namespace StarterAssets
                 // Jump
                 if (_input.Jump && _jumpTimeoutDelta <= 0.0f)
                 {
-                    
+
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 
@@ -322,6 +325,10 @@ namespace StarterAssets
             if (_verticalVelocity < _terminalVelocity)
             {
                 _verticalVelocity += Gravity * Time.deltaTime;
+                if (inMomentum)
+                {
+                    _verticalVelocity = Mathf.Clamp(_verticalVelocity, momentumVerticalVelocity, 0);
+                }
             }
         }
 
@@ -367,8 +374,8 @@ namespace StarterAssets
         }
         private void OnDestroy()
         {
-            if(Gamepad.current != null)
-            Gamepad.current.SetMotorSpeeds(0, 0);
+            if (Gamepad.current != null)
+                Gamepad.current.SetMotorSpeeds(0, 0);
         }
     }
 }
