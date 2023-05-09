@@ -1,4 +1,4 @@
-using NaughtyAttributes;
+ï»¿using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +21,6 @@ public class CS_F_Targeting : MonoBehaviour
     [Foldout("Valeurs LD")]
     [MinValue(0.0f)] [Label("Target H Marge")]
     [SerializeField] float targetingMargeHauteur = 2;
-    [Foldout("Valeurs LD")]
-    [MinValue(0.0f)] [Label("Targeting Range")]
-    [SerializeField] float targetingRange = 10;
     [Foldout("Valeurs LD")]
     [MinValue(0.0f)] [Label("Untargeting Marge")]
     [SerializeField] float targetingMargeRange = 2;
@@ -84,18 +81,47 @@ public class CS_F_Targeting : MonoBehaviour
         targetableObjects.Clear();
     }
 
+    /*[SerializeField] Mesh cube;
+    Vector3 pos;
+    Vector3 size;
+    Quaternion rot;
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawMesh(cube, pos, rot, size);
+    }*/
+
     void SetTargetableList()
     {
-        Collider[] others = Physics.OverlapSphere(transform.position, targetingRange);
+        #region ChatGPT
+        // Get the camera component
+        Camera mainCamera = Camera.main;
 
-        for (int i = 0; i < others.Length; i++)
+        // Calculate the dimensions of the viewing frustum
+        float height = 2f * mainCamera.orthographicSize;
+        float width = height * mainCamera.aspect;
+
+        // Create the overlap box centered on the camera
+        Vector3 center = mainCamera.transform.position;
+        Vector3 extents = new Vector3(width / 2, height / 2, 100f);
+        Quaternion orientation = mainCamera.transform.rotation;
+
+        // Perform the overlap check
+        Collider[] colliders = Physics.OverlapBox(center, extents, orientation);
+        /*pos = center;
+        size = new Vector3(width, height, 50f);
+        rot = orientation;*/
+
+        #endregion
+
+        for (int i = 0; i < colliders.Length; i++)
         {
-            others[i].TryGetComponent(out CS_Targetable scriptWright);
+            colliders[i].TryGetComponent(out CS_Targetable scriptWright);
 
-            if (scriptWright != null && OnSameLevel(others[i].gameObject) && !targetableObjects.ContainsKey(others[i].gameObject))
+            if (scriptWright != null && OnSameLevel(colliders[i].gameObject) && !targetableObjects.ContainsKey(colliders[i].gameObject))
             {
                 scriptWright.enabled = true;
-                targetableObjects.Add(others[i].gameObject, scriptWright.GetTargetingWeight());
+                targetableObjects.Add(colliders[i].gameObject, scriptWright.GetTargetingWeight());
             }
         }
     }
@@ -153,8 +179,8 @@ public class CS_F_Targeting : MonoBehaviour
             else
             {
                 Debug.LogWarning($"Untargeting {actualTarget.name}.\n" +
-                    $"Ce message s'affiche car le child 'Target' n'a pas été trouvé dans {actualTarget.name}.\n" +
-                    $"Pour régler ce problème, ajouter un child 'Target', ou changer le mode d'affichage du targeting.");
+                    $"Ce message s'affiche car le child 'Target' n'a pas Ã©tÃ© trouvÃ© dans {actualTarget.name}.\n" +
+                    $"Pour rÃ©gler ce problÃ¨me, ajouter un child 'Target', ou changer le mode d'affichage du targeting.");
             }
         }
 
@@ -167,8 +193,8 @@ public class CS_F_Targeting : MonoBehaviour
         else
         {
             Debug.LogWarning($"Targeting {actualTarget.name}.\n" +
-                    $"Ce message s'affiche car le child 'Target' n'a pas été trouvé dans {actualTarget.name}.\n" +
-                    $"Pour régler ce problème, ajouter un child 'Target', ou changer le mode d'affichage du targeting.");
+                    $"Ce message s'affiche car le child 'Target' n'a pas Ã©tÃ© trouvÃ© dans {actualTarget.name}.\n" +
+                    $"Pour rÃ©gler ce problÃ¨me, ajouter un child 'Target', ou changer le mode d'affichage du targeting.");
         }
     }
 
@@ -182,9 +208,9 @@ public class CS_F_Targeting : MonoBehaviour
     }
 
     /// <summary>
-    /// A appeler lors de la mort d'un ennemis par exemple. Enlève l'objet de la liste de cibles potentielles. Rafraichis le targeting.
+    /// A appeler lors de la mort d'un ennemis par exemple. EnlÃ¨ve l'objet de la liste de cibles potentielles. Rafraichis le targeting.
     /// </summary>
-    /// <param name="g"> GameObject à enlever de la liste.</param>
+    /// <param name="g"> GameObject Ã  enlever de la liste.</param>
     public void RemoveFromTargetableList(GameObject g)
     {
         if (targetableObjects.ContainsKey(g))
@@ -196,11 +222,11 @@ public class CS_F_Targeting : MonoBehaviour
     }
 
     /// <summary>
-    /// Renvois la range de targeting + la marge de dé-targeting. Actuellement appelé par le script qui gère le poids de targeting sur les ennemis, pour qu'ils s'auto-gèrent.
+    /// Renvois la range de targeting + la marge de dÃ©-targeting. Actuellement appelÃ© par le script qui gÃ¨re le poids de targeting sur les ennemis, pour qu'ils s'auto-gÃ¨rent.
     /// </summary>
     /// <returns>float targetingRange + targetingMargeRange</returns>
     public float GetRangeUntargeting()
     {
-        return targetingRange + targetingMargeRange;
+        return targetingMargeRange;
     }
 }

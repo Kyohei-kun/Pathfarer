@@ -24,9 +24,16 @@ public class CS_Targetable : MonoBehaviour
         ennemyRelativePos = transform.position - playerTr.position;
         targetingWeight = Vector3.Dot(ennemyRelativePos, playerLook) - (dist * 1.5f);
 
-        if (dist > playerTr.GetComponent<CS_F_Targeting>().GetRangeUntargeting())
+        //if (dist > playerTr.GetComponent<CS_F_Targeting>().GetRangeUntargeting())
+        //{
+        //    playerTr.GetComponent<CS_F_Targeting>().RemoveFromTargetableList(gameObject);
+        //    enabled = false;
+        //}
+
+        if (!GetComponent<MeshRenderer>().isVisible)
         {
             playerTr.GetComponent<CS_F_Targeting>().RemoveFromTargetableList(gameObject);
+            Debug.Log($"Untargeting {gameObject.name}");
             enabled = false;
         }
     }
