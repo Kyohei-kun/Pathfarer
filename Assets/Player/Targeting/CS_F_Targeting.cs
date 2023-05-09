@@ -37,13 +37,13 @@ public class CS_F_Targeting : MonoBehaviour
 
     void SetTarget(bool viaInput)
     {
-        if (actualTime > cdDuration)
+        if (actualTime > cdDuration || actualTarget == null)
         {
             ClearTargetableList();
             SetTargetableList();
             SortTargetableList();
 
-            if (viaInput)
+            if (viaInput || actualTarget == null)
             {
                 actualIndex = 0;
             }
@@ -81,19 +81,9 @@ public class CS_F_Targeting : MonoBehaviour
         targetableObjects.Clear();
     }
 
-    /*[SerializeField] Mesh cube;
-    Vector3 pos;
-    Vector3 size;
-    Quaternion rot;
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawMesh(cube, pos, rot, size);
-    }*/
-
     void SetTargetableList()
     {
-        #region ChatGPT
+        #region ChatGPT get all colliders on screen
         // Get the camera component
         Camera mainCamera = Camera.main;
 
@@ -108,9 +98,6 @@ public class CS_F_Targeting : MonoBehaviour
 
         // Perform the overlap check
         Collider[] colliders = Physics.OverlapBox(center, extents, orientation);
-        /*pos = center;
-        size = new Vector3(width, height, 50f);
-        rot = orientation;*/
 
         #endregion
 
@@ -157,18 +144,54 @@ public class CS_F_Targeting : MonoBehaviour
 
     void SetActualIndex(bool plus)
     {
+        if (targetableObjects.Count == 0)
+        {
+            ClearActualTarget();
+            return;
+        }
+
         if (plus)
         {
             actualIndex++;
-        }
 
-        if (targetableObjects.Count > 0)
+            if (targetableObjects.Count > 0)
+            {
+                actualIndex %= (targetableObjects.Count);
+            }
+        }
+        else
         {
-            actualIndex %= (targetableObjects.Count);
+            if (targetableObjects.Count > 0)
+            {
+                for (int i = 0; i < targetableObjects.Count; i++)
+                {
+                    if (actualTarget != null && targetableObjects.Keys.ToList()[i] == actualTarget)
+                    {
+                        actualIndex = i;
+                    }
+                }
+            }
         }
     }
 
     void SetActualTarget(GameObject g)
+    {
+        ClearActualTarget();
+        actualTarget = g;
+
+        if (actualTarget.transform.Find("Target"))
+        {
+            actualTarget.transform.Find("Target").gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning($"Targeting {actualTarget.name}.\n" +
+                    $"Ce message s'affiche car le child 'Target' n'a pas été trouvé dans {actualTarget.name}.\n" +
+                    $"Pour régler ce problème, ajouter un child 'Target', ou changer le mode d'affichage du targeting.");
+        }
+    }
+
+    void ClearActualTarget()
     {
         if (actualTarget != null)
         {
@@ -184,18 +207,7 @@ public class CS_F_Targeting : MonoBehaviour
             }
         }
 
-        actualTarget = g;
-
-        if (actualTarget.transform.Find("Target"))
-        {
-            actualTarget.transform.Find("Target").gameObject.SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning($"Targeting {actualTarget.name}.\n" +
-                    $"Ce message s'affiche car le child 'Target' n'a pas été trouvé dans {actualTarget.name}.\n" +
-                    $"Pour régler ce problème, ajouter un child 'Target', ou changer le mode d'affichage du targeting.");
-        }
+        actualTarget = null;
     }
 
     /// <summary>
@@ -216,17 +228,16 @@ public class CS_F_Targeting : MonoBehaviour
         if (targetableObjects.ContainsKey(g))
         {
             targetableObjects.Remove(g);
-            SetActualIndex(false);
-            SetTarget(false);
-        }
-    }
 
-    /// <summary>
-    /// Renvois la range de targeting + la marge de dé-targeting. Actuellement appelé par le script qui gère le poids de targeting sur les ennemis, pour qu'ils s'auto-gèrent.
-    /// </summary>
-    /// <returns>float targetingRange + targetingMargeRange</returns>
-    public float GetRangeUntargeting()
-    {
-        return targetingMargeRange;
+            if (g == actualTarget)
+            {
+                ClearActualTarget();
+            }
+            else
+            {
+                SetActualIndex(false);
+                SetTarget(false);
+            }
+        }
     }
 }
