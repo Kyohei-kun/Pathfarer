@@ -16,16 +16,16 @@ public class CS_F_Targeting : MonoBehaviour
     GameObject actualTarget;
 
     [Foldout("Valeurs LD")]
-    [MinValue(0.0f)]
+    [MinValue(0.0f)] [Label("Target H Max")]
     [SerializeField] float targetingMaxHauteur = 10;
     [Foldout("Valeurs LD")]
-    [MinValue(0.0f)]
+    [MinValue(0.0f)] [Label("Target H Marge")]
     [SerializeField] float targetingMargeHauteur = 2;
     [Foldout("Valeurs LD")]
-    [MinValue(0.0f)]
+    [MinValue(0.0f)] [Label("Targeting Range")]
     [SerializeField] float targetingRange = 10;
     [Foldout("Valeurs LD")]
-    [MinValue(0.0f)]
+    [MinValue(0.0f)] [Label("Untargeting Marge")]
     [SerializeField] float targetingMargeRange = 2;
 
     void Update()
@@ -146,11 +146,30 @@ public class CS_F_Targeting : MonoBehaviour
     {
         if (actualTarget != null)
         {
-            actualTarget.transform.Find("Target").gameObject.SetActive(false);
+            if (actualTarget.transform.Find("Target"))
+            {
+                actualTarget.transform.Find("Target").gameObject.SetActive(false);
+            }
+            else
+            {
+                Debug.LogWarning($"Untargeting {actualTarget.name}.\n" +
+                    $"Ce message s'affiche car le child 'Target' n'a pas été trouvé dans {actualTarget.name}.\n" +
+                    $"Pour régler ce problème, ajouter un child 'Target', ou changer le mode d'affichage du targeting.");
+            }
         }
 
         actualTarget = g;
-        actualTarget.transform.Find("Target").gameObject.SetActive(true);
+
+        if (actualTarget.transform.Find("Target"))
+        {
+            actualTarget.transform.Find("Target").gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning($"Targeting {actualTarget.name}.\n" +
+                    $"Ce message s'affiche car le child 'Target' n'a pas été trouvé dans {actualTarget.name}.\n" +
+                    $"Pour régler ce problème, ajouter un child 'Target', ou changer le mode d'affichage du targeting.");
+        }
     }
 
     /// <summary>
