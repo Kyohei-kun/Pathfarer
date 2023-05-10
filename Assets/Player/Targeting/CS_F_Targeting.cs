@@ -21,9 +21,6 @@ public class CS_F_Targeting : MonoBehaviour
     [Foldout("Valeurs LD")]
     [MinValue(0.0f)] [Label("Target H Marge")]
     [SerializeField] float targetingMargeHauteur = 2;
-    [Foldout("Valeurs LD")]
-    [MinValue(0.0f)] [Label("Untargeting Marge")]
-    [SerializeField] float targetingMargeRange = 2;
 
     void Update()
     {
@@ -161,11 +158,11 @@ public class CS_F_Targeting : MonoBehaviour
         }
         else
         {
-            if (targetableObjects.Count > 0)
+            if (targetableObjects.Count > 0 && actualTarget != null)
             {
                 for (int i = 0; i < targetableObjects.Count; i++)
                 {
-                    if (actualTarget != null && targetableObjects.Keys.ToList()[i] == actualTarget)
+                    if (targetableObjects.Keys.ToList()[i] == actualTarget)
                     {
                         actualIndex = i;
                     }
@@ -223,20 +220,20 @@ public class CS_F_Targeting : MonoBehaviour
     /// A appeler lors de la mort d'un ennemis par exemple. Enlève l'objet de la liste de cibles potentielles. Rafraichis le targeting.
     /// </summary>
     /// <param name="g"> GameObject à enlever de la liste.</param>
-    public void RemoveFromTargetableList(GameObject g)
+    public void RemoveFromTargetableList(GameObject g, bool byDeath)
     {
         if (targetableObjects.ContainsKey(g))
         {
             targetableObjects.Remove(g);
 
-            if (g == actualTarget)
-            {
-                ClearActualTarget();
-            }
-            else
+            if (byDeath)
             {
                 SetActualIndex(false);
                 SetTarget(false);
+            }
+            else
+            {
+                ClearActualTarget();
             }
         }
     }

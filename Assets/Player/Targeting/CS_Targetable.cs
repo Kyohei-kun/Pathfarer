@@ -12,23 +12,27 @@ public class CS_Targetable : MonoBehaviour
     Vector3 ennemyRelativePos;
     float targetingWeight;
 
-    private void Start()
+    private void Awake()
     {
-        playerTr = GameObject.FindGameObjectWithTag("Player").transform;
+        enabled = false;
     }
 
     void Update()
     {
+        if (!GetComponent<MeshRenderer>().isVisible)
+        {
+            playerTr.GetComponent<CS_F_Targeting>().RemoveFromTargetableList(gameObject, false);
+            enabled = false;
+        }
+    }
+
+    private void SetTargetingWeight()
+    {
+        playerTr = GameObject.FindGameObjectWithTag("Player").transform;
         dist = Vector3.Distance(transform.position, playerTr.position);
         playerLook = playerTr.forward;
         ennemyRelativePos = transform.position - playerTr.position;
         targetingWeight = Vector3.Dot(ennemyRelativePos, playerLook) - (dist * 1.5f);
-
-        if (!GetComponent<MeshRenderer>().isVisible)
-        {
-            playerTr.GetComponent<CS_F_Targeting>().RemoveFromTargetableList(gameObject);
-            enabled = false;
-        }
     }
 
     /// <summary>
@@ -37,6 +41,7 @@ public class CS_Targetable : MonoBehaviour
     /// <returns>float targetingWeight</returns>
     public float GetTargetingWeight()
     {
+        SetTargetingWeight();
         return targetingWeight;
     }
 }
