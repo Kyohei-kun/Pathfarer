@@ -58,7 +58,6 @@ public class CS_F_Attack : MonoBehaviour
     {
         _controller = GetComponent<CharacterController>();
         thirdPersonController = GetComponent<ThirdPersonController>();
-        //Application.targetFrameRate = 20;
     }
 
     public void OnAttack(CallbackContext context)
@@ -76,7 +75,7 @@ public class CS_F_Attack : MonoBehaviour
         if (currentCoolDown >= timeShowAttack)
         {
             HideAttack();
-            thirdPersonController.canRotate = true;
+            thirdPersonController.CanRotate = true;
         }
 
         if (currentCoolDown >= cooldownTarget) //Si le precedent cooldown est passé
@@ -100,7 +99,7 @@ public class CS_F_Attack : MonoBehaviour
         if (inputDown && !lastInputDown && canAttack)//Input down
         {
             i++;
-            thirdPersonController.canRotate = false;
+            thirdPersonController.CanRotate = false;
             NextAttackCombo();
             Dash(combo);
             DrawAttack(combo);

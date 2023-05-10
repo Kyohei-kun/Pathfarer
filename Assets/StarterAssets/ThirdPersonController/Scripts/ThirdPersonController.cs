@@ -15,7 +15,7 @@ namespace StarterAssets
     public class ThirdPersonController : MonoBehaviour
     {
         private bool canMove = true;
-        public bool canRotate = true;
+        private bool canRotate = true;
 
         [SerializeField] float momentumVerticalVelocity;
         bool inMomentum = false;
@@ -131,6 +131,7 @@ namespace StarterAssets
 
         public bool InMomentum { get => inMomentum; set => inMomentum = value; }
         public bool CanMove { get => canMove; set => canMove = value; }
+        public bool CanRotate { get => canRotate; set => canRotate = value; }
 
         private void Awake()
         {
@@ -167,10 +168,7 @@ namespace StarterAssets
 
             JumpAndGravity();
             GroundedCheck();
-            if (canMove)
-            {
-                Move();
-            }
+            Move();
         }
 
 
@@ -248,14 +246,15 @@ namespace StarterAssets
                     RotationSmoothTime);
 
                 // rotate to face input direction relative to camera position
-                if(canRotate)
-                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                if (CanRotate)
+                    transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
             // move the player
+            if(canMove)
             _controller.Move((targetDirection.normalized * (_speed * Time.deltaTime)) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
             // update animator if using character
