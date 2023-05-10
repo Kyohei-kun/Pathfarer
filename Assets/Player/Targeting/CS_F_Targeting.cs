@@ -90,12 +90,11 @@ public class CS_F_Targeting : MonoBehaviour
 
         // Create the overlap box centered on the camera
         Vector3 center = mainCamera.transform.position;
-        Vector3 extents = new Vector3(width / 2, height / 2, 100f);
+        Vector3 halfExtents = new Vector3((width - 1) / 2, (height - 1) / 2, 100f);
         Quaternion orientation = mainCamera.transform.rotation;
 
         // Perform the overlap check
-        Collider[] colliders = Physics.OverlapBox(center, extents, orientation);
-
+        Collider[] colliders = Physics.OverlapBox(center, halfExtents, orientation);
         #endregion
 
         for (int i = 0; i < colliders.Length; i++)
@@ -186,6 +185,8 @@ public class CS_F_Targeting : MonoBehaviour
                     $"Ce message s'affiche car le child 'Target' n'a pas été trouvé dans {actualTarget.name}.\n" +
                     $"Pour régler ce problème, ajouter un child 'Target', ou changer le mode d'affichage du targeting.");
         }
+
+        CheckForTP();
     }
 
     void ClearActualTarget()
@@ -205,6 +206,22 @@ public class CS_F_Targeting : MonoBehaviour
         }
 
         actualTarget = null;
+        CheckForTP();
+    }
+
+    [Dropdown("tpLevels")] public int tpLevel;
+    int[] tpLevels = new int[] { 0, 1, 2};
+
+    void CheckForTP()
+    {
+        if (tpLevel == 0 || actualTarget == null)
+        {
+            GetComponent<S_ProtoTP>().EndPreviewTP();
+        }
+        else if ((tpLevel == 1 && !actualTarget.CompareTag("Ennemy")) || tpLevel == 2)
+        {
+            GetComponent<S_ProtoTP>().StartPreviewTP();
+        }
     }
 
     /// <summary>
@@ -231,7 +248,11 @@ public class CS_F_Targeting : MonoBehaviour
                 SetActualIndex(false);
                 SetTarget(false);
             }
-            else
+            else if (actualTarget != g)
+            {
+                SetActualIndex(false);
+            }
+            else if (actualTarget == g)
             {
                 ClearActualTarget();
             }
