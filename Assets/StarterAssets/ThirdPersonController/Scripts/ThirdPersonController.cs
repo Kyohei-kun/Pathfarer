@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NaughtyAttributes;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -16,6 +17,8 @@ namespace StarterAssets
     {
         private bool canMove = true;
         private bool canRotate = true;
+
+        private bool isJumping;
 
         [SerializeField] float momentumVerticalVelocity;
         bool inMomentum = false;
@@ -132,6 +135,9 @@ namespace StarterAssets
         public bool InMomentum { get => inMomentum; set => inMomentum = value; }
         public bool CanMove { get => canMove; set => canMove = value; }
         public bool CanRotate { get => canRotate; set => canRotate = value; }
+        public bool IsJumping { get => isJumping;}
+        public float MomentumVerticalVelocity { get => momentumVerticalVelocity; set => momentumVerticalVelocity = value; }
+        public float VerticalVelocity { get => _verticalVelocity; }
 
         private void Awake()
         {
@@ -271,6 +277,8 @@ namespace StarterAssets
             {
                 // reset the fall timeout timer
                 _fallTimeoutDelta = FallTimeout;
+                
+                isJumping = false;
 
                 // update animator if using character
                 if (_hasAnimator)
@@ -288,7 +296,7 @@ namespace StarterAssets
                 // Jump
                 if (_input.Jump && _jumpTimeoutDelta <= 0.0f)
                 {
-
+                    isJumping = true;
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 
@@ -334,7 +342,7 @@ namespace StarterAssets
                 _verticalVelocity += Gravity * Time.deltaTime;
                 if (inMomentum)
                 {
-                    _verticalVelocity = Mathf.Clamp(_verticalVelocity, momentumVerticalVelocity, 0);
+                    _verticalVelocity = Mathf.Clamp(_verticalVelocity, MomentumVerticalVelocity, 0);
                 }
             }
         }
@@ -383,6 +391,12 @@ namespace StarterAssets
         {
             if (Gamepad.current != null)
                 Gamepad.current.SetMotorSpeeds(0, 0);
+        }
+
+        [Button]
+        private void ButtonMomentum()
+        {
+            inMomentum = !inMomentum;
         }
     }
 }

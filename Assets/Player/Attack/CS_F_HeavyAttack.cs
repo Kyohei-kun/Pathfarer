@@ -56,13 +56,27 @@ public class CS_F_HeavyAttack : MonoBehaviour
         if (inCharge)
             currentCharge += Time.deltaTime;
 
-        if (inputDown && !lastInputDown && canAttack)
+        if (inputDown && !lastInputDown)
         {
-            thirdPersonController.CanMove = false;
-            charge_FX.SetActive(true);
-            currentCharge = 0;
-            inCharge = true;
-            canAttack = false;
+            if (thirdPersonController.grounded)
+            {
+                if (canAttack)
+                {
+                    thirdPersonController.CanMove = false;
+                    charge_FX.SetActive(true);
+                    currentCharge = 0;
+                    inCharge = true;
+                    canAttack = false;
+                }
+            }
+            else
+            {
+                if (thirdPersonController.VerticalVelocity < 0)
+                {
+                    Debug.Log("PILON");
+                }
+            }
+
         }
 
         if (inCharge && currentCharge >= timeCharge)

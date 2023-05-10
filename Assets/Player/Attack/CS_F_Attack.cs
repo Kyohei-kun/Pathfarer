@@ -1,4 +1,4 @@
-using NaughtyAttributes;
+﻿using NaughtyAttributes;
 using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,48 +16,48 @@ enum ComboState
 
 public class CS_F_Attack : MonoBehaviour
 {
+    [BoxGroup("Visuel")] [SerializeField] [HorizontalLine(color: EColor.Gray)] GameObject slashFirst;
+    [BoxGroup("Visuel")] [SerializeField] GameObject slashSecond;
+    [BoxGroup("Visuel")] [SerializeField] GameObject slashFinal;
 
-    [ProgressBar("Combo", 4, EColor.Blue)]
-    public int debugCombo;
-
-    ComboState combo = ComboState.Neutral;
-    CharacterController _controller;
-    ThirdPersonController thirdPersonController;
-
-    bool inputDown;
-    bool lastInputDown = false;
-
-    [SerializeField] GameObject slashFirst;
-    [SerializeField] GameObject slashSecond;
-    [SerializeField] GameObject slashFinal;
-
-    [HorizontalLine(color: EColor.Red)]
-    [BoxGroup("Speed_Dash")] [SerializeField] float speed_DepthFirstDash;
+    [BoxGroup("Speed_Dash")] [SerializeField] [HorizontalLine(color: EColor.Gray)] float speed_DepthFirstDash;
     [BoxGroup("Speed_Dash")] [SerializeField] float speed_SideFirstDash;
-
     [BoxGroup("Speed_Dash")] [SerializeField] float speed_DepthFinalDash;
     [BoxGroup("Speed_Dash")] [SerializeField] float speed_SideFinalDash;
 
-    [HorizontalLine(color: EColor.Red)]
-    [BoxGroup("CoolDown")] [SerializeField] float coolDownFirst = 0.5f;
+    [BoxGroup("CoolDown")] [SerializeField] [HorizontalLine(color: EColor.Gray)] float coolDownFirst = 0.5f;
     [BoxGroup("CoolDown")] [SerializeField] float coolDownSecond = 0.5f;
     [BoxGroup("CoolDown")] [SerializeField] float coolDownFinal = 1f;
 
-    [HorizontalLine(color: EColor.Green)]
-    [BoxGroup("Divers")] [SerializeField] float timeShowAttack = 1f;
+    [BoxGroup("Divers")] [SerializeField] [HorizontalLine(color: EColor.Gray)] float timeShowAttack = 1f;
     [BoxGroup("Divers")] [SerializeField] float timeInterCombo = 1f;
 
+    //■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+    [Foldout("■■ AirAttack ■■")] [SerializeField] [HorizontalLine(color: EColor.Red)] float timeMomentum = 0.5f;
+    [Foldout("■■ AirAttack ■■")] [SerializeField] float coolDownAirAttack = 0.2f;
+    [Foldout("■■ AirAttack ■■")] [SerializeField] float timeShowAirAttack = 0.2f;
+    [Foldout("■■ AirAttack ■■")] [SerializeField] float speedMomentum = 0.2f;
+    [Foldout("■■ AirAttack ■■")] [SerializeField] int nbAirAttack = 3;
+
+    private bool canAirAttack = true;
+    private int currentNbAirAttack = 0;
+    private float currentAirAttackCoolDown = 0;
     private float currentCoolDown = 0;
     private float cooldownTarget = 0;
-
     private bool canAttack = true;
-
-    private int i = 0;
+    private bool inputDown;
+    private bool lastInputDown = false;
+    private ComboState combo = ComboState.Neutral;
+    private CharacterController _controller;
+    private ThirdPersonController thirdPersonController;
 
     private void Start()
     {
         _controller = GetComponent<CharacterController>();
         thirdPersonController = GetComponent<ThirdPersonController>();
+        thirdPersonController.MomentumVerticalVelocity = speedMomentum;
+
     }
 
     public void OnAttack(CallbackContext context)
@@ -65,20 +65,23 @@ public class CS_F_Attack : MonoBehaviour
         inputDown = context.ReadValueAsButton();
     }
 
-
     private void Update()
     {
-        debugCombo = (int)combo;
+        if(inputDown)
+        {
+            thirdPersonController.InMomentum = true;
+        }
 
         currentCoolDown += Time.deltaTime;
+        currentAirAttackCoolDown += Time.deltaTime;
 
-        if (currentCoolDown >= timeShowAttack)
+        if (currentCoolDown >= timeShowAttack && thirdPersonController.grounded)
         {
             HideAttack();
             thirdPersonController.CanRotate = true;
         }
 
-        if (currentCoolDown >= cooldownTarget) //Si le precedent cooldown est pass�
+        if (currentCoolDown >= cooldownTarget) //Si le precedent cooldown est passé
         {
             canAttack = true;
 
@@ -86,26 +89,56 @@ public class CS_F_Attack : MonoBehaviour
             {
                 combo = ComboState.Neutral;
                 cooldownTarget = 0;
-                //Debug.Log("RESET");
-                //Debug.Log("Reset Combo");
             }
-            if(combo == ComboState.Final)
+            if (combo == ComboState.Final)
             {
                 combo = ComboState.Neutral;
                 cooldownTarget = 0;
             }
         }
 
-        if (inputDown && !lastInputDown && canAttack)//Input down
+        if (inputDown && !lastInputDown)//Input down
         {
-            i++;
-            thirdPersonController.CanRotate = false;
-            NextAttackCombo();
-            Dash(combo);
-            DrawAttack(combo);
-            currentCoolDown = 0;
-            canAttack = false;
-            //Debug.Log("Input " + i + "  " + cooldownTarget);
+            if (thirdPersonController.grounded)
+            {
+                if (canAttack)
+                {
+                    thirdPersonController.CanRotate = false;
+                    NextAttackCombo();
+                    Dash(combo);
+                    DrawAttack(combo);
+                    currentCoolDown = 0;
+                    canAttack = false;
+                }
+            }
+            else  //Air Attack
+            {
+                if (currentNbAirAttack < nbAirAttack && canAirAttack && thirdPersonController.VerticalVelocity < 0)
+                {
+                    Debug.Log("AirAttack");
+                    thirdPersonController.InMomentum = true;
+                    DrawAttack(ComboState.First);
+                    canAirAttack = false;
+                    currentNbAirAttack ++;
+                    currentAirAttackCoolDown = 0;
+                }
+            }
+        }
+
+        if (thirdPersonController.grounded)
+            currentNbAirAttack = 0;
+
+        if (!thirdPersonController.grounded && currentAirAttackCoolDown >= timeShowAirAttack)
+            HideAttack();
+
+        if (currentAirAttackCoolDown >= timeMomentum)
+        {
+            thirdPersonController.InMomentum = false;
+        }
+
+        if (currentAirAttackCoolDown >= coolDownAirAttack)
+        {
+            canAirAttack = true;
         }
 
         lastInputDown = inputDown;
@@ -151,7 +184,6 @@ public class CS_F_Attack : MonoBehaviour
             combo = ComboState.Neutral;
             cooldownTarget = 0;
         }
-
 
         switch (combo)
         {
