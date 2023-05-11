@@ -4,15 +4,66 @@ using UnityEngine;
 
 public class CS_LightManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    Light directionnalLight;
+    [SerializeField] float speedFade = 2;
+    [SerializeField] float standardIntensity = 10000;
+    [SerializeField] float darkIntensity = 0;
+    [SerializeField] float rate = 1;
+
+    Coroutine currentLerpCoroutine;
+
+    private void Start()
     {
-        
+        directionnalLight = GetComponent<Light>();
+        CS_TriggerMerger.LightManager = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ChangeSate(bool playerIn)
     {
-        
+        if(currentLerpCoroutine != null)
+        StopCoroutine(currentLerpCoroutine);
+
+        if (playerIn)
+        {
+            currentLerpCoroutine = StartCoroutine(LerpToDark());
+            //directionnalLight.intensity = 0;
+        }
+        else
+        {
+            currentLerpCoroutine = StartCoroutine(LerpToStandard());
+            //directionnalLight.intensity = 100000;
+        }
+    }
+
+    IEnumerator LerpToStandard()
+    {
+        while (directionnalLight.intensity < standardIntensity)
+        {
+            directionnalLight.intensity += rate;
+            yield return 0;
+        }
+
+        directionnalLight.intensity = standardIntensity;
+    }
+
+    IEnumerator LerpToDark()
+    {
+        while (directionnalLight.intensity > darkIntensity)
+        {
+            directionnalLight.intensity = directionnalLight.intensity - rate;
+            //Debug.Log(directionnalLight.intensity);
+            yield return 0;
+        }
+
+        directionnalLight.intensity = darkIntensity;
+
+        //float alpha = 0;
+        //float startTime = Time.time;
+
+        //while (Time.time < startTime + speedFade)
+        //{
+        //    directionnalLight.intensity = Mathf.Lerp(darkIntensity, standardIntensity, alpha);
+        //    yield return 0;
+        //}
     }
 }

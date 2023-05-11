@@ -8,11 +8,17 @@ public class CS_TriggerLight : MonoBehaviour
 
     public bool PlayerIN { get => playerIN;}
 
+    private void Start()
+    {
+        CS_TriggerMerger.AddTrigger(this);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
             playerIN = true;
+            CS_TriggerMerger.UpdateMerger();
         }
     }
 
@@ -21,6 +27,7 @@ public class CS_TriggerLight : MonoBehaviour
         if (other.tag == "Player")
         {
             playerIN = false;
+            CS_TriggerMerger.UpdateMerger();
         }
     }
 }
