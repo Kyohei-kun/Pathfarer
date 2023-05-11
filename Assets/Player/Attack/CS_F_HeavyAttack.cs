@@ -1,3 +1,4 @@
+﻿using Cinemachine;
 using NaughtyAttributes;
 using StarterAssets;
 using System.Collections;
@@ -19,6 +20,15 @@ public class CS_F_HeavyAttack : MonoBehaviour
     [BoxGroup("Visuel")] [SerializeField] GameObject charge_FX;
     [BoxGroup("Visuel")] [SerializeField] float timeShowAttack = 0.2f;
     [BoxGroup("Visuel")] [ProgressBar("CoolDown", "cooldown", EColor.Green)] [SerializeField] private float currentCoolDown = 0;
+
+    [Foldout("■■ AirAttack ■■")] [SerializeField] GameObject prefab_SpeedPlane;
+    [Foldout("■■ AirAttack ■■")] [SerializeField] GameObject prefab_FxGround;
+    [Foldout("■■ AirAttack ■■")] [SerializeField] float minDistanceGround;
+    [Foldout("■■ AirAttack ■■")] [SerializeField] float timeShake;
+    [Foldout("■■ AirAttack ■■")] [SerializeField] float amplitude;
+    [Foldout("■■ AirAttack ■■")] [SerializeField] float frequence;
+    [Foldout("■■ AirAttack ■■")] [SerializeField] LayerMask layerMask;
+    [Foldout("■■ AirAttack ■■")] [SerializeField] CinemachineVirtualCamera virtualCam;
 
     ThirdPersonController thirdPersonController;
     CharacterController _controller;
@@ -71,9 +81,25 @@ public class CS_F_HeavyAttack : MonoBehaviour
             }
             else
             {
-                if (thirdPersonController.VerticalVelocity < 0)
+                if (thirdPersonController.VerticalVelocity < 0) //Attack PILON
                 {
-                    Debug.Log("PILON");
+                    RaycastHit hit;
+                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, layerMask))
+                    {
+                        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground") && Vector3.Distance(hit.point, transform.position)>= minDistanceGround)
+                        {
+                            //Debug.Break();
+                            GameObject speedPlane = GameObject.Instantiate(prefab_SpeedPlane);
+                            GameObject fx_Ground = GameObject.Instantiate(prefab_FxGround);
+                            fx_Ground.transform.position = hit.point;
+                            speedPlane.transform.localScale = new Vector3(1, Vector3.Distance(transform.position, hit.point), 1);
+                            speedPlane.transform.position = (transform.position + hit.point) / 2f + Vector3.up * 0.5f;
+                            _controller.enabled = false;
+                            thirdPersonController.transform.position = hit.point + (Vector3.up * 0);
+                            _controller.enabled = true;
+                            Camera.main.GetComponent<CS_CameraUtilities>().Shake(amplitude, frequence, timeShake, true, true);
+                        }
+                    }
                 }
             }
 
@@ -88,6 +114,8 @@ public class CS_F_HeavyAttack : MonoBehaviour
             thirdPersonController.CanMove = true;
             inCoolDown = true;
         }
+
+        lastInputDown = inputDown;
     }
 
     public void OnBigAttack(CallbackContext context)
