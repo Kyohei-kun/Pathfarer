@@ -115,7 +115,6 @@ public class CS_F_Attack : MonoBehaviour
             {
                 if (currentNbAirAttack < nbAirAttack && canAirAttack && thirdPersonController.VerticalVelocity < 0)
                 {
-                    Debug.Log("AirAttack");
                     thirdPersonController.InMomentum = true;
                     DrawAttack(ComboState.First);
                     canAirAttack = false;
