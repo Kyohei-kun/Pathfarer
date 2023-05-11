@@ -208,7 +208,7 @@ public class CS_F_Targeting : MonoBehaviour
         actualTarget = null;
         CheckForTP();
     }
-
+    [InfoBox("En attendant que les niveaux soient gérés via le Manager.", EInfoBoxType.Normal)]
     [Dropdown("tpLevels")] public int tpLevel;
     int[] tpLevels = new int[] { 0, 1, 2};
 

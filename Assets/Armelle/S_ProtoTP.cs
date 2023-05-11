@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class S_ProtoTP : MonoBehaviour
 {
-    [SerializeField] GameObject cubePreview;
+    [SerializeField] GameObject preview;
+    GameObject previewInstance;
 
     bool previewON;
 
@@ -13,6 +14,7 @@ public class S_ProtoTP : MonoBehaviour
     /// </summary>
     public void StartPreviewTP()
     {
+        previewInstance = Instantiate(preview, PreviewPosition(), Quaternion.identity);
         previewON = true;
     }
 
@@ -22,16 +24,39 @@ public class S_ProtoTP : MonoBehaviour
     public void EndPreviewTP()
     {
         previewON = false;
+        Destroy(previewInstance);
     }
 
     private void Update()
     {
         if (previewON)
         {
-            Vector3 playerPos = transform.position;
-            Vector3 center = GetComponent<CS_F_Targeting>().GetActualTarget().transform.position;
-            Vector3 symPos = (center - playerPos) + center;
-            cubePreview.transform.SetPositionAndRotation(symPos, Quaternion.identity);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                GetComponent<CharacterController>().enabled = false;
+
+                Vector3 playerPos = transform.position;
+                Vector3 previewPos = previewInstance.transform.position;
+
+                previewInstance.transform.position = playerPos;
+                transform.position = previewPos;
+
+                GetComponent<CharacterController>().enabled = true;
+            }
+            else
+            {
+                previewInstance.transform.SetPositionAndRotation(PreviewPosition(), Quaternion.identity);
+            }
         }
+    }
+
+    Vector3 PreviewPosition()
+    {
+        Vector3 playerPos = transform.position;
+        Vector3 center = GetComponent<CS_F_Targeting>().GetActualTarget().transform.position;
+        Vector3 symPos = (center - playerPos) + center;
+        symPos = new Vector3(symPos.x, playerPos.y, symPos.z);
+
+        return symPos;
     }
 }
