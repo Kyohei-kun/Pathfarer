@@ -8,21 +8,15 @@ public class CS_F_Targeting : MonoBehaviour
 {
     List<CS_I_Subscriber> subscribers = new();
 
-    [Foldout("Valeurs Gameplay")]
-    [MinValue(0.0f)]
-    [SerializeField] float cdDuration = 1;
+    [MinValue(0)] [SerializeField] float cdDuration = 1;
     float actualTime = 0;
 
     Dictionary<GameObject, float> targetableObjects = new();
     int actualIndex = 0;
     GameObject actualTarget;
 
-    [Foldout("Valeurs LD")]
-    [MinValue(0.0f)] [Label("Target H Max")]
-    [SerializeField] float targetingMaxHauteur = 10;
-    [Foldout("Valeurs LD")]
-    [MinValue(0.0f)] [Label("Target H Marge")]
-    [SerializeField] float targetingMargeHauteur = 2;
+    [MinValue(0)] [SerializeField] float targetingMaxHauteur = 10;
+    [MinValue(0)] [SerializeField] float targetingMargeHauteur = 2;
 
     void Update()
     {
@@ -188,7 +182,6 @@ public class CS_F_Targeting : MonoBehaviour
                     $"Pour régler ce problème, ajouter un child 'Target', ou changer le mode d'affichage du targeting.");
         }
 
-        CheckForTP();
         MessageUpdateSubscriber();
     }
 
@@ -209,33 +202,7 @@ public class CS_F_Targeting : MonoBehaviour
         }
 
         actualTarget = null;
-        CheckForTP();
         MessageUpdateSubscriber();
-    }
-
-    [InfoBox("En attendant que les niveaux soient gérés via le Manager.", EInfoBoxType.Normal)]
-    [Dropdown("tpLevels")] public int tpLevel;
-    int[] tpLevels = new int[] { 0, 1, 2};
-
-    void CheckForTP() // dois disparaitre
-    {
-        if (tpLevel == 0 || actualTarget == null)
-        {
-            GetComponent<S_ProtoTP>().EndPreviewTP();
-        }
-        else if ((tpLevel == 1 && !actualTarget.CompareTag("Ennemy")) || tpLevel == 2)
-        {
-            GetComponent<S_ProtoTP>().StartPreviewTP();
-        }
-    }
-
-    /// <summary>
-    /// Renvois la target actuelle du joueur.
-    /// </summary>
-    /// <returns>GameObject actualTarget</returns>
-    public GameObject GetActualTarget()
-    {
-        return actualTarget;
     }
 
     /// <summary>
@@ -264,6 +231,7 @@ public class CS_F_Targeting : MonoBehaviour
         }
     }
 
+    #region Interface Targeting
     public void AddSubscriber(CS_I_Subscriber sub)
     {
         subscribers.Add(sub);
@@ -276,4 +244,5 @@ public class CS_F_Targeting : MonoBehaviour
             subscriber.UpdateTarget(actualTarget);
         }
     }
+    #endregion
 }
