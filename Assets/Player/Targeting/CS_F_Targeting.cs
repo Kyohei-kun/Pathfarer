@@ -6,12 +6,14 @@ using UnityEngine;
 
 public class CS_F_Targeting : MonoBehaviour
 {
+    List<CS_I_Subscriber> subscribers = new();
+
     [Foldout("Valeurs Gameplay")]
     [MinValue(0.0f)]
     [SerializeField] float cdDuration = 1;
     float actualTime = 0;
 
-    Dictionary<GameObject, float> targetableObjects = new Dictionary<GameObject, float>();
+    Dictionary<GameObject, float> targetableObjects = new();
     int actualIndex = 0;
     GameObject actualTarget;
 
@@ -187,6 +189,7 @@ public class CS_F_Targeting : MonoBehaviour
         }
 
         CheckForTP();
+        MessageUpdateSubscriber();
     }
 
     void ClearActualTarget()
@@ -207,12 +210,14 @@ public class CS_F_Targeting : MonoBehaviour
 
         actualTarget = null;
         CheckForTP();
+        MessageUpdateSubscriber();
     }
+
     [InfoBox("En attendant que les niveaux soient gérés via le Manager.", EInfoBoxType.Normal)]
     [Dropdown("tpLevels")] public int tpLevel;
     int[] tpLevels = new int[] { 0, 1, 2};
 
-    void CheckForTP()
+    void CheckForTP() // dois disparaitre
     {
         if (tpLevel == 0 || actualTarget == null)
         {
@@ -256,6 +261,19 @@ public class CS_F_Targeting : MonoBehaviour
             {
                 ClearActualTarget();
             }
+        }
+    }
+
+    public void AddSubscriber(CS_I_Subscriber sub)
+    {
+        subscribers.Add(sub);
+    }
+
+    void MessageUpdateSubscriber()
+    {
+        foreach (CS_I_Subscriber subscriber in subscribers)
+        {
+            subscriber.UpdateTarget(actualTarget);
         }
     }
 }

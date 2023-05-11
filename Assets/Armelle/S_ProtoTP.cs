@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class S_ProtoTP : MonoBehaviour
+public class S_ProtoTP : MonoBehaviour, CS_I_Subscriber
 {
     [SerializeField] GameObject preview;
     GameObject previewInstance;
@@ -25,6 +25,11 @@ public class S_ProtoTP : MonoBehaviour
     {
         previewON = false;
         Destroy(previewInstance);
+    }
+
+    private void Start()
+    {
+        Invoke(nameof(SubscribeTargeting), 1);
     }
 
     private void Update()
@@ -58,5 +63,18 @@ public class S_ProtoTP : MonoBehaviour
         symPos = new Vector3(symPos.x, playerPos.y, symPos.z);
 
         return symPos;
+    }
+
+    public void SubscribeTargeting()
+    {
+        GetComponent<CS_F_Targeting>().AddSubscriber(this);
+    }
+
+    public void UpdateTarget(GameObject target)
+    {
+        throw new System.NotImplementedException();
+        // a effeacer
+        // si null fait ça
+        // si pas numll fait autre chose ...
     }
 }
