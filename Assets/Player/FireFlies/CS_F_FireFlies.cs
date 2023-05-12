@@ -17,6 +17,8 @@ public class CS_F_FireFlies : MonoBehaviour
     [SerializeField] float moveSpeed = 3.0f;
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] float thresholdUnSnap = 0.4f;
+    [SerializeField] Light lightFireflies_Snapped;
+
     private float _speed;
     private bool grounded = true;
     float GroundedOffset = -0.14f;
@@ -79,6 +81,7 @@ public class CS_F_FireFlies : MonoBehaviour
                 snaped = false;
                 _controller.enabled = true;
                 move = tempMove;
+                lightFireflies_Snapped.enabled = false;
             }
         }
         else
@@ -95,6 +98,7 @@ public class CS_F_FireFlies : MonoBehaviour
             _controller.enabled = false;
             transform.position = player.transform.position;
             snaped = true;
+            lightFireflies_Snapped.enabled = true;
         }
     }
 
