@@ -25,9 +25,12 @@ public class CS_LightManager : MonoBehaviour
     private void Start()
     {
         CS_TriggerMerger.LightManager = this;
-        fireFliesIntensity = fireFliesLight.intensity;
-        playerIntensity = playerLight.intensity;
         directionnalStandardIntensity = directionnalLight.intensity;
+
+        fireFliesIntensity = fireFliesLight.intensity;
+        fireFliesLight.intensity = 0;
+        playerIntensity = playerLight.intensity;
+        playerLight.intensity = 0;
     }
 
     public void ChangeSate(bool playerIn)
