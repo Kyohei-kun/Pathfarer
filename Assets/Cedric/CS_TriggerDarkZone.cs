@@ -1,10 +1,11 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CS_TriggerLight : MonoBehaviour
+public class CS_TriggerDarkZone : MonoBehaviour
 {
-    bool playerIN = false;
+    [ReadOnly] public bool playerIN = false;
 
     public bool PlayerIN { get => playerIN;}
 
@@ -15,7 +16,7 @@ public class CS_TriggerLight : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.tag == "MainCamera")
         {
             playerIN = true;
             CS_TriggerMerger.UpdateMerger();
@@ -24,7 +25,7 @@ public class CS_TriggerLight : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "MainCamera")
         {
             playerIN = false;
             CS_TriggerMerger.UpdateMerger();

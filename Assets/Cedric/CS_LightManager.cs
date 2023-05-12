@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class CS_LightManager : MonoBehaviour
 
     Coroutine currentLerpCoroutine;
 
+    [ReadOnly] public bool PlayerIsInDarkZone;
+
     private void Start()
     {
         directionnalLight = GetComponent<Light>();
@@ -20,7 +23,8 @@ public class CS_LightManager : MonoBehaviour
 
     public void ChangeSate(bool playerIn)
     {
-        if(currentLerpCoroutine != null)
+        PlayerIsInDarkZone = playerIn;
+        if (currentLerpCoroutine != null)
         StopCoroutine(currentLerpCoroutine);
 
         if (playerIn)
