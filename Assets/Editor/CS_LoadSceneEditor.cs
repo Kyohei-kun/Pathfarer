@@ -1,4 +1,5 @@
-﻿using NaughtyAttributes;
+﻿#if (UNITY_EDITOR)
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -21,3 +22,4 @@ public class CS_LoadSceneEditor : MonoBehaviour
         }
     }
 }
+#endif

@@ -20,6 +20,10 @@ public class CS_LightManager : MonoBehaviour
     [BoxGroup("PlayerLight")] [SerializeField] float ratePlayer;
     float playerIntensity;
 
+    [BoxGroup("MentorLight")][SerializeField] Light mentorLight;
+    [BoxGroup("MentorLight")][SerializeField] float rateMentor;
+    float mentorIntensity;
+
     Coroutine currentLerpCoroutine;
 
     private void Start()
@@ -28,6 +32,9 @@ public class CS_LightManager : MonoBehaviour
         directionnalStandardIntensity = directionnalLight.intensity;
 
         fireFliesIntensity = fireFliesLight.intensity;
+        mentorIntensity = mentorLight.intensity;
+
+        mentorLight.intensity = 0;
         fireFliesLight.intensity = 0;
         playerIntensity = playerLight.intensity;
         playerLight.intensity = 0;
@@ -52,27 +59,29 @@ public class CS_LightManager : MonoBehaviour
 
     IEnumerator LerpToStandard()
     {
-        while (directionnalLight.intensity < directionnalStandardIntensity || fireFliesLight.intensity > 0 || playerLight.intensity > 0)
+        while (directionnalLight.intensity < directionnalStandardIntensity || fireFliesLight.intensity > 0 || playerLight.intensity > 0 || mentorLight.intensity > 0)
         {
             directionnalLight.intensity = Mathf.Clamp(directionnalLight.intensity + rateDirectionnal, 0, directionnalStandardIntensity);
             fireFliesLight.intensity = Mathf.Clamp(fireFliesLight.intensity - rateFireFlies, 0, fireFliesIntensity);
             playerLight.intensity = Mathf.Clamp(playerLight.intensity - ratePlayer, 0, playerIntensity);
+            mentorLight.intensity = Mathf.Clamp(mentorLight.intensity - rateMentor, 0, mentorIntensity);
 
             yield return 0;
         }
 
         directionnalLight.intensity = directionnalStandardIntensity;
-        fireFliesLight.intensity = playerLight.intensity = 0;
+        fireFliesLight.intensity = playerLight.intensity = mentorLight.intensity = 0;
 
     }
 
     IEnumerator LerpToDark()
     {
-        while (directionnalLight.intensity > 0 || fireFliesLight.intensity < fireFliesIntensity || playerLight.intensity < playerIntensity )
+        while (directionnalLight.intensity > 0 || fireFliesLight.intensity < fireFliesIntensity || playerLight.intensity < playerIntensity || mentorLight.intensity < mentorIntensity)
         {
             directionnalLight.intensity = Mathf.Clamp(directionnalLight.intensity - rateDirectionnal, 0, directionnalStandardIntensity);
             fireFliesLight.intensity = Mathf.Clamp(fireFliesLight.intensity + rateFireFlies, 0, fireFliesIntensity);
             playerLight.intensity = Mathf.Clamp(playerLight.intensity + ratePlayer, 0, playerIntensity);
+            mentorLight.intensity = Mathf.Clamp(mentorLight.intensity + rateMentor, 0, mentorIntensity);
 
             yield return 0;
         }
@@ -80,5 +89,6 @@ public class CS_LightManager : MonoBehaviour
         directionnalLight.intensity = 0;
         fireFliesLight.intensity = fireFliesIntensity;
         playerLight.intensity = playerIntensity;
+        mentorLight.intensity = mentorIntensity;
     }
 }
