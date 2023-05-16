@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CS_PlayerLife : MonoBehaviour
 {
-    [SerializeField] CS_Mentor mentor;
+    [SerializeField] CS_F_Mentor mentor;
 
     [SerializeField] int lifeMax = 3;
     [Space] [ProgressBar("Life", "lifeMax", EColor.Red)] [SerializeField] int currentLife;
