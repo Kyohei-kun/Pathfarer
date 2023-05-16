@@ -23,7 +23,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MT_Mentor
+  m_Name: MT_MentorLive3
   m_Shader: {fileID: -6465566751694194690, guid: 13cb22528ee00264b8c923da79db2e25,
     type: 3}
   m_ValidKeywords: []

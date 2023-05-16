@@ -7,19 +7,32 @@ using UnityEngine.VFX;
 
 public class CS_Mentor : MonoBehaviour
 {
-    [HideIf("drawDebugGizmo")][Button] private void DrawGizmo() { drawDebugGizmo = true; }
-    [ShowIf("drawDebugGizmo")][Button] private void HideGizmo() { drawDebugGizmo = false; }
+    [HideIf("drawDebugGizmo")] [Button] private void DrawGizmo() { drawDebugGizmo = true; }
+    [ShowIf("drawDebugGizmo")] [Button] private void HideGizmo() { drawDebugGizmo = false; }
     bool drawDebugGizmo;
 
-    [ReorderableList][SerializeField] List<CS_Enemy> enemies = new();
+    [ReorderableList] [SerializeField] List<CS_Enemy> enemies = new();
 
-    [BoxGroup("Parameters")][SerializeField] float cadence;
-    [BoxGroup("Parameters")][SerializeField] Transform socketShoot;
-    [BoxGroup("Parameters")][SerializeField] GameObject pref_Projectile;
+    [BoxGroup("Parameters")] [SerializeField] float cadence;
+    [BoxGroup("Parameters")] [SerializeField] Transform socketShoot;
+    [BoxGroup("Parameters")] [SerializeField] GameObject pref_Projectile;
 
-    [BoxGroup("Visuel")][SerializeField] VisualEffect fx_mentor;
-    [BoxGroup("Visuel")][SerializeField] VisualEffect fx_explodeMentor;
-    [BoxGroup("Visuel")][SerializeField] GameObject eyes;
+    [BoxGroup("FeedBack")] [SerializeField] VisualEffect fx_mentor;
+    [BoxGroup("FeedBack")] [SerializeField] VisualEffect fx_explodeMentor;
+    [BoxGroup("FeedBack")] [SerializeField] GameObject eyes;
+    [BoxGroup("FeedBack")] [SerializeField] GameObject bodySphere;
+    [BoxGroup("FeedBack")] [SerializeField] Light light;
+
+
+    [BoxGroup("LifeVisuel")] [SerializeField] Gradient gradient_live1;
+    [BoxGroup("LifeVisuel")] [SerializeField] Gradient gradient_live2;
+    [BoxGroup("LifeVisuel")] [SerializeField] Gradient gradient_live3;
+    [Space][BoxGroup("LifeVisuel")] [SerializeField] Material mt_live1;
+    [BoxGroup("LifeVisuel")] [SerializeField] Material mt_live2;
+    [BoxGroup("LifeVisuel")] [SerializeField] Material mt_live3;
+    [Space][BoxGroup("LifeVisuel")] [SerializeField] Color lightColor_live1;
+    [BoxGroup("LifeVisuel")] [SerializeField] Color lightColor_live2;
+    [BoxGroup("LifeVisuel")] [SerializeField] Color lightColor_live3;
 
     private float currentCooldown = 0;
     private bool isCooldown = false;
@@ -27,6 +40,8 @@ public class CS_Mentor : MonoBehaviour
 
     private void Start()
     {
+        fx_mentor.SetGradient("_Gradient", gradient_live3);
+
         fx_mentor.Play();
         eyes.SetActive(false);
     }
@@ -80,6 +95,38 @@ public class CS_Mentor : MonoBehaviour
         enemies = enemies.OrderBy(go => Vector3.Distance(transform.position, go.transform.position)).ToList<CS_Enemy>();
     }
 
+
+    /// <summary>
+    /// Update fx, fx_Explode, light, material
+    /// </summary>
+    /// <param name="newLife"></param>
+    public void UpdateVisuel_Life(int newLife)
+    {
+        switch (newLife)
+        {
+            case 1:
+                fx_mentor.SetGradient("_Gradient", gradient_live1);
+                fx_explodeMentor.SetGradient("_Gradient", gradient_live1);
+                bodySphere.GetComponent<Renderer>().material = mt_live1;
+                light.color = lightColor_live1;
+                break;
+            case 2:
+                fx_mentor.SetGradient("_Gradient", gradient_live2);
+                fx_explodeMentor.SetGradient("_Gradient", gradient_live2);
+                bodySphere.GetComponent<Renderer>().material = mt_live2;
+                light.color = lightColor_live2;
+                break;
+            case 3:
+                fx_mentor.SetGradient("_Gradient", gradient_live3);
+                fx_explodeMentor.SetGradient("_Gradient", gradient_live3);
+                bodySphere.GetComponent<Renderer>().material = mt_live3;
+                light.color = lightColor_live3;
+                break;
+            default:
+                break;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         CS_Enemy tempEnemy = other.GetComponent<CS_Enemy>();
@@ -118,6 +165,4 @@ public class CS_Mentor : MonoBehaviour
             }
         }
     }
-
-
 }
