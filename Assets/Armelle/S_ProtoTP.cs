@@ -1,17 +1,34 @@
 using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.VFX;
 
 public class S_ProtoTP : MonoBehaviour, CS_I_Subscriber
 {
-    [SerializeField] GameObject preview;
+    [Foldout("Feedbacks preview")][SerializeField] GameObject preview;
     GameObject previewInstance;
     bool previewON;
     GameObject actualTarget;
 
+    enum PreviewMods {tpPossible, tpBloque };
+    VisualEffect fxCD;
+    bool tpPossible;
+    [Foldout("Feedbacks preview")][SerializeField] Color colorPossible;
+    [Foldout("Feedbacks preview")][SerializeField] Color colorBloque;
+
     [MinValue(0)] [SerializeField] float cdTP = 0.5f;
     float actualTime = 0;
+
+    [Foldout("Valeurs marges TP")][MinValue(0.25f / 2)][SerializeField] float margeHauteurEscaliers = 1;
+    [Foldout("Valeurs marges TP")][MinValue(0)][SerializeField] float margeDistanceMurs = 1;
+    [ValidateInput("GreaterThan", "Hauteur Vide OK doit être supérieure ou égale à Marge Hauteur Escaliers !")]
+    [Foldout("Valeurs marges TP")][MinValue(0)][SerializeField] float hauteurVideOK = 1;
+    bool GreaterThan (float value) {return value >= margeHauteurEscaliers;}
+
+    float hauteurTP;
 
     private void Start()
     {
@@ -20,14 +37,26 @@ public class S_ProtoTP : MonoBehaviour, CS_I_Subscriber
 
     void StartPreviewTP()
     {
-        previewInstance = Instantiate(preview, PreviewPosition(), Quaternion.identity);
+        previewInstance = Instantiate(preview, PreviewPosition(true), Quaternion.identity);
+        fxCD = previewInstance.GetComponentInChildren<VisualEffect>();
         previewON = true;
+
+        if (actualTime > cdTP && !CheckSiWallOrEmpty())
+        {
+            SetPreviewMod(PreviewMods.tpPossible);
+        }
+        else
+        {
+            SetPreviewMod(PreviewMods.tpBloque);
+        }
     }
 
     void EndPreviewTP()
     {
         previewON = false;
         Destroy(previewInstance);
+        previewInstance = null;
+        fxCD = null;
     }
 
     private void Update()
@@ -36,15 +65,26 @@ public class S_ProtoTP : MonoBehaviour, CS_I_Subscriber
 
         if (previewON)
         {
-            if (Input.GetKeyDown(KeyCode.E) && actualTime > cdTP)
+            if (actualTime > cdTP && !CheckSiWallOrEmpty())
+            {
+                if (!tpPossible)
+                {
+                    SetPreviewMod(PreviewMods.tpPossible);
+                }
+            }
+            else if (tpPossible)
+            {
+                SetPreviewMod(PreviewMods.tpBloque);
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && tpPossible)
             {
                 GetComponent<CharacterController>().enabled = false;
 
                 Vector3 playerPos = transform.position;
-                Vector3 previewPos = previewInstance.transform.position;
 
                 previewInstance.transform.position = playerPos;
-                transform.position = previewPos;
+                transform.position = PreviewPosition(false);
 
                 actualTime = 0;
 
@@ -52,19 +92,80 @@ public class S_ProtoTP : MonoBehaviour, CS_I_Subscriber
             }
             else
             {
-                previewInstance.transform.SetPositionAndRotation(PreviewPosition(), Quaternion.identity);
+                previewInstance.transform.SetPositionAndRotation(PreviewPosition(false), Quaternion.identity);
             }
         }
     }
 
-    Vector3 PreviewPosition()
+    Vector3 PreviewPosition(bool playerLevel)
     {
         Vector3 playerPos = transform.position;
         Vector3 center = actualTarget.transform.position;
         Vector3 symPos = (center - playerPos) + center;
-        symPos = new Vector3(symPos.x, playerPos.y, symPos.z);
+
+        if (playerLevel)
+        {
+            symPos = new Vector3(symPos.x, playerPos.y, symPos.z);
+        }
+        else
+        {
+            symPos = new Vector3(symPos.x, hauteurTP, symPos.z);
+        }
 
         return symPos;
+    }
+
+    bool CheckSiWallOrEmpty()
+    {
+        Vector3 playerPos = transform.position;
+        Vector3 trans = PreviewPosition(true) - playerPos;
+        Vector3 dir = trans.normalized;
+        float dist = Vector3.Distance(playerPos, PreviewPosition(true));
+
+        Vector3 margeH = Vector3.up * margeHauteurEscaliers;
+
+        LayerMask layer = LayerMask.GetMask("Ground");
+
+        bool wall;
+        bool empty;
+
+        Debug.DrawRay(playerPos + margeH, dir * (dist + margeDistanceMurs), Color.blue);
+        if (Physics.Raycast(playerPos + margeH, dir, dist + margeDistanceMurs, layer))
+        {
+            wall = true;
+        }
+        else
+        {
+            wall = false;
+        }
+        
+        Debug.DrawRay(PreviewPosition(true) + margeH, Vector3.down * hauteurVideOK, Color.red);
+        if (Physics.Raycast(PreviewPosition(true) + margeH, Vector3.down, out RaycastHit hit, hauteurVideOK, layer))
+        {
+            empty = false;
+            hauteurTP = hit.point.y;
+        }
+        else
+        {
+            empty = true;
+        }
+
+        return wall || empty;
+    }
+    
+    void SetPreviewMod(PreviewMods newMod)
+    {
+        if (newMod == PreviewMods.tpPossible)
+        {
+            fxCD.Play();
+            previewInstance.GetComponentInChildren<MeshRenderer>().material.color = colorPossible;
+            tpPossible = true;
+        }
+        else if (newMod == PreviewMods.tpBloque)
+        {
+            previewInstance.GetComponentInChildren<MeshRenderer>().material.color = colorBloque;
+            tpPossible = false;
+        }
     }
 
     [InfoBox("En attendant que les niveaux soient gérés via le Manager.", EInfoBoxType.Normal)]
@@ -81,7 +182,7 @@ public class S_ProtoTP : MonoBehaviour, CS_I_Subscriber
     {
         actualTarget = target;
 
-        if (actualTarget != null && ((tpLevel == 1 && !target.CompareTag("Ennemy")) || tpLevel == 2))
+        if (actualTarget != null && ((tpLevel == 1 && target.GetComponent<CS_Enemy>( ) != null) || tpLevel == 2))
         {
             StartPreviewTP();
         }
