@@ -15,7 +15,7 @@ public class CS_SeeThrough : MonoBehaviour
     Camera cam;
 
     float size = 0f;
-    [MinMaxSlider(0f, 1f)][SerializeField] Vector2 sizeRange;
+    [MinMaxSlider(0f, 50f)][SerializeField] Vector2 sizeRange;
     [MinValue(0)][SerializeField] float speed = 2;
     [CurveRange(0, 0.01f, 1, 1)] [SerializeField] AnimationCurve curveSize;
 
