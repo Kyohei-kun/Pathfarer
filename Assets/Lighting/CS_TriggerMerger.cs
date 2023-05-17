@@ -14,6 +14,12 @@ public static class CS_TriggerMerger
     public static CS_LightManager LightManager { get => lightManager; set => lightManager = value; }
     public static CS_GolbalVolumePilote VolumePilot { get => volumePilot; set => volumePilot = value; }
 
+    public static void Initialisation()
+    {
+        triggerLights = new List<CS_TriggerDarkZone>();
+        lastPlayerIn = false;
+    }
+
     public static void AddTrigger(CS_TriggerDarkZone newTrigger)
     {
         triggerLights.Add(newTrigger);
