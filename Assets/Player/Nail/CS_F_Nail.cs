@@ -16,7 +16,7 @@ public class CS_F_Nail : MonoBehaviour
 
     private void PutNail()
     {
-        if (nbCurrentNail < nbMaxNail)
+        if (nbCurrentNail < nbMaxNail && !NearNail())
         {
             RaycastHit hit;
             if (Physics.Raycast(transform.position + Vector3.up, transform.TransformDirection(Vector3.down), out hit, 6f, layerMask))
@@ -28,6 +28,18 @@ public class CS_F_Nail : MonoBehaviour
                 nbCurrentNail++;
             }
         }
+    }
+
+    private bool NearNail()
+    {
+        foreach (var item in nails)
+        {
+            if(Vector3.Distance(transform.position, item.transform.position) < 1)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void RetakeNail(CS_Nail nail)

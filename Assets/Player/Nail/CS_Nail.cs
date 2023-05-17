@@ -18,7 +18,7 @@ public class CS_Nail : MonoBehaviour
     {
         fx = GetComponentInChildren<VisualEffect>();
         timeStart = Time.time;
-         fx.SetVector4("_Color", GetPixelColor());
+        fx.SetVector4("_Color", CS_ColorTriangle.GetPixelColor(hit));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -28,59 +28,14 @@ public class CS_Nail : MonoBehaviour
             other.GetComponent<CS_F_Nail>().RetakeNail(this);
             Destroy(gameObject);
         }
-    }
-
-
-    public Color GetPixelColor()
-    {
-        // Vérifier si l'objet touché possède un MeshRenderer
-        MeshRenderer meshRenderer = hit.collider.GetComponent<MeshRenderer>();
-        if (meshRenderer != null)
+        else
         {
-            Material[] materials = meshRenderer.sharedMaterials;
+            CS_I_NailInteract interactObject = other.GetComponent<CS_I_NailInteract>();
 
-            // Assuming you have a reference to the MeshFilter component
-            MeshFilter meshFilter = hit.collider.GetComponent<MeshFilter>();
-
-            // Get the mesh object
-            Mesh mesh = meshFilter.sharedMesh;
-
-            int triangleIndex = hit.triangleIndex;
-
-            // Get the triangle's submesh index
-            int submeshIndex = GetSubMeshIndex(mesh, triangleIndex);
-
-            // Retrieve the material assigned to the submesh
-            Material triangleMaterial = materials[submeshIndex];
-
-            return triangleMaterial.color;
-        }
-
-        return Color.black;
-    }
-
-    public int GetSubMeshIndex(Mesh mesh, int triangleIndex)
-    {
-        if (mesh.isReadable == false)
-        {
-            Debug.LogError("You need to mark model's mesh as Read/Write Enabled in Import Settings.", mesh);
-            return 0;
-        }
-
-        int triangleCounter = 0;
-        for (int subMeshIndex = 0; subMeshIndex < mesh.subMeshCount; subMeshIndex++)
-        {
-            var indexCount = mesh.GetSubMesh(subMeshIndex).indexCount;
-            triangleCounter += indexCount / 3;
-            if (triangleIndex < triangleCounter)
+            if (interactObject != null)
             {
-                return subMeshIndex;
+                interactObject.InteractNail(this);
             }
         }
-
-        Debug.LogError(
-            $"Failed to find triangle with index {triangleIndex} in mesh '{mesh.name}'. Total triangle count: {triangleCounter}",
-            mesh);
-        return 0;
     }
 }
