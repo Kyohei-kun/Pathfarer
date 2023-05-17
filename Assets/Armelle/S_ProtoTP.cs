@@ -129,7 +129,6 @@ public class S_ProtoTP : MonoBehaviour, CS_I_Subscriber
         bool wall;
         bool empty;
 
-        Debug.DrawRay(playerPos + margeH, dir * (dist + margeDistanceMurs), Color.blue);
         if (Physics.Raycast(playerPos + margeH, dir, dist + margeDistanceMurs, layer))
         {
             wall = true;
@@ -139,7 +138,6 @@ public class S_ProtoTP : MonoBehaviour, CS_I_Subscriber
             wall = false;
         }
         
-        Debug.DrawRay(PreviewPosition(true) + margeH, Vector3.down * hauteurVideOK, Color.red);
         if (Physics.Raycast(PreviewPosition(true) + margeH, Vector3.down, out RaycastHit hit, hauteurVideOK, layer))
         {
             empty = false;
