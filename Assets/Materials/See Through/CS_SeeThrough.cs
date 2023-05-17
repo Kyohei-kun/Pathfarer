@@ -10,7 +10,7 @@ public class CS_SeeThrough : MonoBehaviour
     public static int posID = Shader.PropertyToID("_PlayerPosition");
     public static int sizeID = Shader.PropertyToID("_Size");
 
-    [SerializeField] Material wallMaterial;
+    [SerializeField] List<Material> wallMaterials;
     [SerializeField] LayerMask mask;
     Camera cam;
 
@@ -22,7 +22,11 @@ public class CS_SeeThrough : MonoBehaviour
     private void Start()
     {
         cam = Camera.main;
-        wallMaterial.SetFloat(sizeID, sizeRange.x);
+
+        for (int i = 0; i < wallMaterials.Count; i++)
+        {
+            wallMaterials[i].SetFloat(sizeID, sizeRange.x);
+        }
     }
 
     void Update()
@@ -30,13 +34,17 @@ public class CS_SeeThrough : MonoBehaviour
         var dir = cam.transform.position - transform.position;
         var ray = new Ray(transform.position, dir.normalized);
 
-        if(Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, mask) && hit.transform.GetComponent<Renderer>().sharedMaterial == wallMaterial)
+        if(Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, mask) && wallMaterials.Contains(hit.transform.GetComponent<Renderer>().sharedMaterial))
         {
             if (size < sizeRange.y)
             {
                 size += Time.deltaTime * (speed * curveSize.Evaluate(size));
                 size = Mathf.Clamp(size, sizeRange.x, sizeRange.y);
-                wallMaterial.SetFloat(sizeID, size);
+
+                for (int i = 0; i < wallMaterials.Count; i++)
+                {
+                    wallMaterials[i].SetFloat(sizeID, size);
+                }
             }
         }
         else
@@ -45,11 +53,19 @@ public class CS_SeeThrough : MonoBehaviour
             {
                 size -= Time.deltaTime * (speed * curveSize.Evaluate(size));
                 size = Mathf.Clamp(size, sizeRange.x, sizeRange.y);
-                wallMaterial.SetFloat(sizeID, size);
+
+                for (int i = 0; i < wallMaterials.Count; i++)
+                {
+                    wallMaterials[i].SetFloat(sizeID, size);
+                }
             }
         }
 
         var view = cam.WorldToViewportPoint(transform.position + Vector3.up);
-        wallMaterial.SetVector(posID, view);
+
+        for (int i = 0; i < wallMaterials.Count; i++)
+        {
+            wallMaterials[i].SetVector(posID, view);
+        }
     }
 }
