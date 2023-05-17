@@ -1,94 +1,116 @@
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CS_LightManager : MonoBehaviour
 {
-    [SerializeField] float speedFade = 2;
+    [BoxGroup("DirectionnalLight")][SerializeField] Light directionnalLight;
+    [BoxGroup("DirectionnalLight")][SerializeField] float highDirectionnalTarget;
 
-    [BoxGroup("DirectionnalLight")] [SerializeField] Light directionnalLight;
-    [BoxGroup("DirectionnalLight")] [SerializeField] float rateDirectionnal = 2000;
+    [BoxGroup("FireFlies")][SerializeField] Light fireFliesLight;
+    [BoxGroup("FireFlies")][ReadOnly] [SerializeField] float highFirefliesTarget;
 
-    float directionnalStandardIntensity;
-
-    [BoxGroup("FireFlies")] [SerializeField] Light fireFliesLight;
-    [BoxGroup("FireFlies")] [SerializeField] float rateFireFlies;
-    float fireFliesIntensity;
-
-    [BoxGroup("PlayerLight")] [SerializeField] Light playerLight;
-    [BoxGroup("PlayerLight")] [SerializeField] float ratePlayer;
-    float playerIntensity;
+    [BoxGroup("PlayerLight")][SerializeField] Light playerLight;
+    [BoxGroup("PlayerLight")][ReadOnly][SerializeField] float highPlayerTarget;
 
     [BoxGroup("MentorLight")][SerializeField] Light mentorLight;
-    [BoxGroup("MentorLight")][SerializeField] float rateMentor;
-    float mentorIntensity;
+    [BoxGroup("MentorLight")][ReadOnly][SerializeField] float highMentorTarget;
 
-    Coroutine currentLerpCoroutine;
+
+    private bool goHigh;
+    [SerializeField] float timeToFade = 5;
+    float currentTimeToFade;
+    float startTime;
+    float startAlpha;
+    [ProgressBar("Alpha", 1, EColor.Red)][SerializeField] float globalAlpha = 0;
+
 
     private void Start()
     {
         CS_TriggerMerger.LightManager = this;
-        directionnalStandardIntensity = directionnalLight.intensity;
 
-        fireFliesIntensity = fireFliesLight.intensity;
-        mentorIntensity = mentorLight.intensity;
+        this.enabled = false;
 
-        mentorLight.intensity = 0;
+        highDirectionnalTarget = directionnalLight.intensity;
+        highFirefliesTarget = fireFliesLight.intensity;
+        highMentorTarget = mentorLight.intensity;
+        highPlayerTarget = playerLight.intensity;
+
         fireFliesLight.intensity = 0;
-        playerIntensity = playerLight.intensity;
+        mentorLight.intensity = 0;
         playerLight.intensity = 0;
     }
 
-    public void ChangeSate(bool playerIn)
+    private void Update()
     {
-        if (currentLerpCoroutine != null)
-            StopCoroutine(currentLerpCoroutine);
-
-        if (playerIn)
+        if (Time.time < startTime + timeToFade)
         {
-            currentLerpCoroutine = StartCoroutine(LerpToDark());
-            //directionnalLight.intensity = 0;
+            float alpha;
+            if (goHigh)
+            {
+                alpha = Time.time.Remap(startTime, startTime + currentTimeToFade, startAlpha, 1);
+            }
+            else
+            {
+                alpha = Time.time.Remap(startTime, startTime + currentTimeToFade, startAlpha, 0);
+            }
+
+            alpha = Mathf.Clamp01(alpha);
+            globalAlpha = alpha;
+
         }
         else
         {
-            currentLerpCoroutine = StartCoroutine(LerpToStandard());
-            //directionnalLight.intensity = 100000;
+            globalAlpha = Mathf.RoundToInt(globalAlpha);
+            this.enabled = false;
         }
+
+        UpdateObjects();
     }
 
-    IEnumerator LerpToStandard()
+    [Button]
+    public void FadeToDarkProfil()
     {
-        while (directionnalLight.intensity < directionnalStandardIntensity || fireFliesLight.intensity > 0 || playerLight.intensity > 0 || mentorLight.intensity > 0)
-        {
-            directionnalLight.intensity = Mathf.Clamp(directionnalLight.intensity + rateDirectionnal, 0, directionnalStandardIntensity);
-            fireFliesLight.intensity = Mathf.Clamp(fireFliesLight.intensity - rateFireFlies, 0, fireFliesIntensity);
-            playerLight.intensity = Mathf.Clamp(playerLight.intensity - ratePlayer, 0, playerIntensity);
-            mentorLight.intensity = Mathf.Clamp(mentorLight.intensity - rateMentor, 0, mentorIntensity);
-
-            yield return 0;
-        }
-
-        directionnalLight.intensity = directionnalStandardIntensity;
-        fireFliesLight.intensity = playerLight.intensity = mentorLight.intensity = 0;
-
+        if (globalAlpha >= 1)
+            return;
+        goHigh = true;
+        startTime = Time.time;
+        this.enabled = true;
+        startAlpha = globalAlpha;
+        UpdateStartAlpha();
     }
 
-    IEnumerator LerpToDark()
+    [Button]
+    public void FadeToStandardProfil()
     {
-        while (directionnalLight.intensity > 0 || fireFliesLight.intensity < fireFliesIntensity || playerLight.intensity < playerIntensity || mentorLight.intensity < mentorIntensity)
-        {
-            directionnalLight.intensity = Mathf.Clamp(directionnalLight.intensity - rateDirectionnal, 0, directionnalStandardIntensity);
-            fireFliesLight.intensity = Mathf.Clamp(fireFliesLight.intensity + rateFireFlies, 0, fireFliesIntensity);
-            playerLight.intensity = Mathf.Clamp(playerLight.intensity + ratePlayer, 0, playerIntensity);
-            mentorLight.intensity = Mathf.Clamp(mentorLight.intensity + rateMentor, 0, mentorIntensity);
-
-            yield return 0;
-        }
-
-        directionnalLight.intensity = 0;
-        fireFliesLight.intensity = fireFliesIntensity;
-        playerLight.intensity = playerIntensity;
-        mentorLight.intensity = mentorIntensity;
+        if(globalAlpha <= 0) return;
+        goHigh = false;
+        startTime = Time.time;
+        this.enabled = true;
+        startAlpha = globalAlpha;
+        UpdateStartAlpha();
     }
+    private void UpdateStartAlpha()
+    {
+        if (goHigh)
+        {
+            currentTimeToFade = timeToFade * (1 - globalAlpha);
+        }
+        else
+        {
+            currentTimeToFade = timeToFade * globalAlpha;
+        }
+    }
+    private void UpdateObjects()
+    {
+        float oneMinusAlpha = Mathf.Clamp01(1 - globalAlpha);
+        directionnalLight.intensity = Mathf.Lerp(0, highDirectionnalTarget, oneMinusAlpha);
+        fireFliesLight.intensity = Mathf.Lerp(0, highFirefliesTarget, globalAlpha);
+        mentorLight.intensity = Mathf.Lerp(0, highMentorTarget, globalAlpha);
+        playerLight.intensity = Mathf.Lerp(0, highPlayerTarget, globalAlpha);
+    }
+
 }

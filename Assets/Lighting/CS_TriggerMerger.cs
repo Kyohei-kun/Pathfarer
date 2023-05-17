@@ -36,12 +36,13 @@ public static class CS_TriggerMerger
             if(playerIn)
             {
                 volumePilot.FadeToDarkProfil();
+                lightManager.FadeToDarkProfil();
             }
             else
             {
                 volumePilot.FadeToStandardProfil();
+                lightManager.FadeToStandardProfil();
             }
-            //lightManager.ChangeSate(playerIn);
         }
 
         lastPlayerIn = playerIn;
