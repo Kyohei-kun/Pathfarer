@@ -610,6 +610,10 @@ PrefabInstance:
       propertyPath: virtualCam
       value: 
       objectReference: {fileID: 87970488}
+    - target: {fileID: 1293502852, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1516087037, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: m_Sources.Array.data[0].sourceTransform
       value: 
@@ -634,17 +638,17 @@ PrefabInstance:
     - target: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.29
+      value: 5.5624533
       objectReference: {fileID: 0}
     - target: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.27
+      value: 0.96252406
       objectReference: {fileID: 0}
     - target: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.27
+      value: -0.78165436
       objectReference: {fileID: 0}
     - target: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
@@ -823,17 +827,17 @@ PrefabInstance:
     - target: {fileID: 6678862712118661920, guid: f6f9f72f3d761bb49b0688414ef70d19,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.172822
+      value: -16.90037
       objectReference: {fileID: 0}
     - target: {fileID: 6678862712118661920, guid: f6f9f72f3d761bb49b0688414ef70d19,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.380763
+      value: 8.073287
       objectReference: {fileID: 0}
     - target: {fileID: 6678862712118661920, guid: f6f9f72f3d761bb49b0688414ef70d19,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.00507
+      value: -7.056724
       objectReference: {fileID: 0}
     - target: {fileID: 6678862712118661946, guid: f6f9f72f3d761bb49b0688414ef70d19,
         type: 3}
@@ -858,17 +862,17 @@ PrefabInstance:
     - target: {fileID: 6678862712385510046, guid: f6f9f72f3d761bb49b0688414ef70d19,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.172822
+      value: -16.90037
       objectReference: {fileID: 0}
     - target: {fileID: 6678862712385510046, guid: f6f9f72f3d761bb49b0688414ef70d19,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.380763
+      value: 8.073287
       objectReference: {fileID: 0}
     - target: {fileID: 6678862712385510046, guid: f6f9f72f3d761bb49b0688414ef70d19,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.00507
+      value: -7.056724
       objectReference: {fileID: 0}
     - target: {fileID: 6678862713551671334, guid: f6f9f72f3d761bb49b0688414ef70d19,
         type: 3}
@@ -983,17 +987,17 @@ PrefabInstance:
     - target: {fileID: 3754301249149679319, guid: 0d460b94fbe6b9c40a7def40cdcc5ec3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 141.79367
+      value: 0.7936504
       objectReference: {fileID: 0}
     - target: {fileID: 3754301249149679319, guid: 0d460b94fbe6b9c40a7def40cdcc5ec3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.0051913
+      value: 1.9607717
       objectReference: {fileID: 0}
     - target: {fileID: 3754301249149679319, guid: 0d460b94fbe6b9c40a7def40cdcc5ec3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -163.17874
+      value: 8.071252
       objectReference: {fileID: 0}
     - target: {fileID: 3754301249149679319, guid: 0d460b94fbe6b9c40a7def40cdcc5ec3,
         type: 3}
@@ -1108,6 +1112,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PR_Global Volume
+      objectReference: {fileID: 0}
+    - target: {fileID: 1032212533979993818, guid: 4d4af794587469042a0e91af1e60ced5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1770586608153358881, guid: 4d4af794587469042a0e91af1e60ced5,
         type: 3}

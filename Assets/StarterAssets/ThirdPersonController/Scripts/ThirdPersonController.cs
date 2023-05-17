@@ -1,4 +1,5 @@
 ﻿using NaughtyAttributes;
+using UnityEditor;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
@@ -135,7 +136,7 @@ namespace StarterAssets
         public bool InMomentum { get => inMomentum; set => inMomentum = value; }
         public bool CanMove { get => canMove; set => canMove = value; }
         public bool CanRotate { get => canRotate; set => canRotate = value; }
-        public bool IsJumping { get => isJumping;}
+        public bool IsJumping { get => isJumping; }
         public float MomentumVerticalVelocity { get => momentumVerticalVelocity; set => momentumVerticalVelocity = value; }
         public float VerticalVelocity { get => _verticalVelocity; }
 
@@ -150,6 +151,16 @@ namespace StarterAssets
 
         private void Start()
         {
+            if (CS_PlayFromHere.PlayerPosition != Vector3.zero)
+            {
+                GetComponent<CharacterController>().enabled = false;
+                transform.position = CS_PlayFromHere.PlayerPosition;
+                CS_PlayFromHere.PlayerPosition = Vector3.zero;
+                GetComponent<CharacterController>().enabled = true;
+            }
+
+
+
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
 
             _hasAnimator = TryGetComponent(out _animator);
@@ -260,8 +271,8 @@ namespace StarterAssets
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
             // move the player
-            if(canMove)
-            _controller.Move((targetDirection.normalized * (_speed * Time.deltaTime)) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            if (canMove)
+                _controller.Move((targetDirection.normalized * (_speed * Time.deltaTime)) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
             // update animator if using character
             if (_hasAnimator)
@@ -277,7 +288,7 @@ namespace StarterAssets
             {
                 // reset the fall timeout timer
                 _fallTimeoutDelta = FallTimeout;
-                
+
                 isJumping = false;
 
                 // update animator if using character
