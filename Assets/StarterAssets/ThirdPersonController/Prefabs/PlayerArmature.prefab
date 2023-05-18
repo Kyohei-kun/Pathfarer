@@ -2157,6 +2157,7 @@ GameObject:
   - component: {fileID: 5749851042992063244}
   - component: {fileID: 4438708557256050636}
   - component: {fileID: 8321371451710793151}
+  - component: {fileID: 4061006249144360877}
   m_Layer: 8
   m_Name: Geometrie
   m_TagString: Untagged
@@ -2230,6 +2231,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4061006249144360877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2493834834064515791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a34dce33c4213c4393266fbcd799d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 304212435d1ec7c419be54838ad0e53e, type: 2}
+  color: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
+  mask: {fileID: 0}
+  fresnelScale: 2
+  fresnelPower: 2
+  alphaThreshold: 0.5
 --- !u!1 &3077525672379159968
 GameObject:
   m_ObjectHideFlags: 0
@@ -2242,6 +2261,7 @@ GameObject:
   - component: {fileID: 8113671424492926346}
   - component: {fileID: 3806138821967095762}
   - component: {fileID: 9034258469168711477}
+  - component: {fileID: 1846438839066071445}
   m_Layer: 8
   m_Name: Eye
   m_TagString: Untagged
@@ -2327,6 +2347,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1846438839066071445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3077525672379159968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a34dce33c4213c4393266fbcd799d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 304212435d1ec7c419be54838ad0e53e, type: 2}
+  color: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
+  mask: {fileID: 0}
+  fresnelScale: 2
+  fresnelPower: 2
+  alphaThreshold: 0.5
 --- !u!1 &4416926081852918481
 GameObject:
   m_ObjectHideFlags: 0
@@ -3241,17 +3279,17 @@ PrefabInstance:
     - target: {fileID: 7407108860983517933, guid: fffac857edfe5a748935456394ae23bd,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.00000018725329
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7407108860983517933, guid: fffac857edfe5a748935456394ae23bd,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000005617606
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7407108860983517933, guid: fffac857edfe5a748935456394ae23bd,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00000037450712
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7407108861598251320, guid: fffac857edfe5a748935456394ae23bd,
         type: 3}
