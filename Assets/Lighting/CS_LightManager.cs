@@ -11,7 +11,7 @@ public class CS_LightManager : MonoBehaviour
     [BoxGroup("DirectionnalLight")][SerializeField] float highDirectionnalTarget;
 
     [BoxGroup("FireFlies")][SerializeField] Light fireFliesLight;
-    [BoxGroup("FireFlies")][ReadOnly] [SerializeField] float highFirefliesTarget;
+    [BoxGroup("FireFlies")][ReadOnly][SerializeField] float highFirefliesTarget;
 
     [BoxGroup("PlayerLight")][SerializeField] Light playerLight;
     [BoxGroup("PlayerLight")][ReadOnly][SerializeField] float highPlayerTarget;
@@ -19,6 +19,7 @@ public class CS_LightManager : MonoBehaviour
     [BoxGroup("MentorLight")][SerializeField] Light mentorLight;
     [BoxGroup("MentorLight")][ReadOnly][SerializeField] float highMentorTarget;
 
+    CS_EntriesLights entriesLights;
 
     private bool goHigh;
     [SerializeField] float timeToFade = 5;
@@ -30,6 +31,15 @@ public class CS_LightManager : MonoBehaviour
 
     private void Start()
     {
+        try
+        {
+            entriesLights = GameObject.FindGameObjectWithTag("EntriesLights").GetComponent<CS_EntriesLights>();
+        }
+        catch (System.Exception)
+        {
+            Debug.LogError("Pas de entries light dans les scenes chargées");
+        }
+
         CS_TriggerMerger.LightManager = this;
 
         this.enabled = false;
@@ -69,6 +79,7 @@ public class CS_LightManager : MonoBehaviour
         }
 
         UpdateObjects();
+        entriesLights.UpdateLight(globalAlpha);
     }
 
     [Button]
@@ -86,7 +97,7 @@ public class CS_LightManager : MonoBehaviour
     [Button]
     public void FadeToStandardProfil()
     {
-        if(globalAlpha <= 0) return;
+        if (globalAlpha <= 0) return;
         goHigh = false;
         startTime = Time.time;
         this.enabled = true;

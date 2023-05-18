@@ -25,7 +25,7 @@ public class CS_FeatureUnlocker : MonoBehaviour
 
     private void Start()
     {
-        //ManualUpdate();
+        ManualUpdate();
     }
 
     [Button]
