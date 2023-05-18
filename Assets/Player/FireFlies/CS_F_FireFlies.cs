@@ -51,7 +51,6 @@ public class CS_F_FireFlies : MonoBehaviour
 
     public void UnlockFeature()
     {
-        GetComponent<Renderer>().enabled = true;
         lightFireflies_Snapped.enabled = true;
         featureUnlocked = true;
         try

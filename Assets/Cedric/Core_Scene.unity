@@ -555,7 +555,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 806891730}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 472713402}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f07f4dd795e50b48ad35143af4fa528, type: 3}
   m_Name: 
@@ -579,7 +579,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 806891730}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 472713402}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7578b04719c670d4b8912419883e3b3b, type: 3}
   m_Name: 
@@ -640,10 +640,22 @@ PrefabInstance:
       propertyPath: sizeRange.y
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 153545374, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 842122935, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 842122935, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: virtualCam
       value: 
       objectReference: {fileID: 87970488}
+    - target: {fileID: 1293502852, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1516087037, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: m_Sources.Array.data[0].sourceTransform
       value: 
@@ -659,6 +671,11 @@ PrefabInstance:
     - target: {fileID: 1652748618, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.00000037450712
+      objectReference: {fileID: 0}
+    - target: {fileID: 112845630751672782, guid: 64dce48905ffd9b4293e595fa6941544,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
@@ -764,6 +781,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928859158606709320, guid: 64dce48905ffd9b4293e595fa6941544,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
@@ -1282,6 +1304,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9172165525852442586, guid: df32075b19946e04a91f0adbedcda879,
+        type: 3}
+      propertyPath: state_Nail
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9172165525852442586, guid: df32075b19946e04a91f0adbedcda879,
         type: 3}
