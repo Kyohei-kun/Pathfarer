@@ -2818,6 +2818,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3893294197879345259}
     m_Modifications:
+    - target: {fileID: 1123554163, guid: fffac857edfe5a748935456394ae23bd, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2097248602, guid: fffac857edfe5a748935456394ae23bd, type: 3}
       propertyPath: eyes
       value: 
@@ -3237,17 +3241,17 @@ PrefabInstance:
     - target: {fileID: 7407108860983517933, guid: fffac857edfe5a748935456394ae23bd,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.00000018725329
       objectReference: {fileID: 0}
     - target: {fileID: 7407108860983517933, guid: fffac857edfe5a748935456394ae23bd,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.0000005617606
       objectReference: {fileID: 0}
     - target: {fileID: 7407108860983517933, guid: fffac857edfe5a748935456394ae23bd,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.00000037450712
       objectReference: {fileID: 0}
     - target: {fileID: 7407108861598251320, guid: fffac857edfe5a748935456394ae23bd,
         type: 3}

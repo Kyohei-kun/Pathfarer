@@ -44,12 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92660989efb45cb419687686222ece11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedFade: 2
   directionnalLight: {fileID: 0}
-  rateDirectionnal: 2000
+  highDirectionnalTarget: 0
   fireFliesLight: {fileID: 0}
-  rateFireFlies: 3000
+  highFirefliesTarget: 0
   playerLight: {fileID: 0}
-  ratePlayer: 3000
+  highPlayerTarget: 0
   mentorLight: {fileID: 0}
-  rateMentor: 3000
+  highMentorTarget: 0
+  timeToFade: 2
+  globalAlpha: 0
