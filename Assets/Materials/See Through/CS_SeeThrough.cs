@@ -31,14 +31,14 @@ public class CS_SeeThrough : MonoBehaviour
 
     void Update()
     {
-        var dir = cam.transform.position - transform.position;
-        var ray = new Ray(transform.position, dir.normalized);
+        var dir = cam.transform.position - (transform.position + Vector3.up);
+        var ray = new Ray((transform.position + Vector3.up), dir.normalized);
 
         if(Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, mask) && wallMaterials.Contains(hit.transform.GetComponent<Renderer>().sharedMaterial))
         {
             if (size < sizeRange.y)
             {
-                size += Time.deltaTime * (speed * curveSize.Evaluate(size));
+                size += Time.deltaTime * (speed * curveSize.Evaluate(size.Remap(sizeRange.x, sizeRange.y, 0, 1)));
                 size = Mathf.Clamp(size, sizeRange.x, sizeRange.y);
 
                 for (int i = 0; i < wallMaterials.Count; i++)
@@ -51,7 +51,7 @@ public class CS_SeeThrough : MonoBehaviour
         {
             if (size > sizeRange.x)
             {
-                size -= Time.deltaTime * (speed * curveSize.Evaluate(size));
+                size -= Time.deltaTime * (speed * curveSize.Evaluate(size.Remap(sizeRange.x, sizeRange.y, 0, 1)));
                 size = Mathf.Clamp(size, sizeRange.x, sizeRange.y);
 
                 for (int i = 0; i < wallMaterials.Count; i++)
