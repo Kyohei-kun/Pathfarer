@@ -9,26 +9,26 @@ using static UnityEngine.InputSystem.InputAction;
 public class CS_F_HeavyAttack : MonoBehaviour
 {
     //[HorizontalLine(color: EColor.Red)]
-    [BoxGroup("Parameter")] [SerializeField] float knockBackForce = 0;
-    [BoxGroup("Parameter")] [SerializeField] float timeCharge = 1f;
-    [BoxGroup("Parameter")] [SerializeField] float cooldown = 1f;
+    [BoxGroup("Parameter")][SerializeField] float knockBackForce = 0;
+    [BoxGroup("Parameter")][SerializeField] float timeCharge = 1f;
+    [BoxGroup("Parameter")][SerializeField] float cooldown = 1f;
 
-    [BoxGroup("Dash")] [SerializeField] float speed_SideDash = 1f;
-    [BoxGroup("Dash")] [SerializeField] float speed_DepthDash = 1f;
+    [BoxGroup("Dash")][SerializeField] float speed_SideDash = 1f;
+    [BoxGroup("Dash")][SerializeField] float speed_DepthDash = 1f;
 
-    [BoxGroup("Visuel")] [SerializeField] GameObject slash_GO;
-    [BoxGroup("Visuel")] [SerializeField] GameObject charge_FX;
-    [BoxGroup("Visuel")] [SerializeField] float timeShowAttack = 0.2f;
-    [BoxGroup("Visuel")] [ProgressBar("CoolDown", "cooldown", EColor.Green)] [SerializeField] private float currentCoolDown = 0;
+    [BoxGroup("Visuel")][SerializeField] GameObject slash_GO;
+    [BoxGroup("Visuel")][SerializeField] GameObject charge_FX;
+    [BoxGroup("Visuel")][SerializeField] float timeShowAttack = 0.2f;
+    [BoxGroup("Visuel")][ProgressBar("CoolDown", "cooldown", EColor.Green)][SerializeField] private float currentCoolDown = 0;
 
-    [Foldout("■■ AirAttack ■■")] [SerializeField] GameObject prefab_SpeedPlane;
-    [Foldout("■■ AirAttack ■■")] [SerializeField] GameObject prefab_FxGround;
-    [Foldout("■■ AirAttack ■■")] [SerializeField] float minDistanceGround;
-    [Foldout("■■ AirAttack ■■")] [SerializeField] float timeShake;
-    [Foldout("■■ AirAttack ■■")] [SerializeField] float amplitude;
-    [Foldout("■■ AirAttack ■■")] [SerializeField] float frequence;
-    [Foldout("■■ AirAttack ■■")] [SerializeField] LayerMask layerMask;
-    [Foldout("■■ AirAttack ■■")] [SerializeField] CinemachineVirtualCamera virtualCam;
+    [Foldout("■■ AirAttack ■■")][SerializeField] GameObject prefab_SpeedPlane;
+    [Foldout("■■ AirAttack ■■")][SerializeField] GameObject prefab_FxGround;
+    [Foldout("■■ AirAttack ■■")][SerializeField] float minDistanceGround;
+    [Foldout("■■ AirAttack ■■")][SerializeField] float timeShake;
+    [Foldout("■■ AirAttack ■■")][SerializeField] float amplitude;
+    [Foldout("■■ AirAttack ■■")][SerializeField] float frequence;
+    [Foldout("■■ AirAttack ■■")][SerializeField] LayerMask layerMask;
+    [Foldout("■■ AirAttack ■■")][SerializeField] CinemachineVirtualCamera virtualCam;
 
     ThirdPersonController thirdPersonController;
     CharacterController _controller;
@@ -86,7 +86,7 @@ public class CS_F_HeavyAttack : MonoBehaviour
                     RaycastHit hit;
                     if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, layerMask))
                     {
-                        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground") && Vector3.Distance(hit.point, transform.position)>= minDistanceGround)
+                        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground") && Vector3.Distance(hit.point, transform.position) >= minDistanceGround)
                         {
                             //Debug.Break();
                             GameObject speedPlane = GameObject.Instantiate(prefab_SpeedPlane);
@@ -120,7 +120,10 @@ public class CS_F_HeavyAttack : MonoBehaviour
 
     public void OnBigAttack(CallbackContext context)
     {
-        inputDown = context.ReadValueAsButton();
+        if (this.enabled)
+        {
+            inputDown = context.ReadValueAsButton();
+        }
     }
 
     private void Dash()

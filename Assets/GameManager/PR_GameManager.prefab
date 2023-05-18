@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4289642833194329052}
   - component: {fileID: 956665913179511782}
+  - component: {fileID: 9172165525852442586}
   m_Layer: 0
   m_Name: PR_GameManager
   m_TagString: Untagged
@@ -44,3 +45,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 874016a4b9f42214e92015e7239acb60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9172165525852442586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5360482545991715536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c52397827302b44b8b70d52a4ab2642, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  f_Mentor: {fileID: 0}
+  f_Attack: {fileID: 0}
+  f_HeavyAttack: {fileID: 0}
+  f_FireFlies: {fileID: 0}
+  f_Nail: {fileID: 0}
+  f_Jump: {fileID: 0}
+  f_Teleportation: {fileID: 0}
+  state_Mentor: 0
+  state_Attack: 0
+  state_HeavyAttack: 0
+  state_FireFlies: 0
+  state_Nail: 0
+  state_Jump: 0
+  state_Teleportation_Lvl1: 0
+  state_Teleportation_Lvl2: 0

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class CS_Teleportation : MonoBehaviour, CS_I_Subscriber
+public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
 {
     [Foldout("Feedbacks preview")][SerializeField] GameObject preview;
     GameObject previewInstance;
@@ -167,8 +167,10 @@ public class CS_Teleportation : MonoBehaviour, CS_I_Subscriber
     }
 
     [InfoBox("En attendant que les niveaux soient gérés via le Manager.", EInfoBoxType.Normal)]
-    [Dropdown("tpLevels")] public int tpLevel;
+    [Dropdown("tpLevels")] [SerializeField] private int tpLevel;
     int[] tpLevels = new int[] { 0, 1, 2 };
+
+    public int TpLevel { get => tpLevel; set => tpLevel = Mathf.Clamp(value, 0,2);}
 
     #region Interface Targeting
     public void SubscribeTargeting()

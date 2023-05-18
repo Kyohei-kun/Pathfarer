@@ -10,8 +10,6 @@ public class CS_F_FireFlies : MonoBehaviour
 
     //Input
     private Vector2 move;
-    private bool recall;
-
 
     //Movment
     [SerializeField] float moveSpeed = 3.0f;
@@ -24,7 +22,6 @@ public class CS_F_FireFlies : MonoBehaviour
     float GroundedOffset = -0.14f;
     float GroundedRadius = 0.28f;
     LayerMask GroundLayers;
-    float SpeedChangeRate = 10.0f;
     float _targetRotation = 0.0f;
     private GameObject _mainCamera;
     float RotationSmoothTime = 0.12f;
@@ -37,7 +34,33 @@ public class CS_F_FireFlies : MonoBehaviour
     float _fallTimeoutDelta;
     float FallTimeout = 0.15f;
     float JumpTimeout = 0.50f;
-    float JumpHeight = 1.2f;
+
+    bool featureUnlocked;
+    GameObject childGeometric;
+
+    public void LockFeature()
+    {
+        lightFireflies_Snapped.enabled = false;
+        featureUnlocked = false;
+        try
+        {
+            childGeometric.SetActive(false);
+        }
+        catch (System.Exception){}
+    }
+
+    public void UnlockFeature()
+    {
+        GetComponent<Renderer>().enabled = true;
+        lightFireflies_Snapped.enabled = true;
+        featureUnlocked = true;
+        try
+        {
+            childGeometric.SetActive(true);
+        }
+        catch (System.Exception){}
+        Recall();
+    }
 
     private void Awake()
     {
@@ -49,6 +72,7 @@ public class CS_F_FireFlies : MonoBehaviour
 
     private void Start()
     {
+        childGeometric = transform.GetChild(0).gameObject;
         _controller = GetComponent<CharacterController>();
         // reset our timeouts on start
         _jumpTimeoutDelta = JumpTimeout;
@@ -59,47 +83,58 @@ public class CS_F_FireFlies : MonoBehaviour
 
     private void Update()
     {
-        if (snaped)
+        if (featureUnlocked)
         {
-            transform.position = player.transform.position;
-        }
-        else
-        {
-            JumpAndGravity();
-            GroundedCheck();
-            Move();
+            if (snaped)
+            {
+                transform.position = player.transform.position;
+            }
+            else
+            {
+                JumpAndGravity();
+                GroundedCheck();
+                Move();
+            }
         }
     }
 
     public void OnMoveFireFlies(CallbackContext context)
     {
-        Vector2 tempMove = context.ReadValue<Vector2>();
-        if (snaped)
+        if (featureUnlocked)
         {
-            if (tempMove.magnitude > thresholdUnSnap)
+            Vector2 tempMove = context.ReadValue<Vector2>();
+            if (snaped)
             {
-                snaped = false;
+                if (tempMove.magnitude > thresholdUnSnap)
+                {
+                    snaped = false;
+                    _controller.enabled = true;
+                    move = tempMove;
+                    lightFireflies_Snapped.enabled = false;
+                }
+            }
+            else
+            {
                 _controller.enabled = true;
                 move = tempMove;
-                lightFireflies_Snapped.enabled = false;
             }
-        }
-        else
-        {
-            _controller.enabled = true;
-            move = tempMove;
         }
     }
 
     public void OnRecall(CallbackContext context)
     {
-        if (context.ReadValueAsButton())
+        if (context.ReadValueAsButton() && featureUnlocked)
         {
-            _controller.enabled = false;
-            transform.position = player.transform.position;
-            snaped = true;
-            lightFireflies_Snapped.enabled = true;
+            Recall();
         }
+    }
+
+    private void Recall()
+    {
+        _controller.enabled = false;
+        transform.position = player.transform.position;
+        snaped = true;
+        lightFireflies_Snapped.enabled = true;
     }
 
     private void GroundedCheck()
@@ -107,7 +142,6 @@ public class CS_F_FireFlies : MonoBehaviour
         // set sphere position, with offset
         Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
         grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
-
     }
 
     private void Move()
@@ -196,7 +230,6 @@ public class CS_F_FireFlies : MonoBehaviour
             {
                 _fallTimeoutDelta -= Time.deltaTime;
             }
-
         }
 
         // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)

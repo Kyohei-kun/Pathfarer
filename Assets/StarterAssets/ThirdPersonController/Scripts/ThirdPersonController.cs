@@ -19,6 +19,7 @@ namespace StarterAssets
         private bool canMove = true;
         private bool canRotate = true;
 
+        private bool featureJumpUnlocked;
         private bool isJumping;
 
         [SerializeField] float momentumVerticalVelocity;
@@ -139,6 +140,7 @@ namespace StarterAssets
         public bool IsJumping { get => isJumping; }
         public float MomentumVerticalVelocity { get => momentumVerticalVelocity; set => momentumVerticalVelocity = value; }
         public float VerticalVelocity { get => _verticalVelocity; }
+        public bool FeatureJumpUnlocked { get => featureJumpUnlocked; set => featureJumpUnlocked = value; }
 
         private void Awake()
         {
@@ -305,7 +307,7 @@ namespace StarterAssets
                 }
 
                 // Jump
-                if (_input.Jump && _jumpTimeoutDelta <= 0.0f)
+                if (_input.Jump && _jumpTimeoutDelta <= 0.0f && featureJumpUnlocked)
                 {
                     isJumping = true;
                     // the square root of H * -2 * G = how much velocity needed to reach desired height

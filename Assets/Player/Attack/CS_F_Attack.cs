@@ -16,29 +16,29 @@ enum ComboState
 
 public class CS_F_Attack : MonoBehaviour
 {
-    [BoxGroup("Visuel")] [SerializeField] [HorizontalLine(color: EColor.Gray)] GameObject slashFirst;
-    [BoxGroup("Visuel")] [SerializeField] GameObject slashSecond;
-    [BoxGroup("Visuel")] [SerializeField] GameObject slashFinal;
+    [BoxGroup("Visuel")][SerializeField][HorizontalLine(color: EColor.Gray)] GameObject slashFirst;
+    [BoxGroup("Visuel")][SerializeField] GameObject slashSecond;
+    [BoxGroup("Visuel")][SerializeField] GameObject slashFinal;
 
-    [BoxGroup("Speed_Dash")] [SerializeField] [HorizontalLine(color: EColor.Gray)] float speed_DepthFirstDash;
-    [BoxGroup("Speed_Dash")] [SerializeField] float speed_SideFirstDash;
-    [BoxGroup("Speed_Dash")] [SerializeField] float speed_DepthFinalDash;
-    [BoxGroup("Speed_Dash")] [SerializeField] float speed_SideFinalDash;
+    [BoxGroup("Speed_Dash")][SerializeField][HorizontalLine(color: EColor.Gray)] float speed_DepthFirstDash;
+    [BoxGroup("Speed_Dash")][SerializeField] float speed_SideFirstDash;
+    [BoxGroup("Speed_Dash")][SerializeField] float speed_DepthFinalDash;
+    [BoxGroup("Speed_Dash")][SerializeField] float speed_SideFinalDash;
 
-    [BoxGroup("CoolDown")] [SerializeField] [HorizontalLine(color: EColor.Gray)] float coolDownFirst = 0.5f;
-    [BoxGroup("CoolDown")] [SerializeField] float coolDownSecond = 0.5f;
-    [BoxGroup("CoolDown")] [SerializeField] float coolDownFinal = 1f;
+    [BoxGroup("CoolDown")][SerializeField][HorizontalLine(color: EColor.Gray)] float coolDownFirst = 0.5f;
+    [BoxGroup("CoolDown")][SerializeField] float coolDownSecond = 0.5f;
+    [BoxGroup("CoolDown")][SerializeField] float coolDownFinal = 1f;
 
-    [BoxGroup("Divers")] [SerializeField] [HorizontalLine(color: EColor.Gray)] float timeShowAttack = 1f;
-    [BoxGroup("Divers")] [SerializeField] float timeInterCombo = 1f;
+    [BoxGroup("Divers")][SerializeField][HorizontalLine(color: EColor.Gray)] float timeShowAttack = 1f;
+    [BoxGroup("Divers")][SerializeField] float timeInterCombo = 1f;
 
     //■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
-    [Foldout("■■ AirAttack ■■")] [SerializeField] [HorizontalLine(color: EColor.Red)] float timeMomentum = 0.5f;
-    [Foldout("■■ AirAttack ■■")] [SerializeField] float coolDownAirAttack = 0.2f;
-    [Foldout("■■ AirAttack ■■")] [SerializeField] float timeShowAirAttack = 0.2f;
-    [Foldout("■■ AirAttack ■■")] [SerializeField] float speedMomentum = 0.2f;
-    [Foldout("■■ AirAttack ■■")] [SerializeField] int nbAirAttack = 3;
+    [Foldout("■■ AirAttack ■■")][SerializeField][HorizontalLine(color: EColor.Red)] float timeMomentum = 0.5f;
+    [Foldout("■■ AirAttack ■■")][SerializeField] float coolDownAirAttack = 0.2f;
+    [Foldout("■■ AirAttack ■■")][SerializeField] float timeShowAirAttack = 0.2f;
+    [Foldout("■■ AirAttack ■■")][SerializeField] float speedMomentum = 0.2f;
+    [Foldout("■■ AirAttack ■■")][SerializeField] int nbAirAttack = 3;
 
     private bool canAirAttack = true;
     private int currentNbAirAttack = 0;
@@ -62,12 +62,15 @@ public class CS_F_Attack : MonoBehaviour
 
     public void OnAttack(CallbackContext context)
     {
-        inputDown = context.ReadValueAsButton();
+        if (this.enabled)
+        {
+            inputDown = context.ReadValueAsButton();
+        }
     }
 
     private void Update()
     {
-        if(inputDown)
+        if (inputDown)
         {
             thirdPersonController.InMomentum = true;
         }
@@ -118,7 +121,7 @@ public class CS_F_Attack : MonoBehaviour
                     thirdPersonController.InMomentum = true;
                     DrawAttack(ComboState.First);
                     canAirAttack = false;
-                    currentNbAirAttack ++;
+                    currentNbAirAttack++;
                     currentAirAttackCoolDown = 0;
                 }
             }
