@@ -18,7 +18,7 @@ namespace Knife.HDRPOutline.Core
         [Tooltip("Outline material")]
         [SerializeField] private Material material;
         [Tooltip("Color of outline")]
-        [SerializeField] private Color color = Color.white;
+        [SerializeField][ColorUsageAttribute(true, true, 0f, 8f, 0.125f, 3f)] private Color color = Color.white;
         [Tooltip("Alpha or Color mask for outline, BaseColor parameter must be setted to Alpha or Color")]
         [SerializeField] private Texture2D mask = null;
         [Tooltip("Scale of fresnel multiplier")]

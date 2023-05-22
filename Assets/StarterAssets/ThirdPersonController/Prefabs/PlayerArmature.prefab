@@ -2244,7 +2244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 304212435d1ec7c419be54838ad0e53e, type: 2}
-  color: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
+  color: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
   mask: {fileID: 0}
   fresnelScale: 2
   fresnelPower: 2
@@ -2360,7 +2360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 304212435d1ec7c419be54838ad0e53e, type: 2}
-  color: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
+  color: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
   mask: {fileID: 0}
   fresnelScale: 2
   fresnelPower: 2
@@ -3495,12 +3495,54 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7407108861478359975}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3661008515006419225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931577617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a34dce33c4213c4393266fbcd799d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 304212435d1ec7c419be54838ad0e53e, type: 2}
+  color: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
+  mask: {fileID: 0}
+  fresnelScale: 2
+  fresnelPower: 2
+  alphaThreshold: 0.5
 --- !u!4 &1293502853 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7407108860454476322, guid: fffac857edfe5a748935456394ae23bd,
     type: 3}
   m_PrefabInstance: {fileID: 7407108861478359975}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1367380267 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7407108860127756940, guid: fffac857edfe5a748935456394ae23bd,
+    type: 3}
+  m_PrefabInstance: {fileID: 7407108861478359975}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4818853314819740357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367380267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a34dce33c4213c4393266fbcd799d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 304212435d1ec7c419be54838ad0e53e, type: 2}
+  color: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
+  mask: {fileID: 0}
+  fresnelScale: 2
+  fresnelPower: 2
+  alphaThreshold: 0.5
 --- !u!1 &1652748614 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7407108860983517921, guid: fffac857edfe5a748935456394ae23bd,
@@ -3526,6 +3568,24 @@ RotationConstraint:
   m_Sources:
   - sourceTransform: {fileID: 0}
     weight: 1
+--- !u!114 &4162309497689477425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652748614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a34dce33c4213c4393266fbcd799d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 304212435d1ec7c419be54838ad0e53e, type: 2}
+  color: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
+  mask: {fileID: 0}
+  fresnelScale: 2
+  fresnelPower: 2
+  alphaThreshold: 0.5
 --- !u!4 &1652748618 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7407108860983517933, guid: fffac857edfe5a748935456394ae23bd,

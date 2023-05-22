@@ -14,8 +14,8 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
     enum PreviewMods { tpPossible, tpBloque };
     VisualEffect fxCD;
     bool tpPossible;
-    [Foldout("Feedbacks preview")][SerializeField] Color colorPossible;
-    [Foldout("Feedbacks preview")][SerializeField] Color colorBloque;
+    [Foldout("Feedbacks preview")][SerializeField][ColorUsage(true, true)] Color colorPossible;
+    [Foldout("Feedbacks preview")][SerializeField][ColorUsage(true, true)] Color colorBloque;
 
     [MinValue(0)][SerializeField] float cdTP = 0.5f;
     float actualTime = 0;
