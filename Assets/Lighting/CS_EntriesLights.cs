@@ -19,6 +19,8 @@ public class CS_EntriesLights: MonoBehaviour
 
     public void UpdateLight(float alpha)
     {
+        if (lights.Count == 0) return;
+
         foreach (var light in lights)
         {
             light.Key.intensity = Mathf.Lerp(0, light.Value, alpha);

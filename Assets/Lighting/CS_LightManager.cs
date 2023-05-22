@@ -79,7 +79,8 @@ public class CS_LightManager : MonoBehaviour
         }
 
         UpdateObjects();
-        entriesLights.UpdateLight(globalAlpha);
+
+        if(entriesLights != null) entriesLights.UpdateLight(globalAlpha);
     }
 
     [Button]
