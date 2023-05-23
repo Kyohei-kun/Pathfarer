@@ -424,6 +424,7 @@ GameObject:
   - component: {fileID: 4562750831093312615}
   - component: {fileID: 6030965230057850525}
   - component: {fileID: 6030965230057850522}
+  - component: {fileID: 163049828575418721}
   m_Layer: 7
   m_Name: PR_FireFlies
   m_TagString: Untagged
@@ -498,3 +499,16 @@ MonoBehaviour:
   gravity: -9.81
   thresholdUnSnap: 0.4
   lightFireflies_Snapped: {fileID: 0}
+--- !u!135 &163049828575418721
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4562750831093312621}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Center: {x: 0, y: 0.5, z: 0}

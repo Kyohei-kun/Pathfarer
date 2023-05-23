@@ -23,6 +23,15 @@ public class CS_FeatureUnlocker : MonoBehaviour
     [BoxGroup("Unlock")][SerializeField] bool state_Teleportation_Lvl1;
     [BoxGroup("Unlock")][SerializeField] bool state_Teleportation_Lvl2;
 
+    public bool State_Mentor { get => state_Mentor; set => state_Mentor = value; }
+    public bool State_Attack { get => state_Attack; set => state_Attack = value; }
+    public bool State_HeavyAttack { get => state_HeavyAttack; set => state_HeavyAttack = value; }
+    public bool State_FireFlies { get => state_FireFlies; set => state_FireFlies = value; }
+    public bool State_Nail { get => state_Nail; set => state_Nail = value; }
+    public bool State_Jump { get => state_Jump; set => state_Jump = value; }
+    public bool State_Teleportation_Lvl1 { get => state_Teleportation_Lvl1; set => state_Teleportation_Lvl1 = value; }
+    public bool State_Teleportation_Lvl2 { get => state_Teleportation_Lvl2; set => state_Teleportation_Lvl2 = value; }
+
     private void Start()
     {
         ManualUpdate();

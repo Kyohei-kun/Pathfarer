@@ -237,4 +237,9 @@ public class CS_F_FireFlies : MonoBehaviour
             _verticalVelocity += gravity * Time.deltaTime;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        other.gameObject.GetComponent<CS_I_Allumage>()?.SetState(true);
+    }
 }
