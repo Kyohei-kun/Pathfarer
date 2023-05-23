@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class CS_Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] protected int PV = 0;
+    virtual public void ShareMessage(List<CS_Enemy> ennemiesMessaged)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

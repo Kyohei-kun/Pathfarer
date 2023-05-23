@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
+using UnityEngine.TextCore.Text;
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -16,6 +17,8 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
+        Vector3 impact = Vector3.zero;
+
         private bool canMove = true;
         private bool canRotate = true;
 
@@ -142,6 +145,14 @@ namespace StarterAssets
         public float VerticalVelocity { get => _verticalVelocity; }
         public bool FeatureJumpUnlocked { get => featureJumpUnlocked; set => featureJumpUnlocked = value; }
 
+        [Button]
+        public void Push(Vector3 dir, float force)
+        {
+            dir.Normalize();
+            if (dir.y < 0) dir.y = -dir.y; // reflect down force on the ground
+            impact = dir.normalized * force / 3;
+        }
+
         private void Awake()
         {
             // get a reference to our main camera
@@ -183,6 +194,12 @@ namespace StarterAssets
 
         private void Update()
         {
+            if(impact.magnitude > 0.6)
+            impact = Vector3.Lerp(impact, Vector3.zero, 8 * Time.deltaTime);
+            else
+                impact = Vector3.zero;
+
+            Debug.Log(impact.magnitude);
             _hasAnimator = TryGetComponent(out _animator);
 
             JumpAndGravity();
@@ -272,9 +289,16 @@ namespace StarterAssets
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
+            Vector3 horizontalImpact = Vector3.ProjectOnPlane(impact, Vector3.up);
+
             // move the player
             if (canMove)
-                _controller.Move((targetDirection.normalized * (_speed * Time.deltaTime)) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            {
+                if (horizontalImpact.magnitude > 0.1f)
+                    _controller.Move(Time.deltaTime * horizontalImpact + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+                else
+                    _controller.Move((targetDirection.normalized * (_speed * Time.deltaTime)) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            }
 
             // update animator if using character
             if (_hasAnimator)
