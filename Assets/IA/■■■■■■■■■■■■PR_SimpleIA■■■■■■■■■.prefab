@@ -444,10 +444,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37851b9a008ffe442b47b183ec97fc5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PV: 0
+  PV: 5
   speed: 3.5
   angularSpeed: 300
-  UnagroDistance: 14
+  UnagroDistance: 5
   radiusMessageZone: 2.7
   layerMask:
     serializedVersion: 2
