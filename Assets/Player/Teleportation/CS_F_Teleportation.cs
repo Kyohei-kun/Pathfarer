@@ -92,7 +92,6 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
                 transform.position = PreviewPosition(false);
 
                 actualTime = 0;
-                Debug.Log("TELEPORTAION !");
 
                 GetComponent<CharacterController>().enabled = true;
             }
@@ -121,7 +120,6 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
             symPos = new Vector3(symPos.x, hauteurTP, symPos.z);
         }
 
-        Debug.Log("Preview Position au niveau du joueur ? " + playerLevel);
         return symPos;
     }
 
@@ -154,13 +152,11 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
         {
             empty = false;
             hauteurTP = hit.point.y;
-            Debug.Log("Raycast down touche ! Hauteur TP = " + hauteurTP);
         }
         else
         {
             empty = true;
             hauteurTP = playerPos.y + 0.2f;
-            Debug.Log("Raycast down touche pas ! Hauteur TP = " + hauteurTP);
         }
 
         return wall || empty;
@@ -173,13 +169,11 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
             fxCD.Play();
             previewInstance.GetComponentInChildren<MeshRenderer>().material.SetColor(colorID, colorPossible);
             tpPossible = true;
-            Debug.Log("Set preview Mod : tp oui");
         }
         else if (newMod == PreviewMods.tpBloque)
         {
             previewInstance.GetComponentInChildren<MeshRenderer>().material.SetColor(colorID, colorBloque);
             tpPossible = false;
-            Debug.Log("Set preview Mod : tp non");
         }
     }
 
