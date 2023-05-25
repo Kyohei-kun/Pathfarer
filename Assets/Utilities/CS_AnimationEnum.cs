@@ -9,4 +9,18 @@ public static class CS_AnimationEnum
         StopRotate,
         Finish
     }
+
+    public enum AnimationAttackState
+    {
+        Neutral,
+        Start_1,
+        Mid_1,
+        End_1,
+        Start_2,
+        Mid_2,
+        End_2,
+        Start_3,
+        Mid_3,
+        End_3
+    }
 }
