@@ -1,9 +1,11 @@
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.VFX;
 using static UnityEngine.InputSystem.InputAction;
+using Color = UnityEngine.Color;
 
 public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
 {
@@ -20,6 +22,7 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
     bool tpPossible;
     [Foldout("Feedbacks preview")][SerializeField][ColorUsage(true, true)] Color colorPossible;
     [Foldout("Feedbacks preview")][SerializeField][ColorUsage(true, true)] Color colorBloque;
+    public static int colorID = Shader.PropertyToID("_MainColor");
 
     [MinValue(0)][SerializeField] float cdTP = 0.5f;
     float actualTime = 0;
@@ -89,11 +92,13 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
                 transform.position = PreviewPosition(false);
 
                 actualTime = 0;
+                Debug.Log("TELEPORTAION !");
 
                 GetComponent<CharacterController>().enabled = true;
             }
             else
             {
+                // Preview Position false pour les escaliers
                 previewInstance.transform.SetPositionAndRotation(PreviewPosition(false), Quaternion.identity);
             }
         }
@@ -116,6 +121,7 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
             symPos = new Vector3(symPos.x, hauteurTP, symPos.z);
         }
 
+        Debug.Log("Preview Position au niveau du joueur ? " + playerLevel);
         return symPos;
     }
 
@@ -148,10 +154,13 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
         {
             empty = false;
             hauteurTP = hit.point.y;
+            Debug.Log("Raycast down touche ! Hauteur TP = " + hauteurTP);
         }
         else
         {
             empty = true;
+            hauteurTP = playerPos.y + 0.2f;
+            Debug.Log("Raycast down touche pas ! Hauteur TP = " + hauteurTP);
         }
 
         return wall || empty;
@@ -162,13 +171,15 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
         if (newMod == PreviewMods.tpPossible)
         {
             fxCD.Play();
-            previewInstance.GetComponentInChildren<MeshRenderer>().material.color = colorPossible;
+            previewInstance.GetComponentInChildren<MeshRenderer>().material.SetColor(colorID, colorPossible);
             tpPossible = true;
+            Debug.Log("Set preview Mod : tp oui");
         }
         else if (newMod == PreviewMods.tpBloque)
         {
-            previewInstance.GetComponentInChildren<MeshRenderer>().material.color = colorBloque;
+            previewInstance.GetComponentInChildren<MeshRenderer>().material.SetColor(colorID, colorBloque);
             tpPossible = false;
+            Debug.Log("Set preview Mod : tp non");
         }
     }
 
@@ -201,7 +212,6 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
 
     public void OnTeleport(CallbackContext context)
     {
-            inputState = context.ReadValueAsButton();
-            Debug.Log("OnTeleport " + inputState);
+        inputState = context.ReadValueAsButton();
     }
 }

@@ -149,6 +149,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mtON: {fileID: 2100000, guid: b50c6588548487343989caed84a7742f, type: 2}
   mtOFF: {fileID: 2100000, guid: 231f4451c562dcd49933ba9bec2d38b0, type: 2}
+  intensityFlash: {x: 6, y: 60000}
+  flatColor: {r: 0.17528482, g: 0.9376026, b: 0.9528302, a: 1}
 --- !u!65 &6148533049430983547
 BoxCollider:
   m_ObjectHideFlags: 0

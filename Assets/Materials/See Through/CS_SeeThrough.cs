@@ -14,6 +14,8 @@ public class CS_SeeThrough : MonoBehaviour
     [SerializeField] LayerMask mask;
     Camera cam;
 
+    GameObject player;
+
     float size = 0f;
     [MinMaxSlider(0f, 50f)][SerializeField] Vector2 sizeRange;
     [MinValue(0)][SerializeField] float speed = 2;
@@ -22,6 +24,7 @@ public class CS_SeeThrough : MonoBehaviour
     private void Start()
     {
         cam = Camera.main;
+        player = GameObject.FindGameObjectWithTag("Player");
 
         for (int i = 0; i < wallMaterials.Count; i++)
         {
@@ -31,8 +34,8 @@ public class CS_SeeThrough : MonoBehaviour
 
     void Update()
     {
-        var dir = cam.transform.position - (transform.position + Vector3.up);
-        var ray = new Ray((transform.position + Vector3.up), dir.normalized);
+        var dir = cam.transform.position - (player.transform.position + Vector3.up);
+        var ray = new Ray((player.transform.position + Vector3.up), dir.normalized);
 
         if(Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, mask) && wallMaterials.Contains(hit.transform.GetComponent<Renderer>().sharedMaterial))
         {

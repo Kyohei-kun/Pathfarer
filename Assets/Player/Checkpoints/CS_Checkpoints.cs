@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ public class CS_Checkpoints : MonoBehaviour
 
     [SerializeField] Material mtON;
     [SerializeField] Material mtOFF;
+    [MinMaxSlider(0.0f, 70000.0f)][SerializeField] Vector2 intensityFlash;
+    [SerializeField] Color flatColor;
 
     private void Start()
     {
@@ -67,7 +70,25 @@ public class CS_Checkpoints : MonoBehaviour
         
         myDalle.material = mtON;
         actualCheckpoint = this;
+        //StartCoroutine(FlashLight());
     }
+
+    //IEnumerator FlashLight()
+    //{
+    //    for (float t = 0; t < 0.5f; t += Time.deltaTime)
+    //    {
+    //        mtON.color = flatColor * Mathf.Clamp(Mathf.Lerp(intensityFlash.x, intensityFlash.y, t.Remap(0, 0.5f, 0, 1)), intensityFlash.x, intensityFlash.y);
+    //        yield return new WaitForSeconds(0f);
+    //    }
+
+    //    for (float t = 0; t < 0.5f; t += Time.deltaTime)
+    //    {
+    //        mtON.color = flatColor * Mathf.Clamp(Mathf.Lerp(intensityFlash.y, intensityFlash.x, t.Remap(0, 0.5f, 0, 1)), intensityFlash.x, intensityFlash.y);
+    //        yield return new WaitForSeconds(0f);
+    //    }
+
+    //    mtON.color = flatColor * intensityFlash.x;
+    //}
 
     /// <summary>
     /// Regarde si toutes les torches sont allumées.

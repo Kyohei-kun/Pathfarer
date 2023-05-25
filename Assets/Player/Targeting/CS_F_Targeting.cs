@@ -254,7 +254,6 @@ public class CS_F_Targeting : MonoBehaviour
 
     public void OnTargetting(CallbackContext context)
     {
-            inputState = context.ReadValueAsButton();
-            Debug.Log("OnTargetting " + inputState);
+        inputState = context.ReadValueAsButton();
     }
 }
