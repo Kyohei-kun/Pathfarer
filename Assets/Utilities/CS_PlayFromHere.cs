@@ -35,10 +35,43 @@ public static class CS_PlayFromHere
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
                 playerPosition = hit.point;
-                Debug.LogWarning(playerPosition);
+                //Debug.LogWarning(playerPosition);
                 //GameObject.FindGameObjectWithTag("Player").transform.position = playerPosition;
 
                 EditorApplication.EnterPlaymode();
+            }
+        }
+    }
+
+    [MenuItem("PlayFromHere/Move #g")]
+    static void MoveCommand()
+    {
+        //Canvas.ForceUpdateCanvases();
+        //SceneView.RepaintAll();
+        //EditorWindow.GetWindow<SceneView>().Repaint();
+
+        //HandleUtility.Repaint();
+        if (SceneView.sceneViews.Count > 0)
+        {
+            SceneView sceneView = (SceneView)SceneView.sceneViews[0];
+            sceneView.Focus();
+        }
+
+        Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                GameObject.FindGameObjectWithTag("Player").transform.position = hit.point;
+                //playerPosition = hit.point;
+                //Debug.LogWarning(playerPosition);
+                //GameObject.FindGameObjectWithTag("Player").transform.position = playerPosition;
+
+                //EditorApplication.EnterPlaymode();
             }
         }
     }

@@ -13,6 +13,14 @@ public class CS_F_NewAttack : MonoBehaviour
 
     bool demandedInput = false;
     AnimationAttackState LastInfoAnim;
+    float currentTime = 0;
+    float targetTime;
+
+    public bool DemandedInput
+    {
+        get { return demandedInput; }
+        set { demandedInput = value; animator.SetBool("InputTempo", demandedInput); }
+    }
 
     public void OnAttack(CallbackContext context)
     {
@@ -24,74 +32,24 @@ public class CS_F_NewAttack : MonoBehaviour
 
     private void Update()
     {
+        currentTime += Time.deltaTime;
+
         Debug.Log(LastInfoAnim);
         //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Neutral") == animator.GetCurrentAnimatorStateInfo(0).IsName("Anim_PlayerAttack_1"));
         if (inputDown && !lastInputDown)
         {
-            if(animator.GetCurrentAnimatorStateInfo(0).IsName("Anim_PlayerAttack_0 0"))
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Anim_PlayerAttack_0 0"))
             {
                 animator.SetBool("InputTempo", true);
             }
-
-            //switch (LastInfoAnim)
-            //{
-            //    case AnimationAttackState.Neutral:
-            //        animator.SetInteger("State", 1);
-            //        break;
-            //    case AnimationAttackState.Start_1:
-            //        break;
-            //    case AnimationAttackState.Mid_1:
-            //        animator.SetInteger("State", 2);
-            //        break;
-            //    case AnimationAttackState.End_1:
-            //        break;
-            //    case AnimationAttackState.Start_2:
-            //        break;
-            //    case AnimationAttackState.Mid_2:
-            //        animator.SetInteger("State", 3);
-            //        break;
-            //    case AnimationAttackState.End_2:
-            //        break;
-            //    case AnimationAttackState.Start_3:
-            //        break;
-            //    case AnimationAttackState.Mid_3:
-            //        break;
-            //    case AnimationAttackState.End_3:
-            //        break;
-            //    default:
-            //        break;
-            //}
         }
-        else
+
+        if (currentTime < targetTime)
         {
-            //switch (LastInfoAnim)
-            //{
-            //    case AnimationAttackState.Neutral:
-            //        break;
-            //    case AnimationAttackState.Start_1:
-            //        break;
-            //    case AnimationAttackState.Mid_1:
-            //        break;
-            //    case AnimationAttackState.End_1:
-            //        InfoAnimation(AnimationAttackState.Neutral);
-            //        break;
-            //    case AnimationAttackState.Start_2:
-            //        break;
-            //    case AnimationAttackState.Mid_2:
-            //        break;
-            //    case AnimationAttackState.End_2:
-            //        InfoAnimation(AnimationAttackState.Neutral);
-            //        break;
-            //    case AnimationAttackState.Start_3:
-            //        break;
-            //    case AnimationAttackState.Mid_3:
-            //        break;
-            //    case AnimationAttackState.End_3:
-            //        InfoAnimation(AnimationAttackState.Neutral);
-            //        break;
-            //    default:
-            //        break;
-            //}
+            if (inputDown && !lastInputDown)
+            {
+                DemandedInput = true;
+            }
         }
 
         inputDown = lastInputDown;
@@ -107,18 +65,10 @@ public class CS_F_NewAttack : MonoBehaviour
         LastInfoAnim = animState;
     }
 
-    IEnumerator ListenInput(float time)
+    public void ListenInput(float timing)
     {
-        demandedInput = false;
-        animator.SetBool("InputTempo", false);
-        while (time > 0)
-        {
-            if (inputDown && !lastInputDown)
-            {
-                demandedInput = true;
-                animator.SetBool("InputTempo", true);
-            }
-            yield return 0;
-        }
+        DemandedInput = false;
+        targetTime = timing;
+        currentTime = 0;
     }
 }
