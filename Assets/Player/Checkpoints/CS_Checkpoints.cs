@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class CS_Checkpoints : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class CS_Checkpoints : MonoBehaviour
     List<CS_Torche> myTorches = new();
     GameObject player;
     MeshRenderer myDalle;
+
+    VisualEffect fxMentorCircle;
+    VisualEffect fxMentorParticle;
 
     [SerializeField] Material mtON;
     [SerializeField] Material mtOFF;
@@ -23,6 +27,8 @@ public class CS_Checkpoints : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         myTorches = GetComponentsInChildren<CS_Torche>().ToList();
         myDalle = transform.Find("Socle/Dalle").GetComponent<MeshRenderer>();
+        fxMentorCircle = player.transform.Find("PR_AnchorMentor/Mentor/FX_ActivationCP/FX_ActivationCP_Circle").GetComponent<VisualEffect>();
+        fxMentorParticle = player.transform.Find("PR_AnchorMentor/Mentor/FX_ActivationCP/FX_ActivationCP_Particle").GetComponent<VisualEffect>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -53,7 +59,8 @@ public class CS_Checkpoints : MonoBehaviour
 
         if (any)
         {
-            // animation allumage Mnetor
+            fxMentorCircle.Play();
+            fxMentorParticle.Play();
         }
     }
 
