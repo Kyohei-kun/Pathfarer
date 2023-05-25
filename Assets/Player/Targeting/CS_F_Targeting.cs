@@ -3,9 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.InputSystem.InputAction;
 
 public class CS_F_Targeting : MonoBehaviour
 {
+    bool inputState;
+    bool lastInputState;
+
     List<CS_I_Subscriber> subscribers = new();
 
     [MinValue(0)] [SerializeField] float cdDuration = 1;
@@ -22,10 +26,12 @@ public class CS_F_Targeting : MonoBehaviour
     {
         actualTime += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (inputState && !lastInputState)
         {
             SetTarget(true);
         }
+
+        lastInputState = inputState;
     }
 
     void SetTarget(bool viaInput)
@@ -245,4 +251,10 @@ public class CS_F_Targeting : MonoBehaviour
         }
     }
     #endregion
+
+    public void OnTargetting(CallbackContext context)
+    {
+            inputState = context.ReadValueAsButton();
+            Debug.Log("OnTargetting " + inputState);
+    }
 }

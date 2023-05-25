@@ -274,7 +274,7 @@ Material:
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _PlayerPos: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _PlayerPosition: {r: 0.5589614, g: 0.46665213, b: 10.367083, a: 0}
+    - _PlayerPosition: {r: 0.4746757, g: 0.456106, b: 10.766422, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _Tint: {r: 1, g: 1, b: 1, a: 1}

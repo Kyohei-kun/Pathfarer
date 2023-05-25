@@ -70,80 +70,80 @@ public class CS_F_Attack : MonoBehaviour
 
     private void Update()
     {
-        if (inputDown)
-        {
-            thirdPersonController.InMomentum = true;
-        }
+        //if (inputDown)
+        //{
+        //    thirdPersonController.InMomentum = true;
+        //}
 
-        currentCoolDown += Time.deltaTime;
-        currentAirAttackCoolDown += Time.deltaTime;
+        //currentCoolDown += Time.deltaTime;
+        //currentAirAttackCoolDown += Time.deltaTime;
 
-        if (currentCoolDown >= timeShowAttack && thirdPersonController.grounded)
-        {
-            HideAttack();
-            thirdPersonController.CanRotate = true;
-        }
+        //if (currentCoolDown >= timeShowAttack && thirdPersonController.grounded)
+        //{
+        //    HideAttack();
+        //    thirdPersonController.CanRotate = true;
+        //}
 
-        if (currentCoolDown >= cooldownTarget) //Si le precedent cooldown est passé
-        {
-            canAttack = true;
+        //if (currentCoolDown >= cooldownTarget) //Si le precedent cooldown est passé
+        //{
+        //    canAttack = true;
 
-            if (currentCoolDown >= cooldownTarget + timeInterCombo && combo != ComboState.Neutral)
-            {
-                combo = ComboState.Neutral;
-                cooldownTarget = 0;
-            }
-            if (combo == ComboState.Final)
-            {
-                combo = ComboState.Neutral;
-                cooldownTarget = 0;
-            }
-        }
+        //    if (currentCoolDown >= cooldownTarget + timeInterCombo && combo != ComboState.Neutral)
+        //    {
+        //        combo = ComboState.Neutral;
+        //        cooldownTarget = 0;
+        //    }
+        //    if (combo == ComboState.Final)
+        //    {
+        //        combo = ComboState.Neutral;
+        //        cooldownTarget = 0;
+        //    }
+        //}
 
-        if (inputDown && !lastInputDown)//Input down
-        {
-            if (thirdPersonController.grounded)
-            {
-                if (canAttack)
-                {
-                    thirdPersonController.CanRotate = false;
-                    NextAttackCombo();
-                    Dash(combo);
-                    DrawAttack(combo);
-                    currentCoolDown = 0;
-                    canAttack = false;
-                }
-            }
-            else  //Air Attack
-            {
-                if (currentNbAirAttack < nbAirAttack && canAirAttack && thirdPersonController.VerticalVelocity < 0)
-                {
-                    thirdPersonController.InMomentum = true;
-                    DrawAttack(ComboState.First);
-                    canAirAttack = false;
-                    currentNbAirAttack++;
-                    currentAirAttackCoolDown = 0;
-                }
-            }
-        }
+        //if (inputDown && !lastInputDown)//Input down
+        //{
+        //    if (thirdPersonController.grounded)
+        //    {
+        //        if (canAttack)
+        //        {
+        //            thirdPersonController.CanRotate = false;
+        //            NextAttackCombo();
+        //            Dash(combo);
+        //            DrawAttack(combo);
+        //            currentCoolDown = 0;
+        //            canAttack = false;
+        //        }
+        //    }
+        //    else  //Air Attack
+        //    {
+        //        if (currentNbAirAttack < nbAirAttack && canAirAttack && thirdPersonController.VerticalVelocity < 0)
+        //        {
+        //            thirdPersonController.InMomentum = true;
+        //            DrawAttack(ComboState.First);
+        //            canAirAttack = false;
+        //            currentNbAirAttack++;
+        //            currentAirAttackCoolDown = 0;
+        //        }
+        //    }
+        //}
 
-        if (thirdPersonController.grounded)
-            currentNbAirAttack = 0;
+        //if (thirdPersonController.grounded)
+        //    currentNbAirAttack = 0;
 
-        if (!thirdPersonController.grounded && currentAirAttackCoolDown >= timeShowAirAttack)
-            HideAttack();
+        //if (!thirdPersonController.grounded && currentAirAttackCoolDown >= timeShowAirAttack)
+        //    HideAttack();
 
-        if (currentAirAttackCoolDown >= timeMomentum)
-        {
-            thirdPersonController.InMomentum = false;
-        }
+        //if (currentAirAttackCoolDown >= timeMomentum)
+        //{
+        //    thirdPersonController.InMomentum = false;
+        //}
 
-        if (currentAirAttackCoolDown >= coolDownAirAttack)
-        {
-            canAirAttack = true;
-        }
+        //if (currentAirAttackCoolDown >= coolDownAirAttack)
+        //{
+        //    canAirAttack = true;
+        //}
 
-        lastInputDown = inputDown;
+        //lastInputDown = inputDown;
     }
 
     private void Dash(ComboState combo)

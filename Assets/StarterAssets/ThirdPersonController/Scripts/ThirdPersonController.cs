@@ -199,7 +199,7 @@ namespace StarterAssets
             else
                 impact = Vector3.zero;
 
-            Debug.Log(impact.magnitude);
+            //Debug.Log(impact.magnitude);
             _hasAnimator = TryGetComponent(out _animator);
 
             JumpAndGravity();

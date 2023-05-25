@@ -3,9 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
+using static UnityEngine.InputSystem.InputAction;
 
 public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
 {
+    bool inputState;
+    bool lastInputState;
+
     [Foldout("Feedbacks preview")][SerializeField] GameObject preview;
     GameObject previewInstance;
     bool previewON;
@@ -75,7 +79,7 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
                 SetPreviewMod(PreviewMods.tpBloque);
             }
 
-            if (Input.GetKeyDown(KeyCode.E) && tpPossible)
+            if (inputState && !lastInputState && tpPossible)
             {
                 GetComponent<CharacterController>().enabled = false;
 
@@ -93,6 +97,8 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
                 previewInstance.transform.SetPositionAndRotation(PreviewPosition(false), Quaternion.identity);
             }
         }
+
+        lastInputState = inputState;
     }
 
     Vector3 PreviewPosition(bool playerLevel)
@@ -192,4 +198,10 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
         }
     }
     #endregion
+
+    public void OnTeleport(CallbackContext context)
+    {
+            inputState = context.ReadValueAsButton();
+            Debug.Log("OnTeleport " + inputState);
+    }
 }

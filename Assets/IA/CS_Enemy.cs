@@ -8,4 +8,9 @@ public class CS_Enemy : MonoBehaviour
     virtual public void ShareMessage(List<CS_Enemy> ennemiesMessaged)
     {
     }
+
+    virtual public void Push(Vector3 force)
+    {
+        GetComponent<Rigidbody>().AddForce(force, ForceMode.VelocityChange);
+    }
 }
