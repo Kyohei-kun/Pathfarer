@@ -38,7 +38,7 @@ public class CS_F_NewAttack : MonoBehaviour
         //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Neutral") == animator.GetCurrentAnimatorStateInfo(0).IsName("Anim_PlayerAttack_1"));
         if (inputDown && !lastInputDown)
         {
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Anim_PlayerAttack_0 0"))
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Anim_PlayerAttack_0"))
             {
                 animator.SetBool("InputTempo", true);
             }
@@ -48,6 +48,7 @@ public class CS_F_NewAttack : MonoBehaviour
         {
             if (inputDown && !lastInputDown)
             {
+                Debug.Log("INPUT");
                 DemandedInput = true;
             }
         }
