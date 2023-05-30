@@ -26,7 +26,7 @@ public class CS_Pickable : MonoBehaviour
             PickGraph();
             PickEffect();
 
-            Destroy(gameObject, 0);
+            Destroy(gameObject, 0.2f);
         }
     }
 
