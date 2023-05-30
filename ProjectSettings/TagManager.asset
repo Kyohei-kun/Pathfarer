@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - GlobalVolume
   - EntriesLights
+  - GameManager
   layers:
   - Default
   - TransparentFX

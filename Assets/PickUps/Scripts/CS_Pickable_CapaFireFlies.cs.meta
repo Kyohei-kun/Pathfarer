@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 425490948c18a4d46a30b7f60002fcf0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - pickLittleFX: {fileID: 8000330061971531358, guid: 7621dc018e7d7a74f9e55f643b4a96d7,
+      type: 3}
+  - pickBigFX: {fileID: 365240392108498095, guid: 65be95622b43da041acf9593c811d2d2,
+      type: 3}
+  - player: {instanceID: 0}
+  - scriptFeatures: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
