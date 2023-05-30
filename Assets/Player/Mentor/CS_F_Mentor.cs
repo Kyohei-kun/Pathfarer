@@ -92,6 +92,11 @@ public class CS_F_Mentor : MonoBehaviour
 
     private void SortEnemies()
     {
+        foreach (CS_Enemy item in enemies.ToList()) //Clean dead IA
+        {
+            if(item == null)
+                enemies.Remove(item);
+        }
         enemies = enemies.OrderBy(go => Vector3.Distance(transform.position, go.transform.position)).ToList<CS_Enemy>();
     }
 

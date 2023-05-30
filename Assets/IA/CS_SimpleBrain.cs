@@ -16,15 +16,12 @@ public class CS_SimpleBrain : CS_Enemy
     float timerShowGizmoUnagro = 5;
     float currenTimerShowGizmoUnagro;
 
-
     NavMeshAgent agent;
-    Transform playerTransform;
-    CS_Perception perceptron;
-    Vector3 startPosition;
+    
     bool lastPlayerIsVisible = false;
     bool canMove = true;
     bool attacking = false;
-    Animator animator;
+    
     bool canRotatePlayer = false;
 
     [SerializeField] float speed;
@@ -36,32 +33,48 @@ public class CS_SimpleBrain : CS_Enemy
     bool trackPlayer = false;
     [SerializeField] LayerMask layerMask;
 
-    private void Start()
+    protected override void Start()
     {
-        animator = GetComponent<Animator>();
-        startPosition = transform.position;
+        base.Start();
         agent = GetComponent<NavMeshAgent>(); if (agent == null) Debug.LogError("Pas de navmeshAgent");
         agent.speed = speed;
         agent.angularSpeed = angularSpeed;
-        perceptron = GetComponent<CS_Perception>();
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        perceptron.Initialisation(playerTransform);
+    }
+    protected override void OnStartStunning()
+    {
+        base.OnStartStunning();
+        agent.isStopped = false;
+        GetComponent<NavMeshAgent>().enabled = false;
+        _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+    }
+
+    protected override void OnStopStunning()
+    {
+        base.OnStopStunning();
+        GetComponent<NavMeshAgent>().enabled = true;
+        _rigidbody.constraints = RigidbodyConstraints.None;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
 
     private void Update()
     {
-        if (!trackPlayer && !lastPlayerIsVisible && perceptron.PlayerIsVisible)
+        if (!trackPlayer && !lastPlayerIsVisible && (perceptron.PlayerIsVisible || touched))
         {
             trackPlayer = true;
             ShareMessage(new List<CS_Enemy>());
         }
+
+        StunUpdate();
 
         CellMove();
         CellAttack();
 
         lastPlayerIsVisible = perceptron.PlayerIsVisible;
     }
+
+  
+
 
     private void OnDrawGizmos()
     {
@@ -92,36 +105,47 @@ public class CS_SimpleBrain : CS_Enemy
 
     private void CellAttack()
     {
-        if (Vector3.Distance(transform.position, playerTransform.position) < 1.5f)
+        if (!isStun)
         {
-            canMove = false;
-            attacking = true;
-            animator.SetBool("_Attack", true);
+            if (Vector3.Distance(transform.position, playerTransform.position) < 1.5f)
+            {
+                canMove = false;
+                attacking = true;
+                animator.SetBool("_Attack", true);
+            }
         }
     }
 
     private void CellMove()
     {
-        if (canMove)
+        if (!isStun)
         {
-            if (trackPlayer)
+            if (canMove)
             {
-                agent.SetDestination(playerTransform.position);
-                //Debug.Log(agent.remainingDistance);
-                if (agent.path.Lenght() > UnagroDistance)
+                if (trackPlayer)
                 {
-                    trackPlayer = false;
-                    agent.SetDestination(startPosition);
+                    agent.SetDestination(playerTransform.position);
+                    if (agent.path.Lenght() > UnagroDistance) //Si le joueur est trop loin
+                    {
+                        StopHuntPlayer();
+                    }
+                }
+            }
+            else
+            {
+                if (attacking && canRotatePlayer)
+                {
+                    transform.rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(playerTransform.position - transform.position, Vector3.up));
                 }
             }
         }
-        else
-        {
-            if(attacking && canRotatePlayer)
-            {
-                transform.rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(playerTransform.position-transform.position, Vector3.up));
-            }
-        }
+    }
+
+    private void StopHuntPlayer()
+    {
+        trackPlayer = false;
+        touched = false;
+        agent.SetDestination(startPosition);
     }
 
     override public void ShareMessage(List<CS_Enemy> ennemiesMessaged)

@@ -34,7 +34,7 @@ public class CS_F_NewAttack : MonoBehaviour
     {
         currentTime += Time.deltaTime;
 
-        Debug.Log(LastInfoAnim);
+        //Debug.Log(LastInfoAnim);
         //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Neutral") == animator.GetCurrentAnimatorStateInfo(0).IsName("Anim_PlayerAttack_1"));
         if (inputDown && !lastInputDown)
         {
@@ -48,7 +48,6 @@ public class CS_F_NewAttack : MonoBehaviour
         {
             if (inputDown && !lastInputDown)
             {
-                Debug.Log("INPUT");
                 DemandedInput = true;
             }
         }

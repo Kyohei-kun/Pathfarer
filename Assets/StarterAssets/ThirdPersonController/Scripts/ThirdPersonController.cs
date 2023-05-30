@@ -153,6 +153,13 @@ namespace StarterAssets
             impact = dir.normalized * force / 3;
         }
 
+        public void PushForward(float force)
+        {
+            Vector3 dir = transform.forward;
+            if (dir.y < 0) dir.y = -dir.y; // reflect down force on the ground
+            impact = dir.normalized * force / 3;
+        }
+
         private void Awake()
         {
             // get a reference to our main camera
