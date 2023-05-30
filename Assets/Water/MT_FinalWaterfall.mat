@@ -184,9 +184,9 @@ Material:
     - _EnableFogOnTransparent: 1
     - _EnableGeometricSpecularAA: 0
     - _EnergyConservingSpecularColor: 1
-    - _Foam_Amount: 10
+    - _Foam_Amount: 1.67
     - _Foam_Scale: 10
-    - _Foam_Speed: 5.96
+    - _Foam_Speed: 9
     - _HeightAmplitude: 0.02
     - _HeightCenter: 0.5
     - _HeightMapParametrization: 0
@@ -217,9 +217,9 @@ Material:
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
     - _RefractionModel: 0
-    - _Refraction_Scale: 0.46
+    - _Refraction_Scale: 0.15
     - _Refraction_Speed: 0.04
-    - _Refraction_Strenght: 0.565
+    - _Refraction_Strenght: 0.2
     - _RenderQueueType: 4
     - _Smoothness: 0.5
     - _SmoothnessRemapMax: 1
@@ -257,7 +257,7 @@ Material:
     - _UVEmissive: 0
     - _UseEmissiveIntensity: 0
     - _UseShadowThreshold: 0
-    - _Use_Waves: 1
+    - _Use_Waves: 0
     - _WaterDepthFadeDistance: 0.66
     - _Waves_Height: 0.39
     - _Waves_Scales: 0.23
@@ -267,6 +267,7 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 0
     m_Colors:
+    - _Axis: {r: 1.2, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -277,7 +278,7 @@ Material:
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
     - _Foam_Color: {r: 0.9575471, g: 1, b: 0.99530226, a: 1}
-    - _Foam_scale: {r: 1, g: 29.5, b: 0, a: 0}
+    - _Foam_scale: {r: 0.5, g: 20, b: 0, a: 0}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _Shallow_Water_Color: {r: 0.108490504, g: 0.9138659, b: 1, a: 0.3529412}

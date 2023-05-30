@@ -168,8 +168,8 @@ Material:
     - _EnableFogOnTransparent: 1
     - _EnableGeometricSpecularAA: 0
     - _EnergyConservingSpecularColor: 1
-    - _Foam_Amount: 0.17
-    - _Foam_Scale: 30
+    - _Foam_Amount: 0.4
+    - _Foam_Scale: 5
     - _Foam_Speed: 0.3
     - _HeightAmplitude: 0.02
     - _HeightCenter: 0.5
@@ -203,9 +203,9 @@ Material:
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
     - _RefractionModel: 0
-    - _Refraction_Scale: 0.43
-    - _Refraction_Speed: 0.04
-    - _Refraction_Strenght: 0.6
+    - _Refraction_Scale: 0.125
+    - _Refraction_Speed: 0.03
+    - _Refraction_Strenght: 0.2
     - _RenderQueueType: 4
     - _Smoothness: 0.5
     - _SmoothnessRemapMax: 1
