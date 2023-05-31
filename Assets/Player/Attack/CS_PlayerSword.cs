@@ -15,6 +15,7 @@ public class CS_PlayerSword : MonoBehaviour
             CS_Enemy ennemi = other.transform.parent.GetComponent<CS_Enemy>();
             if (ennemi != null)
             {
+                CS_VibrationControler.SetVibration(1, 1, 0.2f);
                 ennemi.TakeDamage(damage);
             }
         }

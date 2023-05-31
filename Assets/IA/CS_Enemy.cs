@@ -1,8 +1,10 @@
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal.Profiling;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 using UnityEngine.VFX;
 
 public class CS_Enemy : MonoBehaviour
@@ -20,14 +22,19 @@ public class CS_Enemy : MonoBehaviour
     [SerializeField] protected int PV = 3;
     [SerializeField] protected GameObject prefab_DeathFX;
 
+    [SerializeField] Material stunningMaterial;
+    [SerializeField] Renderer currentRenderer;
+    Material normalMaterial;
+
     protected virtual void Start()
     {
-            _rigidbody = GetComponent<Rigidbody>();
-            perceptron = GetComponent<CS_Perception>();
-            startPosition = transform.position;
-            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-            perceptron.Initialisation(playerTransform);
-            animator = GetComponent<Animator>();
+        _rigidbody = GetComponent<Rigidbody>();
+        perceptron = GetComponent<CS_Perception>();
+        startPosition = transform.position;
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        perceptron.Initialisation(playerTransform);
+        animator = GetComponent<Animator>();
+        normalMaterial = currentRenderer.sharedMaterial;
     }
     protected virtual void StunUpdate()
     {
@@ -52,11 +59,13 @@ public class CS_Enemy : MonoBehaviour
     protected virtual void OnStartStunning()
     {
         animator.SetBool("Stun", true);
+        currentRenderer.sharedMaterial = stunningMaterial;
     }
 
     protected virtual void OnStopStunning()
     {
         animator.SetBool("Stun", false);
+        currentRenderer.sharedMaterial = normalMaterial;
     }
 
     virtual public void ShareMessage(List<CS_Enemy> ennemiesMessaged) { }
@@ -66,7 +75,6 @@ public class CS_Enemy : MonoBehaviour
     {
         //GetComponent<Rigidbody>().AddForce(force, ForceMode.VelocityChange);
         //_rigidbody.AddForce(force, ForceMode.Force);
-
         _rigidbody.velocity = force;
     }
 

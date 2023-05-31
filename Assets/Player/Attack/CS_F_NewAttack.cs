@@ -60,6 +60,11 @@ public class CS_F_NewAttack : MonoBehaviour
         animator.SetInteger("State", state);
     }
 
+    public void OnEndCombo()
+    {
+        animator.SetBool("InputTempo", false);
+    }
+
     public void InfoAnimation(AnimationAttackState animState)
     {
         LastInfoAnim = animState;

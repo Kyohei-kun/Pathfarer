@@ -32,6 +32,7 @@ public class CS_SimpleBrain : CS_Enemy
 
     bool trackPlayer = false;
     [SerializeField] LayerMask layerMask;
+    
 
     protected override void Start()
     {

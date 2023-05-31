@@ -531,6 +531,8 @@ MonoBehaviour:
   PV: 5
   prefab_DeathFX: {fileID: 1072499274819581310, guid: 825097386cfdddf46a12e13d90cde3f8,
     type: 3}
+  stunningMaterial: {fileID: 2100000, guid: e9dff570c3713db498769b7384b3836e, type: 2}
+  currentRenderer: {fileID: 646726044769593124}
   speed: 3.5
   angularSpeed: 300
   UnagroDistance: 5

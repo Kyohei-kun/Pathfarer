@@ -30,6 +30,7 @@ public class CS_PlayerLife : MonoBehaviour
     [Button]
     public void LoseLife()
     {
+        CS_VibrationControler.SetVibration(10, 1, 1f);
         currentLife--;
         currentLife = Mathf.Clamp(currentLife, 0, lifeMax);
         UpdateFXs();
