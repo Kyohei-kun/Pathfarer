@@ -27,9 +27,12 @@ public class CS_Grass : MonoBehaviour
             myGrass[i].transform.localScale = new Vector3(1, 0.1f, 1);
         }
 
+        GetComponent<CapsuleCollider>().enabled = false;
+
         if (forceDrop)
         {
             fxFlower.Play();
+            Instantiate(pickUpHeart, transform.position, Quaternion.identity);
 
             for (int i = 0; i < myFlowers.Count; i++)
             {
@@ -44,7 +47,7 @@ public class CS_Grass : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Sword")
+        if (other.GetComponent<CS_PlayerSword>() != null)
         {
             Cutted();
         }
