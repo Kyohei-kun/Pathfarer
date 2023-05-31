@@ -20,7 +20,7 @@ MonoBehaviour:
     x: -861
     y: -396
     width: 2697
-    height: 2431
+    height: 2411
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4067,17 +4067,17 @@ MonoBehaviour:
   useAlphaClipping: 0
   generateMotionVector: 0
   excludeFromTAA: 0
-  sortingPriority: 0
+  sortingPriority: 1
   m_SubOutputs:
   - {fileID: 8926484042661614743}
   cullMode: 0
-  zWriteMode: 0
+  zWriteMode: 2
   zTestMode: 0
   colorMapping: 0
   uvMode: 0
   useSoftParticle: 0
   vfxSystemSortPriority: 0
-  sort: 0
+  sort: 2
   indirectDraw: 0
   computeCulling: 0
   frustumCulling: 0
@@ -6068,17 +6068,17 @@ MonoBehaviour:
   useAlphaClipping: 0
   generateMotionVector: 0
   excludeFromTAA: 0
-  sortingPriority: 0
+  sortingPriority: 1
   m_SubOutputs:
   - {fileID: 8926484042661614815}
   cullMode: 0
-  zWriteMode: 0
+  zWriteMode: 2
   zTestMode: 0
   colorMapping: 0
   uvMode: 0
   useSoftParticle: 0
   vfxSystemSortPriority: 0
-  sort: 0
+  sort: 2
   indirectDraw: 0
   computeCulling: 0
   frustumCulling: 0

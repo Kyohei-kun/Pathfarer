@@ -3861,15 +3861,15 @@
     "m_DistortionMode": 0,
     "m_DistortionDepthTest": true,
     "m_AddPrecomputedVelocity": false,
-    "m_TransparentWritesMotionVec": false,
+    "m_TransparentWritesMotionVec": true,
     "m_AlphaToMask": false,
     "m_DepthOffset": false,
     "m_ConservativeDepthOffset": false,
     "m_TransparencyFog": true,
     "m_AlphaTestShadow": false,
-    "m_BackThenFrontRendering": false,
-    "m_TransparentDepthPrepass": false,
-    "m_TransparentDepthPostpass": false,
+    "m_BackThenFrontRendering": true,
+    "m_TransparentDepthPrepass": true,
+    "m_TransparentDepthPostpass": true,
     "m_SupportLodCrossFade": false
 }
 
@@ -4067,7 +4067,7 @@
     "m_RenderingPass": 4,
     "m_BlendMode": 0,
     "m_ZTest": 4,
-    "m_ZWrite": false,
+    "m_ZWrite": true,
     "m_TransparentCullMode": 2,
     "m_OpaqueCullMode": 2,
     "m_SortPriority": 0,
@@ -4087,7 +4087,7 @@
     "m_TessellationBackFaceCullEpsilon": -0.25,
     "m_TessellationMaxDisplacement": 0.009999999776482582,
     "m_Version": 1,
-    "inspectorFoldoutMask": 0
+    "inspectorFoldoutMask": 1
 }
 
 {
@@ -5240,7 +5240,7 @@
     "m_RefNameGeneratedByDisplayName": "PlayerPosition",
     "m_DefaultReferenceName": "_PlayerPosition",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": false,
+    "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_Precision": 0,

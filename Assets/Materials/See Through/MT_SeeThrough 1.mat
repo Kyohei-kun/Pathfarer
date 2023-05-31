@@ -23,7 +23,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MT_SeeThrough
+  m_Name: MT_SeeThrough 1
   m_Shader: {fileID: -6465566751694194690, guid: 366c0ba2741f84a4d9cddbf6137c2ae2,
     type: 3}
   m_ValidKeywords:
@@ -41,8 +41,8 @@ Material:
     MotionVector: User
     RenderType: Transparent
   disabledShaderPasses:
-  - MOTIONVECTORS
   - RayTracingPrepass
+  - MOTIONVECTORS
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -275,7 +275,7 @@ Material:
     - _PlayerPosition: {r: 0.5208355, g: 0.4778786, b: 10.215269, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
-    - _Tint: {r: 1, g: 0.92013705, b: 0, a: 1}
+    - _Tint: {r: 1, g: 0, b: 0, a: 1}
     - _TransmittanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _UVDetailsMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}

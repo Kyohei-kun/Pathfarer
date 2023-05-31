@@ -20,7 +20,7 @@ MonoBehaviour:
     x: -14
     y: -190
     width: 1379
-    height: 2195
+    height: 2175
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1248,17 +1248,17 @@ MonoBehaviour:
   useAlphaClipping: 0
   generateMotionVector: 0
   excludeFromTAA: 0
-  sortingPriority: 0
+  sortingPriority: 1
   m_SubOutputs:
   - {fileID: 8926484042661614605}
   cullMode: 0
-  zWriteMode: 0
+  zWriteMode: 2
   zTestMode: 0
   colorMapping: 0
   uvMode: 0
   useSoftParticle: 0
   vfxSystemSortPriority: 0
-  sort: 0
+  sort: 2
   indirectDraw: 0
   computeCulling: 0
   frustumCulling: 0
