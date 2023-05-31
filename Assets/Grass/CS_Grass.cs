@@ -32,7 +32,7 @@ public class CS_Grass : MonoBehaviour
         if (forceDrop)
         {
             fxFlower.Play();
-            Instantiate(pickUpHeart, transform.position, Quaternion.identity);
+            Instantiate(pickUpHeart, transform.position + Vector3.up, Quaternion.identity);
 
             for (int i = 0; i < myFlowers.Count; i++)
             {
@@ -41,7 +41,7 @@ public class CS_Grass : MonoBehaviour
         }
         else if (Random.Range(0, 100) <= tauxDrop)
         {
-            Instantiate(pickUpHeart, transform.position, Quaternion.identity);
+            Instantiate(pickUpHeart, transform.position + Vector3.up, Quaternion.identity);
         }
     }
 
