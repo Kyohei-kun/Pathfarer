@@ -2,10 +2,18 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class CS_PlayerLife : MonoBehaviour
 {
     [SerializeField] CS_F_Mentor mentor;
+    [SerializeField] AnimationCurve timeScaleCurve;
+    [SerializeField] GameObject fx_Damage;
+    [SerializeField] Material mat_SplashDamage;
+    
+    float durationEffect;
+    float timeStartSlowDown = -10;
+    Color splashColor;
 
     [SerializeField] int lifeMax = 3;
     [Space] [ProgressBar("Life", "lifeMax", EColor.Red)] [SerializeField] int currentLife;
@@ -13,6 +21,10 @@ public class CS_PlayerLife : MonoBehaviour
     void Start()
     {
         currentLife = lifeMax;
+        durationEffect = timeScaleCurve.keys[timeScaleCurve.length - 1].time;
+        splashColor = mat_SplashDamage.GetColor("_MainColor");
+        splashColor.a = 0;
+        mat_SplashDamage.SetColor("_MainColor", splashColor);
     }
 
     [Button]
@@ -21,6 +33,9 @@ public class CS_PlayerLife : MonoBehaviour
         currentLife--;
         currentLife = Mathf.Clamp(currentLife, 0, lifeMax);
         UpdateFXs();
+        timeStartSlowDown = Time.unscaledTime;
+        GameObject temp = Instantiate(fx_Damage);
+        temp.transform.position = transform.position + Vector3.up;
     }
 
     [Button]
@@ -43,7 +58,21 @@ public class CS_PlayerLife : MonoBehaviour
         {
             GoToCheckpoint();
         }
+        if (Time.unscaledTime < timeStartSlowDown + durationEffect)
+        {
+            float alpha = Time.unscaledTime.Remap(timeStartSlowDown, timeStartSlowDown + durationEffect, 0, 1);
+            Time.timeScale = timeScaleCurve.Evaluate(alpha);
+            splashColor.a = alpha;
+            mat_SplashDamage.SetColor("_MainColor", splashColor);
+        }
+        else
+        {
+            splashColor.a = 0;
+            mat_SplashDamage.SetColor("_MainColor", splashColor);
+            Time.timeScale = 1;
+        }
     }
+
 
     [Button]
     void GoToCheckpoint()
