@@ -95,6 +95,46 @@ MonoBehaviour:
   m_SampleCount:
     m_OverrideState: 0
     m_Value: 10
+--- !u!114 &-474414426653627677
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c1be1b6c95cd2e41b27903b9270817f, type: 3}
+  m_Name: Vignette
+  m_EditorClassIdentifier: 
+  active: 1
+  mode:
+    m_OverrideState: 1
+    m_Value: 0
+  color:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 0, b: 0, a: 1}
+  center:
+    m_OverrideState: 1
+    m_Value: {x: 0.5, y: 0.5}
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0
+  smoothness:
+    m_OverrideState: 1
+    m_Value: 1
+  roundness:
+    m_OverrideState: 1
+    m_Value: 0.9
+  rounded:
+    m_OverrideState: 1
+    m_Value: 1
+  mask:
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: b8e25a9218b0865469dd1fbffe12a929, type: 3}
+  opacity:
+    m_OverrideState: 1
+    m_Value: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,6 +157,8 @@ MonoBehaviour:
   - {fileID: 1932259527246508038}
   - {fileID: 448115243408767295}
   - {fileID: -7089757308646879465}
+  - {fileID: -474414426653627677}
+  - {fileID: 8587050577541949868}
 --- !u!114 &448115243408767295
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -630,3 +672,31 @@ MonoBehaviour:
   cascadeShadowBorder3:
     m_OverrideState: 0
     m_Value: 0
+--- !u!114 &8587050577541949868
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1bfcd0f0fa7b8468f281d6bbbaf320, type: 3}
+  m_Name: LensDistortion
+  m_EditorClassIdentifier: 
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0
+  xMultiplier:
+    m_OverrideState: 0
+    m_Value: 1
+  yMultiplier:
+    m_OverrideState: 0
+    m_Value: 1
+  center:
+    m_OverrideState: 0
+    m_Value: {x: 0.5, y: 0.5}
+  scale:
+    m_OverrideState: 0
+    m_Value: 1

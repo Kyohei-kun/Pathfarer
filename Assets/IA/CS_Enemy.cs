@@ -36,6 +36,7 @@ public class CS_Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         normalMaterial = currentRenderer.sharedMaterial;
     }
+
     protected virtual void StunUpdate()
     {
         if (Time.time > timeStopStunning)

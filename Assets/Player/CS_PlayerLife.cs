@@ -2,21 +2,33 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.VFX;
 
 public class CS_PlayerLife : MonoBehaviour
 {
-    [SerializeField] CS_F_Mentor mentor;
-    [SerializeField] AnimationCurve timeScaleCurve;
-    [SerializeField] GameObject fx_Damage;
-    [SerializeField] Material mat_SplashDamage;
-    
+    [SerializeField] int lifeMax = 3;
+    [Space][ProgressBar("Life", "lifeMax", EColor.Red)][SerializeField] int currentLife;
+
+    [BoxGroup("Feedback PV")][SerializeField] CS_F_Mentor mentor;
+    [BoxGroup("Feedback Damage")][SerializeField] AnimationCurve timeScaleCurve;
+    [BoxGroup("Feedback Damage")][SerializeField] GameObject fx_Damage;
+    [BoxGroup("Feedback Damage Slpash")][SerializeField] Material mat_SplashDamage;
+    [BoxGroup("Feedback Damage Slpash")][SerializeField] string animSquishPlane;
+    [BoxGroup("Feedback Damage Slpash")][SerializeField] Animator animatorSplash;
+
+    [BoxGroup("Feedback Damage Vignette")][SerializeField] VolumeProfile standard_HDRP_Profile;
+    [BoxGroup("Feedback Damage Vignette")][SerializeField] VolumeProfile dark_HDRP_Profile;
+    Vignette standard_Vignette;
+    Vignette dark_Vignette;
+    LensDistortion standard_LensDistortion;
+    LensDistortion dark_LensDistortion;
+
     float durationEffect;
     float timeStartSlowDown = -10;
     Color splashColor;
 
-    [SerializeField] int lifeMax = 3;
-    [Space] [ProgressBar("Life", "lifeMax", EColor.Red)] [SerializeField] int currentLife;
 
     void Start()
     {
@@ -25,6 +37,10 @@ public class CS_PlayerLife : MonoBehaviour
         splashColor = mat_SplashDamage.GetColor("_MainColor");
         splashColor.a = 0;
         mat_SplashDamage.SetColor("_MainColor", splashColor);
+        standard_HDRP_Profile.TryGet<Vignette>(out standard_Vignette);
+        dark_HDRP_Profile.TryGet<Vignette>(out dark_Vignette);
+        standard_HDRP_Profile.TryGet<LensDistortion>(out standard_LensDistortion);
+        dark_HDRP_Profile.TryGet<LensDistortion>(out dark_LensDistortion);
     }
 
     [Button]
@@ -37,6 +53,23 @@ public class CS_PlayerLife : MonoBehaviour
         timeStartSlowDown = Time.unscaledTime;
         GameObject temp = Instantiate(fx_Damage);
         temp.transform.position = transform.position + Vector3.up;
+        standard_Vignette.intensity.Override(0.3f);
+        dark_Vignette.intensity.Override(0.3f);
+        standard_LensDistortion.intensity.Override(0.3f);
+        dark_LensDistortion.intensity.Override(0.3f);
+        ResetProfils();
+        animatorSplash.CrossFade(animSquishPlane, -1, 0);
+        Camera.main.GetComponent<CS_CameraUtilities>().Shake(4, 1, 0.8f, true, false);
+        //animatorSplash.Play(animSquishPlane);
+    }
+
+    private async void ResetProfils()
+    {
+        await System.Threading.Tasks.Task.Delay((int)(2 * 1000));
+        standard_Vignette.intensity.Override(0);
+        dark_Vignette.intensity.Override(0);
+        standard_LensDistortion.intensity.Override(0);
+        dark_LensDistortion.intensity.Override(0);
     }
 
     [Button]

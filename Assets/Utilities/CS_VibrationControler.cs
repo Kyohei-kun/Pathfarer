@@ -22,9 +22,9 @@ public static class CS_VibrationControler
 
     private static async void CancelVibration(Gamepad gamepad, float duration, int functionID)
     {
+        await System.Threading.Tasks.Task.Delay((int)(duration * 1000));
         if (ID == functionID)
         {
-            await System.Threading.Tasks.Task.Delay((int)(duration * 1000));
             gamepad.SetMotorSpeeds(0f, 0f);
         }
     }
