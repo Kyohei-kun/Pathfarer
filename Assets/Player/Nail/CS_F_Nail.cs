@@ -23,6 +23,7 @@ public class CS_F_Nail : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(transform.position + Vector3.up, transform.TransformDirection(Vector3.down), out hit, 6f, layerMask))
             {
+                CS_VibrationControler.SetVibration(0, 1, 0.1f);
                 GameObject temp = GameObject.Instantiate(pref_Nail);
                 temp.transform.position = hit.point;
                 nails.Insert(0, temp.GetComponent<CS_Nail>());

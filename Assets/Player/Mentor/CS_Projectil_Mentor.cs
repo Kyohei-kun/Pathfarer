@@ -24,7 +24,7 @@ public class CS_Projectil_Mentor : MonoBehaviour
         _rigidbody.velocity = transform.forward * Time.deltaTime * speed ;
         transform.LookAt(Target);
 
-        if (Vector3.Distance(transform.position, target.position) < 1 || lifeTime < 0)
+        if (Vector3.Distance(transform.position, target.position) < 1 || lifeTime < 0 || target == null)
         {
             Destroy(gameObject);
         }

@@ -1,11 +1,8 @@
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal.Profiling;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.InputSystem;
-using UnityEngine.VFX;
+using static CS_F_HeavyAttack;
 
 public class CS_Enemy : MonoBehaviour
 {
@@ -71,7 +68,6 @@ public class CS_Enemy : MonoBehaviour
 
     virtual public void ShareMessage(List<CS_Enemy> ennemiesMessaged) { }
 
-    [Button]
     virtual public void Push(Vector3 force)
     {
         //GetComponent<Rigidbody>().AddForce(force, ForceMode.VelocityChange);
@@ -84,12 +80,24 @@ public class CS_Enemy : MonoBehaviour
         timeStopStunning = Time.time + duration;
     }
 
-    virtual public void TakeDamage(int damage)
+    virtual public void TakeDamage(int damage, PlayerAttackType type)
     {
         touched = true;
         PV -= damage;
         Stun(0.5f);
-        Push(GameObject.FindGameObjectWithTag("Player").transform.forward * 15);
+        switch (type)
+        {
+            case PlayerAttackType.Simple:
+                Push(GameObject.FindGameObjectWithTag("Player").transform.forward * 15);
+                break;
+            case PlayerAttackType.Heavy:
+                Push(GameObject.FindGameObjectWithTag("Player").transform.forward * 60);
+                break;
+            case PlayerAttackType.Pilon:
+                break;
+            default:
+                break;
+        }
         if (PV <= 0)
             Death();
     }

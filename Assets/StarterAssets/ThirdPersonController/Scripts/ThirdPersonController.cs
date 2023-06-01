@@ -64,6 +64,7 @@ namespace StarterAssets
         [Header("Player Grounded")]
         [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
         public bool grounded = true;
+        bool lastGrounded = true;
 
         [Tooltip("Useful for rough ground")]
         public float GroundedOffset = -0.14f;
@@ -155,9 +156,12 @@ namespace StarterAssets
 
         public void PushForward(float force)
         {
-            Vector3 dir = transform.forward;
-            if (dir.y < 0) dir.y = -dir.y; // reflect down force on the ground
-            impact = dir.normalized * force / 3;
+            if (grounded)
+            {
+                Vector3 dir = transform.forward;
+                if (dir.y < 0) dir.y = -dir.y; // reflect down force on the ground
+                impact = dir.normalized * force / 3;
+            }
         }
 
         private void Awake()
@@ -201,8 +205,8 @@ namespace StarterAssets
 
         private void Update()
         {
-            if(impact.magnitude > 0.6)
-            impact = Vector3.Lerp(impact, Vector3.zero, 8 * Time.deltaTime);
+            if (impact.magnitude > 0.6)
+                impact = Vector3.Lerp(impact, Vector3.zero, 8 * Time.deltaTime);
             else
                 impact = Vector3.zero;
 
@@ -237,6 +241,11 @@ namespace StarterAssets
             {
                 _animator.SetBool(_animIDGrounded, grounded);
             }
+
+            if(grounded && !lastGrounded) //Atterissage
+                CS_VibrationControler.SetVibration(1f, 0, 0.1f);
+
+            lastGrounded = grounded;
         }
 
         private void Move()

@@ -9,6 +9,7 @@ using UnityEngine.VFX;
 public class CS_PlayerLife : MonoBehaviour
 {
     [SerializeField] int lifeMax = 3;
+    [SerializeField] bool invulnerable = false;
     [Space][ProgressBar("Life", "lifeMax", EColor.Red)][SerializeField] int currentLife;
 
     [BoxGroup("Feedback PV")][SerializeField] CS_F_Mentor mentor;
@@ -46,21 +47,24 @@ public class CS_PlayerLife : MonoBehaviour
     [Button]
     public void LoseLife()
     {
-        CS_VibrationControler.SetVibration(10, 1, 1f);
-        currentLife--;
-        currentLife = Mathf.Clamp(currentLife, 0, lifeMax);
-        UpdateFXs();
-        timeStartSlowDown = Time.unscaledTime;
-        GameObject temp = Instantiate(fx_Damage);
-        temp.transform.position = transform.position + Vector3.up;
-        standard_Vignette.intensity.Override(0.3f);
-        dark_Vignette.intensity.Override(0.3f);
-        standard_LensDistortion.intensity.Override(0.3f);
-        dark_LensDistortion.intensity.Override(0.3f);
-        ResetProfils();
-        animatorSplash.CrossFade(animSquishPlane, -1, 0);
-        Camera.main.GetComponent<CS_CameraUtilities>().Shake(4, 1, 0.8f, true, false);
-        //animatorSplash.Play(animSquishPlane);
+        if (!invulnerable)
+        {
+            CS_VibrationControler.SetVibration(10, 1, 1f);
+            currentLife--;
+            currentLife = Mathf.Clamp(currentLife, 0, lifeMax);
+            UpdateFXs();
+            timeStartSlowDown = Time.unscaledTime;
+            GameObject temp = Instantiate(fx_Damage);
+            temp.transform.position = transform.position + Vector3.up;
+            standard_Vignette.intensity.Override(0.3f);
+            dark_Vignette.intensity.Override(0.3f);
+            standard_LensDistortion.intensity.Override(0.3f);
+            dark_LensDistortion.intensity.Override(0.3f);
+            ResetProfils();
+            animatorSplash.CrossFade(animSquishPlane, -1, 0);
+            Camera.main.GetComponent<CS_CameraUtilities>().Shake(4, 1, 0.8f, true, false);
+            //animatorSplash.Play(animSquishPlane);
+        }
     }
 
     private async void ResetProfils()

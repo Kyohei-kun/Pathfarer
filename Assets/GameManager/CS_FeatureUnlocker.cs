@@ -7,7 +7,7 @@ using UnityEngine;
 public class CS_FeatureUnlocker : MonoBehaviour
 {
     [BoxGroup("Scripts Features")][SerializeField] CS_F_Mentor f_Mentor;
-    [BoxGroup("Scripts Features")][SerializeField] CS_F_Attack f_Attack;
+    [BoxGroup("Scripts Features")][SerializeField] CS_F_NewAttack f_Attack;
     [BoxGroup("Scripts Features")][SerializeField] CS_F_HeavyAttack f_HeavyAttack;
     [BoxGroup("Scripts Features")][SerializeField] CS_F_FireFlies f_FireFlies;
     [BoxGroup("Scripts Features")][SerializeField] CS_F_Nail f_Nail;

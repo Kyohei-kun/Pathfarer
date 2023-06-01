@@ -566,18 +566,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e54e5a728a9234ab24fcf1460ed8a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &472713413 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8928859158606709320, guid: 64dce48905ffd9b4293e595fa6941544,
-    type: 3}
-  m_PrefabInstance: {fileID: 806891730}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7578b04719c670d4b8912419883e3b3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &472713415 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 472713415, guid: 64dce48905ffd9b4293e595fa6941544,
@@ -602,6 +590,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc721b2b7d7856c4499dd461c51813e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &472713418 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 472713426, guid: 64dce48905ffd9b4293e595fa6941544,
+    type: 3}
+  m_PrefabInstance: {fileID: 806891730}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be8223adeee85aa47a7f63cb9af97635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &472713419 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 472713425, guid: 64dce48905ffd9b4293e595fa6941544,
+    type: 3}
+  m_PrefabInstance: {fileID: 806891730}
+  m_PrefabAsset: {fileID: 0}
 --- !u!108 &608529808 stripped
 Light:
   m_CorrespondingSourceObject: {fileID: 7407108860452323540, guid: 64dce48905ffd9b4293e595fa6941544,
@@ -741,6 +747,14 @@ PrefabInstance:
       propertyPath: wallMaterials03.Array.data[6]
       value: 
       objectReference: {fileID: 2100000, guid: efa44df7fc1bf6241be66f8303d0c37e, type: 2}
+    - target: {fileID: 216762290, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: isHeavy
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 508876918, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: invulnerable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 508876918, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: animatorSplash
       value: 
@@ -760,13 +774,37 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 14b392ee213d25a48b1feddbd9f5a9be,
         type: 2}
     - target: {fileID: 842122935, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 472713419}
+    - target: {fileID: 842122935, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: virtualCam
       value: 
       objectReference: {fileID: 87970488}
+    - target: {fileID: 1321548020, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75004
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321548020, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.81
+      objectReference: {fileID: 0}
     - target: {fileID: 1516087037, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: m_Sources.Array.data[0].sourceTransform
       value: 
       objectReference: {fileID: 780772920}
+    - target: {fileID: 1652748618, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000018725329
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652748618, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.0000005617606
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652748618, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000037450712
+      objectReference: {fileID: 0}
     - target: {fileID: 2421423786910401478, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: m_Sources.Array.data[0].sourceTransform
@@ -857,7 +895,23 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8821523991028434966, guid: 64dce48905ffd9b4293e595fa6941544,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 7.012775e-14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8821523991028434966, guid: 64dce48905ffd9b4293e595fa6941544,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.000000374507
+      objectReference: {fileID: 0}
+    - target: {fileID: 8821523991028434966, guid: 64dce48905ffd9b4293e595fa6941544,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.0000001872535
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8928859158606709320, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
 --- !u!108 &951085242 stripped
 Light:
@@ -1426,7 +1480,7 @@ PrefabInstance:
         type: 3}
       propertyPath: f_Attack
       value: 
-      objectReference: {fileID: 472713413}
+      objectReference: {fileID: 472713418}
     - target: {fileID: 9172165525852442586, guid: df32075b19946e04a91f0adbedcda879,
         type: 3}
       propertyPath: f_Mentor
@@ -1472,6 +1526,26 @@ PrefabInstance:
       propertyPath: f_Teleportation
       value: 
       objectReference: {fileID: 472713416}
+    - target: {fileID: 9172165525852442586, guid: df32075b19946e04a91f0adbedcda879,
+        type: 3}
+      propertyPath: state_Nail_Lvl1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9172165525852442586, guid: df32075b19946e04a91f0adbedcda879,
+        type: 3}
+      propertyPath: state_Nail_Lvl2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9172165525852442586, guid: df32075b19946e04a91f0adbedcda879,
+        type: 3}
+      propertyPath: state_Nail_Lvl3
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9172165525852442586, guid: df32075b19946e04a91f0adbedcda879,
+        type: 3}
+      propertyPath: state_Nail_Lvl4
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9172165525852442586, guid: df32075b19946e04a91f0adbedcda879,
         type: 3}
       propertyPath: state_HeavyAttack
