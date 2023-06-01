@@ -182,7 +182,6 @@ public class CS_SeeThrough : MonoBehaviour
         {
             size += Time.deltaTime * (speed * curveSize.Evaluate(size.Remap(sizeRange.x, sizeRange.y, 0, 1)));
             size = Mathf.Clamp(size, sizeRange.x, sizeRange.y);
-            Debug.Log("UP : " + size);
 
             for (int i = 0; i < materialList.Count; i++)
             {
@@ -197,7 +196,6 @@ public class CS_SeeThrough : MonoBehaviour
         {
             size -= Time.deltaTime * (speed * curveSize.Evaluate(size.Remap(sizeRange.x, sizeRange.y, 0, 1)));
             size = Mathf.Clamp(size, sizeRange.x, sizeRange.y);
-            Debug.Log("DOWN : " + size);
 
             for (int i = 0; i < materialList.Count; i++)
             {
