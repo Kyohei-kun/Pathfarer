@@ -107,7 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4662977653180100953}
   m_Layer: 0
-  m_Name: PR_Trappe
+  m_Name: PR_Hatch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
