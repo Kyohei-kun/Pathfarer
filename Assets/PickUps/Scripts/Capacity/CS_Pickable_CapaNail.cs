@@ -8,13 +8,25 @@ public class CS_Pickable_CapaNail : CS_Pickable
     {
         base.PickEffect();
 
-        if (!scriptFeatures.State_Nail)
+        if (scriptFeatures.State_Nail_Lvl4)
         {
-            scriptFeatures.State_Nail = true;
+            Debug.LogWarning($"{gameObject.name} pris sans nécessité : State_Nail_Lvl4 = {scriptFeatures.State_Nail_Lvl4}.");
         }
-        else
+        else if (scriptFeatures.State_Nail_Lvl3)
         {
-            Debug.LogWarning($"{gameObject.name} pris sans nécessité : State_Nail = {scriptFeatures.State_Nail}.");
+            scriptFeatures.State_Nail_Lvl4 = true;
+        }
+        else if (scriptFeatures.State_Nail_Lvl2)
+        {
+            scriptFeatures.State_Nail_Lvl3 = true;
+        }
+        else if (scriptFeatures.State_Nail_Lvl1)
+        {
+            scriptFeatures.State_Nail_Lvl2 = true;
+        }
+        else if (!scriptFeatures.State_Nail_Lvl1)
+        {
+            scriptFeatures.State_Nail_Lvl1 = true;
         }
     }
 }

@@ -6,20 +6,19 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class CS_F_Nail : MonoBehaviour
 {
-    bool featureIsUnlocked = true;
+    int nailLevel = 0;
     bool _lastInput;
     [SerializeField] GameObject pref_Nail;
-    [SerializeField] int nbMaxNail = 4;
-    [ProgressBar("Nails", "nbMaxNail", EColor.Gray)][SerializeField] int nbCurrentNail = 0;
+    [ProgressBar("Nails", "nbMaxNail", EColor.Gray)][MinValue(0)][SerializeField] int nbCurrentNail = 0;
 
     [SerializeField] List<CS_Nail> nails = new();
     [SerializeField] LayerMask layerMask;
 
-    public bool FeatureIsUnlocked { get => featureIsUnlocked; set => featureIsUnlocked = value; }
+    public int NailLevel { get => nailLevel; set => nailLevel = value; }
 
     private void PutNail()
     {
-        if (nbCurrentNail < nbMaxNail && !NearNail())
+        if (nbCurrentNail < nailLevel && !NearNail())
         {
             RaycastHit hit;
             if (Physics.Raycast(transform.position + Vector3.up, transform.TransformDirection(Vector3.down), out hit, 6f, layerMask))
@@ -53,7 +52,7 @@ public class CS_F_Nail : MonoBehaviour
 
     public void OnNail(CallbackContext context)
     {
-        if (featureIsUnlocked)
+        if (nailLevel != 0)
         {
             if (context.ReadValueAsButton() == true && _lastInput == false)
                 PutNail();

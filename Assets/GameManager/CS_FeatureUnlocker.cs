@@ -18,7 +18,10 @@ public class CS_FeatureUnlocker : MonoBehaviour
     [BoxGroup("Unlock")][SerializeField] bool state_Attack;
     [BoxGroup("Unlock")][SerializeField] bool state_HeavyAttack;
     [BoxGroup("Unlock")][SerializeField] bool state_FireFlies;
-    [BoxGroup("Unlock")][SerializeField] bool state_Nail;
+    [BoxGroup("Unlock")][SerializeField] bool state_Nail_Lvl1;
+    [BoxGroup("Unlock")][SerializeField] bool state_Nail_Lvl2;
+    [BoxGroup("Unlock")][SerializeField] bool state_Nail_Lvl3;
+    [BoxGroup("Unlock")][SerializeField] bool state_Nail_Lvl4;
     [BoxGroup("Unlock")][SerializeField] bool state_Jump;
     [BoxGroup("Unlock")][SerializeField] bool state_Teleportation_Lvl1;
     [BoxGroup("Unlock")][SerializeField] bool state_Teleportation_Lvl2;
@@ -27,7 +30,10 @@ public class CS_FeatureUnlocker : MonoBehaviour
     public bool State_Attack { get => state_Attack; set => state_Attack = value; }
     public bool State_HeavyAttack { get => state_HeavyAttack; set => state_HeavyAttack = value; }
     public bool State_FireFlies { get => state_FireFlies; set => state_FireFlies = value; }
-    public bool State_Nail { get => state_Nail; set => state_Nail = value; }
+    public bool State_Nail_Lvl1 { get => state_Nail_Lvl1; set => state_Nail_Lvl1 = value; }
+    public bool State_Nail_Lvl2 { get => state_Nail_Lvl2; set => state_Nail_Lvl2 = value; }
+    public bool State_Nail_Lvl3 { get => state_Nail_Lvl3; set => state_Nail_Lvl3 = value; }
+    public bool State_Nail_Lvl4 { get => state_Nail_Lvl4; set => state_Nail_Lvl4 = value; }
     public bool State_Jump { get => state_Jump; set => state_Jump = value; }
     public bool State_Teleportation_Lvl1 { get => state_Teleportation_Lvl1; set => state_Teleportation_Lvl1 = value; }
     public bool State_Teleportation_Lvl2 { get => state_Teleportation_Lvl2; set => state_Teleportation_Lvl2 = value; }
@@ -75,7 +81,30 @@ public class CS_FeatureUnlocker : MonoBehaviour
 
     private void UpdateNail()
     {
-        f_Nail.FeatureIsUnlocked = (state_Nail ? true : false);
+        if (state_Nail_Lvl4)
+        {
+            f_Nail.NailLevel = 4;
+            return;
+        }
+        else if (state_Nail_Lvl3)
+        {
+            f_Nail.NailLevel = 3;
+            return;
+        }
+        else if (state_Nail_Lvl2)
+        {
+            f_Nail.NailLevel = 2;
+            return;
+        }
+        else if (state_Nail_Lvl1)
+        {
+            f_Nail.NailLevel = 1;
+            return;
+        }
+        else
+        {
+            f_Nail.NailLevel = 0;
+        }
     }
 
     private void UpdateJump()

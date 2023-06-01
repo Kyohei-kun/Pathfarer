@@ -2799,7 +2799,6 @@ MonoBehaviour:
   margeHauteurEscaliers: 1
   margeDistanceMurs: 0.4
   hauteurVideOK: 1
-  tpLevel: 0
 --- !u!114 &508876918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2812,6 +2811,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c2c8974468d7954980e6f75c44e3db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifeMax: 3
+  currentLife: 3
   mentor: {fileID: 7407108860723440381}
   timeScaleCurve:
     serializedVersion: 2
@@ -2858,8 +2859,10 @@ MonoBehaviour:
   fx_Damage: {fileID: 4076457812212686022, guid: 19044fe0fc620714f957240c3f22d742,
     type: 3}
   mat_SplashDamage: {fileID: 2100000, guid: be22eac4bed354642b48bcb1c60694bb, type: 2}
-  lifeMax: 3
-  currentLife: 3
+  animSquishPlane: 
+  animatorSplash: {fileID: 0}
+  standard_HDRP_Profile: {fileID: 0}
+  dark_HDRP_Profile: {fileID: 0}
 --- !u!114 &-5697975764731459008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2872,14 +2875,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3e8ae278c910bc40ac38d148f8224e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallMaterials01: []
-  wallMaterials02: []
-  wallMaterials03: []
+  wallMaterials01:
+  - {fileID: 2100000, guid: f4ab87b75b7e4fd46b3fe94247cec1a2, type: 2}
+  - {fileID: 2100000, guid: d50ba744dc664984491803c338522a7c, type: 2}
+  - {fileID: 2100000, guid: 4b4dc9eccbcf9f746bf28841df0ab154, type: 2}
+  - {fileID: 2100000, guid: cc4612c88db226240afbcdfecf53b81e, type: 2}
+  - {fileID: 2100000, guid: fbb7335cce6854d418a251929d6b87c7, type: 2}
+  - {fileID: 2100000, guid: b73e7904bfb3b02489a4d450c657e63c, type: 2}
+  - {fileID: 2100000, guid: 1a2ea658ed7c12348befe8ff8cecdf76, type: 2}
+  wallMaterials02:
+  - {fileID: 2100000, guid: 95b6ac0b41d5e4b47bef1d8c983d6369, type: 2}
+  - {fileID: 2100000, guid: 3f8306670ee57e449985e629a71c3b34, type: 2}
+  - {fileID: 2100000, guid: b1d5086c3031bb748af6d8233ad2efd8, type: 2}
+  - {fileID: 2100000, guid: d3f66a1b14e6a704180653af470d7f2a, type: 2}
+  - {fileID: 2100000, guid: 2dd747b201c191d4091167645fb758d7, type: 2}
+  - {fileID: 2100000, guid: af772d156e5543643b4f4c81b5209a93, type: 2}
+  - {fileID: 2100000, guid: 89ea02c8c6dbcc543aea7943dbdcf040, type: 2}
+  wallMaterials03:
+  - {fileID: 2100000, guid: 7d03aa3f2e3d88340b96748655a3da2a, type: 2}
+  - {fileID: 2100000, guid: f871064ed2b578643aa9f7811c9de9f1, type: 2}
+  - {fileID: 2100000, guid: 40b4701719fe64342a6446a20dd3087a, type: 2}
+  - {fileID: 2100000, guid: fe22cc8d05ea8e74db98027da75c6bf6, type: 2}
+  - {fileID: 2100000, guid: 1c8b6f5e0e8a02f45a5a4cf0bcda0ec4, type: 2}
+  - {fileID: 2100000, guid: 9033c95a86b2e024d88b5201ef8f8207, type: 2}
+  - {fileID: 2100000, guid: efa44df7fc1bf6241be66f8303d0c37e, type: 2}
   wallMaterials04: []
   wallMaterials05: []
   mask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 253952
   sizeRange: {x: 0, y: 2}
   speed: 2
   curveSize:
@@ -3218,7 +3242,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pref_Nail: {fileID: 7906908868891049764, guid: 33f96d0734b9b214b8d0985dfae566bf,
     type: 3}
-  nbMaxNail: 4
   nbCurrentNail: 0
   nails: []
   layerMask:

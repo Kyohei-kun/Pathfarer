@@ -192,6 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af97714517c687943bd76998e256e292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontMove: 1
   isCapacity: 0
   pickLittleFX: {fileID: 8000330061971531358, guid: 7621dc018e7d7a74f9e55f643b4a96d7,
     type: 3}

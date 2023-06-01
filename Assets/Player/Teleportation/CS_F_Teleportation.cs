@@ -35,6 +35,9 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
 
     float hauteurTP;
 
+    int tpLevel;
+    public int TpLevel { get => tpLevel; set => tpLevel = Mathf.Clamp(value, 0, 2); }
+
     private void Start()
     {
         Invoke(nameof(SubscribeTargeting), 1);
@@ -176,12 +179,6 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
             tpPossible = false;
         }
     }
-
-    [InfoBox("En attendant que les niveaux soient gérés via le Manager.", EInfoBoxType.Normal)]
-    [Dropdown("tpLevels")] [SerializeField] private int tpLevel;
-    int[] tpLevels = new int[] { 0, 1, 2 };
-
-    public int TpLevel { get => tpLevel; set => tpLevel = Mathf.Clamp(value, 0,2);}
 
     #region Interface Targeting
     public void SubscribeTargeting()

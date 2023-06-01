@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CS_Pickable : MonoBehaviour
 {
+    [SerializeField] bool dontMove;
     [SerializeField] bool isCapacity;
 
     [Header("FXs")]
@@ -13,10 +14,24 @@ public class CS_Pickable : MonoBehaviour
     [HideInInspector] public GameObject player;
     [HideInInspector] public CS_FeatureUnlocker scriptFeatures;
 
+    Transform visuPickUp;
+    float time = 0;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         scriptFeatures = GameObject.FindGameObjectWithTag("GameManager").GetComponent<CS_FeatureUnlocker>();
+        visuPickUp = GetComponentInChildren<Transform>();
+    }
+
+    private void Update()
+    {
+        if (!dontMove)
+        {
+            time += Time.deltaTime;
+            visuPickUp.SetPositionAndRotation(visuPickUp.position + (Vector3.up * Mathf.Cos(time) * Time.deltaTime / 4), Quaternion.identity);
+            visuPickUp.Rotate(30 * time * Vector3.up, Space.Self);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
