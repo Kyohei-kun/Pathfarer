@@ -1203,7 +1203,7 @@
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.Rendering.HighDefinition.ShaderGraph.HDLitData",
     "m_ObjectId": "1ee9914bf4a04cb3ad102fbc09755431",
-    "m_RayTracing": false,
+    "m_RayTracing": true,
     "m_MaterialType": 0,
     "m_RefractionModel": 0,
     "m_SSSTransmission": true,
