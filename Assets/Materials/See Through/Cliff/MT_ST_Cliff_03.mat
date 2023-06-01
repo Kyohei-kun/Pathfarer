@@ -220,7 +220,7 @@ Material:
     - _RefractionModel: 0
     - _RenderQueueType: 4
     - _RequireSplitLighting: 0
-    - _Size: 0.09124957
+    - _Size: 0
     - _Smoothness: 0.401
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
@@ -273,7 +273,7 @@ Material:
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _PlayerPos: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _PlayerPosition: {r: 0.46949673, g: 0.4776631, b: 10.214958, a: 0}
+    - _PlayerPosition: {r: 0.49112475, g: 0.4780584, b: 10.21509, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _Tint: {r: 0.74509805, g: 0.6039216, b: 0.5176471, a: 1}

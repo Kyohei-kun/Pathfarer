@@ -19,6 +19,7 @@ public class CS_SeeThrough : MonoBehaviour
     Camera cam;
 
     GameObject player;
+    int seeThroughLevel;
 
     float size = 0f;
     [MinMaxSlider(0f, 50f)][SerializeField] Vector2 sizeRange;
@@ -63,35 +64,98 @@ public class CS_SeeThrough : MonoBehaviour
 
         if(Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, mask))
         {
-            if (LayerMask.LayerToName(hit.transform.gameObject.layer) == "SeeThrough01" && wallMaterials01.Contains(hit.transform.GetComponent<Renderer>().sharedMaterial))
+            if (LayerMask.LayerToName(hit.transform.gameObject.layer) == "SeeThrough01")
             {
+                seeThroughLevel = 1;
                 UpSeeThroughSize(wallMaterials01);
             }
-            else if (LayerMask.LayerToName(hit.transform.gameObject.layer) == "SeeThrough02" && wallMaterials02.Contains(hit.transform.GetComponent<Renderer>().sharedMaterial))
+            else if (LayerMask.LayerToName(hit.transform.gameObject.layer) == "SeeThrough02")
             {
+                seeThroughLevel = 2;
                 UpSeeThroughSize(wallMaterials01);
                 UpSeeThroughSize(wallMaterials02);
             }
-            else if (LayerMask.LayerToName(hit.transform.gameObject.layer) == "SeeThrough03" && wallMaterials03.Contains(hit.transform.GetComponent<Renderer>().sharedMaterial))
+            else if (LayerMask.LayerToName(hit.transform.gameObject.layer) == "SeeThrough03")
             {
+                seeThroughLevel = 3;
                 UpSeeThroughSize(wallMaterials01);
                 UpSeeThroughSize(wallMaterials02);
                 UpSeeThroughSize(wallMaterials03);
             }
-            else if (LayerMask.LayerToName(hit.transform.gameObject.layer) == "SeeThrough04" && wallMaterials04.Contains(hit.transform.GetComponent<Renderer>().sharedMaterial))
+            else if (LayerMask.LayerToName(hit.transform.gameObject.layer) == "SeeThrough04")
             {
+                seeThroughLevel = 4;
                 UpSeeThroughSize(wallMaterials01);
                 UpSeeThroughSize(wallMaterials02);
                 UpSeeThroughSize(wallMaterials03);
                 UpSeeThroughSize(wallMaterials04);
             }
-            else if (LayerMask.LayerToName(hit.transform.gameObject.layer) == "SeeThrough05" && wallMaterials05.Contains(hit.transform.GetComponent<Renderer>().sharedMaterial))
+            else if (LayerMask.LayerToName(hit.transform.gameObject.layer) == "SeeThrough05")
             {
+                seeThroughLevel = 5;
                 UpSeeThroughSize(wallMaterials01);
                 UpSeeThroughSize(wallMaterials02);
                 UpSeeThroughSize(wallMaterials03);
                 UpSeeThroughSize(wallMaterials04);
                 UpSeeThroughSize(wallMaterials05);
+            }
+            else
+            {
+                if (seeThroughLevel == 1)
+                {
+                    DownSeeThroughSize(wallMaterials01);
+                }
+                else if (seeThroughLevel == 2)
+                {
+                    DownSeeThroughSize(wallMaterials01);
+                    DownSeeThroughSize(wallMaterials02);
+                }
+                else if (seeThroughLevel == 3)
+                {
+                    DownSeeThroughSize(wallMaterials01);
+                    DownSeeThroughSize(wallMaterials02);
+                    DownSeeThroughSize(wallMaterials03);
+                }
+                else if (seeThroughLevel == 4)
+                {
+                    DownSeeThroughSize(wallMaterials01);
+                    DownSeeThroughSize(wallMaterials02);
+                    DownSeeThroughSize(wallMaterials03);
+                    DownSeeThroughSize(wallMaterials04);
+                }
+                else
+                {
+                    DownSeeThroughSize(wallMaterials01);
+                    DownSeeThroughSize(wallMaterials02);
+                    DownSeeThroughSize(wallMaterials03);
+                    DownSeeThroughSize(wallMaterials04);
+                    DownSeeThroughSize(wallMaterials05);
+                }
+            }
+        }
+        else
+        {
+            if (seeThroughLevel == 1)
+            {
+                DownSeeThroughSize(wallMaterials01);
+            }
+            else if (seeThroughLevel == 2)
+            {
+                DownSeeThroughSize(wallMaterials01);
+                DownSeeThroughSize(wallMaterials02);
+            }
+            else if (seeThroughLevel == 3)
+            {
+                DownSeeThroughSize(wallMaterials01);
+                DownSeeThroughSize(wallMaterials02);
+                DownSeeThroughSize(wallMaterials03);
+            }
+            else if (seeThroughLevel == 4)
+            {
+                DownSeeThroughSize(wallMaterials01);
+                DownSeeThroughSize(wallMaterials02);
+                DownSeeThroughSize(wallMaterials03);
+                DownSeeThroughSize(wallMaterials04);
             }
             else
             {
@@ -101,14 +165,6 @@ public class CS_SeeThrough : MonoBehaviour
                 DownSeeThroughSize(wallMaterials04);
                 DownSeeThroughSize(wallMaterials05);
             }
-        }
-        else
-        {
-            DownSeeThroughSize(wallMaterials01);
-            DownSeeThroughSize(wallMaterials02);
-            DownSeeThroughSize(wallMaterials03);
-            DownSeeThroughSize(wallMaterials04);
-            DownSeeThroughSize(wallMaterials05);
         }
 
         var view = cam.WorldToViewportPoint(transform.position + Vector3.up);
@@ -126,6 +182,7 @@ public class CS_SeeThrough : MonoBehaviour
         {
             size += Time.deltaTime * (speed * curveSize.Evaluate(size.Remap(sizeRange.x, sizeRange.y, 0, 1)));
             size = Mathf.Clamp(size, sizeRange.x, sizeRange.y);
+            Debug.Log("UP : " + size);
 
             for (int i = 0; i < materialList.Count; i++)
             {
@@ -140,6 +197,7 @@ public class CS_SeeThrough : MonoBehaviour
         {
             size -= Time.deltaTime * (speed * curveSize.Evaluate(size.Remap(sizeRange.x, sizeRange.y, 0, 1)));
             size = Mathf.Clamp(size, sizeRange.x, sizeRange.y);
+            Debug.Log("DOWN : " + size);
 
             for (int i = 0; i < materialList.Count; i++)
             {
