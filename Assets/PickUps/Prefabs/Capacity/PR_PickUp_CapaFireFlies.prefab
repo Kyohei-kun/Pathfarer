@@ -286,6 +286,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: PR_PickUp_CapaFireFlies
       objectReference: {fileID: 0}
+    - target: {fileID: 2697100262679597526, guid: e5650c054c95a8f4c83981a3ed2ccbb6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2746300862477300108, guid: e5650c054c95a8f4c83981a3ed2ccbb6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4471777069017267826, guid: e5650c054c95a8f4c83981a3ed2ccbb6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5650c054c95a8f4c83981a3ed2ccbb6, type: 3}
 --- !u!4 &480596107912539989 stripped
