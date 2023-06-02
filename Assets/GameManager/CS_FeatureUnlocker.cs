@@ -3,6 +3,7 @@ using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CS_FeatureUnlocker : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class CS_FeatureUnlocker : MonoBehaviour
     [BoxGroup("Unlock")][SerializeField] bool state_Jump;
     [BoxGroup("Unlock")][SerializeField] bool state_Teleportation_Lvl1;
     [BoxGroup("Unlock")][SerializeField] bool state_Teleportation_Lvl2;
+
+    [BoxGroup("Inventaire")][ShowNonSerializedField] List<string> items = new();
 
     public bool State_Mentor { get => state_Mentor; set => state_Mentor = value; }
     public bool State_Attack { get => state_Attack; set => state_Attack = value; }
@@ -122,4 +125,24 @@ public class CS_FeatureUnlocker : MonoBehaviour
 
         f_Teleportation.TpLevel = state_Teleportation_Lvl1 ? 1:0;
     }
+
+    #region Inventaire
+    public void AddInInventory(string itemName)
+    {
+        items.Add(itemName);
+    }
+
+    public bool CheckIfInInventory(string itemName)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].Contains(itemName))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    #endregion
 }

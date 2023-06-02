@@ -194,9 +194,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontMove: 1
   isCapacity: 0
-  pickLittleFX: {fileID: 8000330061971531358, guid: 7621dc018e7d7a74f9e55f643b4a96d7,
+  pickLittleFX: {fileID: 8000330061971531358, guid: 63f4487a9f502cc49b633077bdba84e5,
     type: 3}
-  pickBigFX: {fileID: 365240392108498095, guid: 65be95622b43da041acf9593c811d2d2,
+  pickBigFX: {fileID: 8000330061971531358, guid: 63f4487a9f502cc49b633077bdba84e5,
     type: 3}
   player: {fileID: 0}
   scriptFeatures: {fileID: 0}
