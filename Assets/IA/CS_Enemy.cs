@@ -16,7 +16,7 @@ public class CS_Enemy : MonoBehaviour
     protected Transform playerTransform;
     protected Animator animator;
 
-    [SerializeField] protected int PV = 3;
+    [SerializeField] protected float PV = 3;
     [SerializeField] protected GameObject prefab_DeathFX;
 
     [SerializeField] Material stunningMaterial;
@@ -80,7 +80,7 @@ public class CS_Enemy : MonoBehaviour
         timeStopStunning = Time.time + duration;
     }
 
-    virtual public void TakeDamage(int damage, PlayerAttackType type)
+    virtual public void TakeDamage(float damage, PlayerAttackType type)
     {
         touched = true;
         PV -= damage;

@@ -30,6 +30,7 @@ public class CS_PlayerLife : MonoBehaviour
     float timeStartSlowDown = -10;
     Color splashColor;
 
+    public int CurrentLife { get => currentLife; set => currentLife = value; }
 
     void Start()
     {
@@ -64,6 +65,11 @@ public class CS_PlayerLife : MonoBehaviour
             animatorSplash.CrossFade(animSquishPlane, -1, 0);
             Camera.main.GetComponent<CS_CameraUtilities>().Shake(4, 1, 0.8f, true, false);
             //animatorSplash.Play(animSquishPlane);
+
+            if (GetComponent<CS_PassifEpines>())
+            {
+                GetComponent<CS_PassifEpines>().Dmg();
+            }
         }
     }
 

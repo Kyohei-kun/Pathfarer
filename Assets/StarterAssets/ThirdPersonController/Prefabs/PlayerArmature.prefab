@@ -607,6 +607,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   HeavyDamage: 3
+  berserkerValue: 1
   isHeavy: 0
 --- !u!1 &2493834834064515791
 GameObject:
@@ -851,6 +852,7 @@ GameObject:
   - component: {fileID: 472713425}
   - component: {fileID: 472713415}
   - component: {fileID: 472713426}
+  - component: {fileID: 8594830053540868367}
   m_Layer: 8
   m_Name: PlayerArmature
   m_TagString: Player
@@ -1450,6 +1452,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 472713425}
+--- !u!135 &8594830053540868367
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416926081852918481}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.5
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &8338988566280778634
 GameObject:
   m_ObjectHideFlags: 0
