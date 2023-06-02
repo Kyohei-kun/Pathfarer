@@ -49,7 +49,7 @@ public class CS_Door : MonoBehaviour
 
     private void Update()
     {
-        if (!opened && !opening && Vector3.Distance(player.transform.position, transform.position) < openingDistance)
+        if (inventaire.CheckIfInInventory(keyName) && !opened && !opening && Vector3.Distance(player.transform.position, transform.position) < openingDistance)
         {
             StartCoroutine(OpenDoor());
         }
