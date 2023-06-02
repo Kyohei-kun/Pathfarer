@@ -41,6 +41,11 @@ public class CS_Pickable : MonoBehaviour
             PickGraph();
             PickEffect();
 
+            if (isCapacity)
+            {
+                scriptFeatures.ManualUpdate();
+            }
+
             Destroy(gameObject, 0.2f);
         }
     }

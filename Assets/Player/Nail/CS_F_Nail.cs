@@ -9,7 +9,7 @@ public class CS_F_Nail : MonoBehaviour
     int nailLevel = 0;
     bool _lastInput;
     [SerializeField] GameObject pref_Nail;
-    [ProgressBar("Nails", "nbMaxNail", EColor.Gray)][MinValue(0)][SerializeField] int nbCurrentNail = 0;
+    [ProgressBar("Nails", 4, EColor.Gray)][MinValue(0)][SerializeField] int nbCurrentNail = 0;
 
     [SerializeField] List<CS_Nail> nails = new();
     [SerializeField] LayerMask layerMask;
