@@ -984,7 +984,7 @@ MonoBehaviour:
   preview: {fileID: 8140263745445389236, guid: 91eefad6753dbc0489ce49e4aaf758f4, type: 3}
   colorPossible: {r: 0.8156863, g: 6.462745, b: 6.807843, a: 1}
   colorBloque: {r: 7.144128, g: 0.57287824, b: 0.57287824, a: 0.29803923}
-  cdTP: 0.5
+  cdTP: 1
   margeHauteurEscaliers: 1
   margeDistanceMurs: 0.4
   hauteurVideOK: 1

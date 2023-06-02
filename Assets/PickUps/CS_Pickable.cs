@@ -38,15 +38,12 @@ public class CS_Pickable : MonoBehaviour
     {
         if (other.gameObject == player)
         {
-            PickGraph();
             PickEffect();
 
             if (isCapacity)
             {
                 scriptFeatures.ManualUpdate();
             }
-
-            Destroy(gameObject, 0.2f);
         }
     }
 
@@ -62,5 +59,9 @@ public class CS_Pickable : MonoBehaviour
         }
     }
 
-    virtual public void PickEffect() {}
+    virtual public void PickEffect() 
+    {
+        PickGraph();
+        Destroy(gameObject, 0.2f);
+    }
 }

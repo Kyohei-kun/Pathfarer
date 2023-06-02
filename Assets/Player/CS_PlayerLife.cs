@@ -111,6 +111,10 @@ public class CS_PlayerLife : MonoBehaviour
         }
     }
 
+    public bool FullLife()
+    {
+        return currentLife == lifeMax;
+    }
 
     [Button]
     void GoToCheckpoint()

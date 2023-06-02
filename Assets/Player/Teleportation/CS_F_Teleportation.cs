@@ -24,7 +24,7 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
     [Foldout("Feedbacks preview")][SerializeField][ColorUsage(true, true)] Color colorBloque;
     public static int colorID = Shader.PropertyToID("_MainColor");
 
-    [MinValue(0)][SerializeField] float cdTP = 0.5f;
+    [MinValue(0)][SerializeField] float cdTP = 1f;
     float actualTime = 0;
 
     [Foldout("Valeurs marges TP")][MinValue(0.25f / 2)][SerializeField] float margeHauteurEscaliers = 1;
@@ -37,6 +37,7 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
 
     int tpLevel;
     public int TpLevel { get => tpLevel; set => tpLevel = Mathf.Clamp(value, 0, 2); }
+    public float CdTP { get => cdTP; set => cdTP = Mathf.Clamp(value, 0, Mathf.Infinity); }
 
     private void Start()
     {
