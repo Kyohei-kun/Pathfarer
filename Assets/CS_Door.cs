@@ -36,13 +36,6 @@ public class CS_Door : MonoBehaviour
         transform.Find("Visu/Lock2").GetComponent<Renderer>().material = myKey.transform.Find("Key_Silver").GetComponent<Renderer>().sharedMaterial;
     }
 
-    [Button]
-    public void SetOpenedPosition()
-    {
-        openedPosition = transform.Find("OpenedPosition").gameObject;
-        openedPosition.transform.position = transform.position;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == player && inventaire.CheckIfInInventory(keyName))
