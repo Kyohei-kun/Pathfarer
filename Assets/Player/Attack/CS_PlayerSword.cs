@@ -6,6 +6,7 @@ using static CS_F_HeavyAttack;
 
 public class CS_PlayerSword : MonoBehaviour
 {
+    [SerializeField] bool isActive = false;
     [MinValue(0)][SerializeField] int simpleDamage = 1;
     [MinValue(0)][SerializeField] int HeavyDamage = 3;
     float bonusDmg = 0;
@@ -26,20 +27,23 @@ public class CS_PlayerSword : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        CS_I_Attackable attackableObject;
-
-        if (other.transform.parent != null && other.transform.parent.GetComponent<CS_I_Attackable>() != null) //Ennemy
+        if (isActive)
         {
-             attackableObject = other.transform.parent.GetComponent<CS_I_Attackable>();
-            GiveDamage(attackableObject);
-        }
-        else if (other.GetComponent<CS_Enemy>() == null) //Object
-        {
-            attackableObject = other.GetComponent<CS_I_Attackable>();
+            CS_I_Attackable attackableObject;
 
-            if (attackableObject != null)
+            if (other.transform.parent != null && other.transform.parent.GetComponent<CS_I_Attackable>() != null) //Ennemy
             {
+                attackableObject = other.transform.parent.GetComponent<CS_I_Attackable>();
                 GiveDamage(attackableObject);
+            }
+            else if (other.GetComponent<CS_Enemy>() == null) //Object
+            {
+                attackableObject = other.GetComponent<CS_I_Attackable>();
+
+                if (attackableObject != null)
+                {
+                    GiveDamage(attackableObject);
+                }
             }
         }
     }
