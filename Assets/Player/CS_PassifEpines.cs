@@ -1,35 +1,30 @@
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CS_PassifEpines : MonoBehaviour
 {
-    List<CS_Enemy> nearEnnemies = new ();
+    private bool isActif = false;
+    private List<CS_Enemy> nearEnnemies = new ();
     [SerializeField] float epinesDmg = 1;
+    [SerializeField][MinMaxSlider(0.5f, 5)] float radiusEpine = 3f;
 
     [Button]
     public void Dmg()
     {
-        for (int i = 0; i < nearEnnemies.Count; i++)
+        if(isActif)
         {
-            nearEnnemies[i].TakeDamage(epinesDmg, CS_F_HeavyAttack.PlayerAttackType.Simple);
-        }
-    }
+            List<Collider> colliders = Physics.OverlapSphere(transform.position, radiusEpine).ToList();
+            foreach(Collider collider in colliders)
+            {
+                CS_I_Attackable attackable = collider.GetComponent<CS_I_Attackable>();
+                if ( attackable != null)
+                {
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.GetComponent<CS_Enemy>())
-        {
-            nearEnnemies.Add (other.gameObject.GetComponent<CS_Enemy>());
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.GetComponent<CS_Enemy>())
-        {
-            nearEnnemies.Remove(other.gameObject.GetComponent<CS_Enemy>());
+                }
+            }
         }
     }
 }

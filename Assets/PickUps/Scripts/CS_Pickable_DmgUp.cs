@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CS_Pickable_DmgUp : CS_Pickable
 {
+    [Header("Special Values")]
     [SerializeField] float bonus = 0.5f;
 
     public override void PickEffect()

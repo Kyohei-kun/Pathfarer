@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class CS_Grass : MonoBehaviour
+public class CS_Grass : MonoBehaviour, CS_I_Attackable
 {
     [SerializeField] GameObject pickUpHeart;
 
@@ -17,6 +17,11 @@ public class CS_Grass : MonoBehaviour
     [SerializeField] VisualEffect fxGrass;
     [ShowIf("forceDrop")][SerializeField] List<GameObject> myFlowers;
     [ShowIf("forceDrop")][SerializeField] VisualEffect fxFlower;
+
+    public void TakeDamage(float damage, CS_F_HeavyAttack.PlayerAttackType type)
+    {
+        Cutted();
+    }
 
     void Cutted()
     {
@@ -45,11 +50,6 @@ public class CS_Grass : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<CS_PlayerSword>() != null)
-        {
-            Cutted();
-        }
-    }
+
+
 }

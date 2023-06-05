@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static CS_F_HeavyAttack;
 
-public class CS_Enemy : MonoBehaviour
+public class CS_Enemy : MonoBehaviour , CS_I_Attackable
 {
     protected float timeStopStunning = 0;
     protected Rigidbody _rigidbody;
@@ -80,7 +80,14 @@ public class CS_Enemy : MonoBehaviour
         timeStopStunning = Time.time + duration;
     }
 
-    virtual public void TakeDamage(float damage, PlayerAttackType type)
+    virtual protected void Death()
+    {
+        GameObject temp = Instantiate(prefab_DeathFX);
+        temp.transform.position = gameObject.transform.position;
+        Destroy(gameObject);
+    }
+
+    public void TakeDamage(float damage, PlayerAttackType type)
     {
         touched = true;
         PV -= damage;
@@ -100,12 +107,5 @@ public class CS_Enemy : MonoBehaviour
         }
         if (PV <= 0)
             Death();
-    }
-
-    virtual protected void Death()
-    {
-        GameObject temp = Instantiate(prefab_DeathFX);
-        temp.transform.position = gameObject.transform.position;
-        Destroy(gameObject);
     }
 }
