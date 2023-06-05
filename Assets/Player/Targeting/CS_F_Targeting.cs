@@ -12,7 +12,7 @@ public class CS_F_Targeting : MonoBehaviour
 
     List<CS_I_Subscriber> subscribers = new();
 
-    [MinValue(0)] [SerializeField] float cdDuration = 1;
+    [MinValue(0)] [SerializeField] float cdDuration = 1; 
     float actualTime = 0;
 
     Dictionary<GameObject, float> targetableObjects = new();
@@ -22,15 +22,34 @@ public class CS_F_Targeting : MonoBehaviour
     [MinValue(0)] [SerializeField] float targetingMaxHauteur = 10;
     [MinValue(0)] [SerializeField] float targetingMargeHauteur = 2;
 
+    float inputStay = 0;
+    [MinValue(0)][SerializeField] float cdUntargeting = 0.6f;
+
     public GameObject ActualTarget { get => actualTarget; set => actualTarget = value; }
 
     void Update()
     {
         actualTime += Time.deltaTime;
 
+        // Input down
         if (inputState && !lastInputState)
         {
             SetTarget(true);
+            inputStay = 0;
+
+        } // Input up
+        else if (!inputState && lastInputState)
+        {
+            if (inputStay > cdUntargeting)
+            {
+                ClearActualTarget();
+                ClearTargetableList();
+            }
+
+        } // Input stay
+        else if (inputState && lastInputState)
+        {
+            inputStay += Time.deltaTime;
         }
 
         lastInputState = inputState;
@@ -132,14 +151,7 @@ public class CS_F_Targeting : MonoBehaviour
         bool isNotUnder = g.transform.position.y > gameObject.transform.position.y - targetingMargeHauteur;
         bool isNotUpper = g.transform.position.y < gameObject.transform.position.y + targetingMaxHauteur;
 
-        if (isNotUnder && isNotUpper)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        if (isNotUnder && isNotUpper) return true; else return false;
     }
 
     void SetActualIndex(bool plus)
