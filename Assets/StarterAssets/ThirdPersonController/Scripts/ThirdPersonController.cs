@@ -301,7 +301,7 @@ namespace StarterAssets
                 // rotate to face input direction relative to camera position
                 if (f_Targeting.ActualTarget != null)
                 {
-                    transform.rotation = Quaternion.LookRotation((f_Targeting.ActualTarget.transform.position - transform.position).normalized, Vector3.up);
+                    transform.rotation = Quaternion.LookRotation((Vector3.Scale(f_Targeting.ActualTarget.transform.position, new Vector3(1f, 0, 1f))  - Vector3.Scale(transform.position, new Vector3(1, 0, 1))).normalized, Vector3.up);
                 }
                 else
                 {

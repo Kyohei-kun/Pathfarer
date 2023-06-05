@@ -23,7 +23,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MT_StunningIA
+  m_Name: MT_SimpleStunningIA
   m_Shader: {fileID: -6465566751694194690, guid: 44121256808d8234c9d742f297ced52a,
     type: 3}
   m_ValidKeywords:

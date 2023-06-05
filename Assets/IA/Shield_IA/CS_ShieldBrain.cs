@@ -45,7 +45,6 @@ public class CS_ShieldBrain : CS_Enemy
     protected override void Start()
     {
         base.Start();
-
         if (!TryGetComponent<NavMeshAgent>(out agent)) Debug.LogError($"{gameObject.name} n'a pas de navmeshAgent !");
 
         if (pasBouger)
@@ -53,6 +52,7 @@ public class CS_ShieldBrain : CS_Enemy
             agent.speed = 0;
             canMove = !pasBouger;
         }
+        
     }
 
     protected override void OnStartStunning()
@@ -75,6 +75,7 @@ public class CS_ShieldBrain : CS_Enemy
 
     private void Update()
     {
+       
         if (!trackPlayer && !lastPlayerIsVisible && (perceptron.PlayerIsVisible || touched))
         {
             trackPlayer = true;

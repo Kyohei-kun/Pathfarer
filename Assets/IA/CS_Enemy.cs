@@ -6,7 +6,7 @@ using static CS_F_HeavyAttack;
 
 public class CS_Enemy : MonoBehaviour , CS_I_Attackable
 {
-    protected float timeStopStunning = 0;
+    protected float timeStopStunning = -1;
     protected Rigidbody _rigidbody;
     protected bool touched = false;
     protected bool isStun = false;

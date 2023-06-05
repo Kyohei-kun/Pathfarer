@@ -442,7 +442,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b8b6bbaa907713041b31602bb12dbc2a, type: 2}
+  - {fileID: 2100000, guid: 24f55da975bc71e45a0d4a984ba17b0b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -495,7 +495,7 @@ GameObject:
   - component: {fileID: 349709443}
   - component: {fileID: 1411121976}
   m_Layer: 12
-  m_Name: "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0PR_SimpleIA\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0"
+  m_Name: PR_SimpleIA_Lvl-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -531,7 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37851b9a008ffe442b47b183ec97fc5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PV: 5
+  PV: 10
   prefab_DeathFX: {fileID: 1072499274819581310, guid: 825097386cfdddf46a12e13d90cde3f8,
     type: 3}
   stunningMaterial: {fileID: 2100000, guid: e9dff570c3713db498769b7384b3836e, type: 2}
@@ -556,7 +556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radiusCone: 4
-  angleCone: 130
+  angleCone: 138.5
 --- !u!195 &646726045265677488
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -606,7 +606,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4
+  m_Radius: 4.91
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &349709443
 Animator:
