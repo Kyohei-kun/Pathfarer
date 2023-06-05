@@ -115,7 +115,8 @@ public class CS_F_HeavyAttack : MonoBehaviour
     {
         Simple,
         Heavy,
-        Pilon
+        Pilon,
+        Epines
     }
 }
 

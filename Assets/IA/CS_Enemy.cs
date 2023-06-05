@@ -101,6 +101,10 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
                 Push(GameObject.FindGameObjectWithTag("Player").transform.forward * 60);
                 break;
             case PlayerAttackType.Pilon:
+                Push((transform.position - GameObject.FindGameObjectWithTag("Player").transform.position).normalized * 30);
+                break;
+            case PlayerAttackType.Epines:
+                Push((transform.position - GameObject.FindGameObjectWithTag("Player").transform.position).normalized * 30);
                 break;
             default:
                 break;

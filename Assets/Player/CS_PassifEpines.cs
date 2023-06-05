@@ -3,13 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static CS_F_HeavyAttack;
 
 public class CS_PassifEpines : MonoBehaviour
 {
     private bool isActif = false;
-    private List<CS_Enemy> nearEnnemies = new ();
     [SerializeField] float epinesDmg = 1;
-    [SerializeField][MinMaxSlider(0.5f, 5)] float radiusEpine = 3f;
+    [SerializeField][Range(0.5f, 5)] float radiusEpine = 3f;
+
+    public bool IsActif { get => isActif; set => isActif = value; }
 
     [Button]
     public void Dmg()
@@ -20,9 +22,9 @@ public class CS_PassifEpines : MonoBehaviour
             foreach(Collider collider in colliders)
             {
                 CS_I_Attackable attackable = collider.GetComponent<CS_I_Attackable>();
-                if ( attackable != null)
+                if (attackable != null)
                 {
-
+                    attackable.TakeDamage(epinesDmg, PlayerAttackType.Epines);
                 }
             }
         }

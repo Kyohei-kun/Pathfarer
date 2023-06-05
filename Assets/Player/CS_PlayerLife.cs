@@ -30,6 +30,8 @@ public class CS_PlayerLife : MonoBehaviour
     float timeStartSlowDown = -10;
     Color splashColor;
 
+    CS_PassifEpines epines;
+
     public int CurrentLife { get => currentLife; set => currentLife = value; }
 
     void Start()
@@ -43,6 +45,7 @@ public class CS_PlayerLife : MonoBehaviour
         dark_HDRP_Profile.TryGet<Vignette>(out dark_Vignette);
         standard_HDRP_Profile.TryGet<LensDistortion>(out standard_LensDistortion);
         dark_HDRP_Profile.TryGet<LensDistortion>(out dark_LensDistortion);
+        epines = GetComponent<CS_PassifEpines>();
     }
 
     [Button]
@@ -66,10 +69,8 @@ public class CS_PlayerLife : MonoBehaviour
             Camera.main.GetComponent<CS_CameraUtilities>().Shake(4, 1, 0.8f, true, false);
             //animatorSplash.Play(animSquishPlane);
 
-            if (GetComponent<CS_PassifEpines>())
-            {
-                GetComponent<CS_PassifEpines>().Dmg();
-            }
+            epines.Dmg();
+
         }
     }
 
