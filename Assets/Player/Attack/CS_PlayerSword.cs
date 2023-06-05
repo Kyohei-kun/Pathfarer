@@ -17,6 +17,7 @@ public class CS_PlayerSword : MonoBehaviour
     public int SimpleDamage { get => simpleDamage; set => simpleDamage = value; }
     public float BonusDmg { get => bonusDmg; set => bonusDmg = value; }
     public bool Berserker { get => berserker; set => berserker = value; }
+    public float BerserkerValue { get => berserkerValue; set => berserkerValue = value; }
 
     private void Start()
     {
