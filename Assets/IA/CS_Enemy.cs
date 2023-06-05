@@ -84,6 +84,7 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
     {
         GameObject temp = Instantiate(prefab_DeathFX);
         temp.transform.position = gameObject.transform.position;
+        playerTransform.GetComponent<CS_F_Targeting>().RemoveFromTargetableList(gameObject, true);
         Destroy(gameObject);
     }
 

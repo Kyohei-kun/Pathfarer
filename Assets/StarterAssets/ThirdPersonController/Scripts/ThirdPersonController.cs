@@ -17,6 +17,7 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
+        [SerializeField] CS_F_Targeting f_Targeting;
         Vector3 impact = Vector3.zero;
 
         private bool canMove = true;
@@ -242,7 +243,7 @@ namespace StarterAssets
                 _animator.SetBool(_animIDGrounded, grounded);
             }
 
-            if(grounded && !lastGrounded) //Atterissage
+            if (grounded && !lastGrounded) //Atterissage
                 CS_VibrationControler.SetVibration(1f, 0, 0.1f);
 
             lastGrounded = grounded;
@@ -298,8 +299,15 @@ namespace StarterAssets
                     RotationSmoothTime);
 
                 // rotate to face input direction relative to camera position
-                if (CanRotate)
-                    transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                if (f_Targeting.ActualTarget != null)
+                {
+                    transform.rotation = Quaternion.LookRotation((f_Targeting.ActualTarget.transform.position - transform.position).normalized, Vector3.up);
+                }
+                else
+                {
+                    if (CanRotate)
+                        transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                }
             }
 
 

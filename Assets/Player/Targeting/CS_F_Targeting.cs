@@ -22,6 +22,8 @@ public class CS_F_Targeting : MonoBehaviour
     [MinValue(0)] [SerializeField] float targetingMaxHauteur = 10;
     [MinValue(0)] [SerializeField] float targetingMargeHauteur = 2;
 
+    public GameObject ActualTarget { get => actualTarget; set => actualTarget = value; }
+
     void Update()
     {
         actualTime += Time.deltaTime;
@@ -177,9 +179,9 @@ public class CS_F_Targeting : MonoBehaviour
         ClearActualTarget();
         actualTarget = g;
 
-        if (actualTarget.transform.Find("Target"))
+        if (actualTarget.transform.Find("PR_Target"))
         {
-            actualTarget.transform.Find("Target").gameObject.SetActive(true);
+            actualTarget.transform.Find("PR_Target").gameObject.SetActive(true);
         }
         else
         {
@@ -195,9 +197,9 @@ public class CS_F_Targeting : MonoBehaviour
     {
         if (actualTarget != null)
         {
-            if (actualTarget.transform.Find("Target"))
+            if (actualTarget.transform.Find("PR_Target"))
             {
-                actualTarget.transform.Find("Target").gameObject.SetActive(false);
+                actualTarget.transform.Find("PR_Target").gameObject.SetActive(false);
             }
             else
             {

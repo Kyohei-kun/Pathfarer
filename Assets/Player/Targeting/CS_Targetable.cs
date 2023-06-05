@@ -8,6 +8,7 @@ public class CS_Targetable : MonoBehaviour
 {
     Transform playerTr;
     VisualEffect effectPV;
+    [SerializeField] GameObject pref_effectPV;
 
     float dist;
     Vector3 playerLook;
@@ -17,7 +18,11 @@ public class CS_Targetable : MonoBehaviour
 
     private void Awake()
     {
-        effectPV = transform.Find("Target/FX_TargetPV").GetComponent<VisualEffect>();
+        GameObject prefabfx = GameObject.Instantiate(pref_effectPV);
+        prefabfx.transform.parent = transform;
+        prefabfx.transform.localPosition = Vector3.zero;
+        prefabfx.gameObject.name = "PR_Target";
+        effectPV = prefabfx.transform.Find("FX_TargetPV").GetComponent<VisualEffect>();
         effectPV.SetInt("Amount", 5);
         enabled = false;
     }
@@ -31,7 +36,7 @@ public class CS_Targetable : MonoBehaviour
     {
         dist = Vector3.Distance(transform.position, playerTr.position);
 
-        if (!GetComponent<MeshRenderer>().isVisible || dist > untargetingDist)
+        if (!GetComponentsInChildren<MeshRenderer>()[0].isVisible || dist > untargetingDist)
         {
             playerTr.GetComponent<CS_F_Targeting>().RemoveFromTargetableList(gameObject, false);
             enabled = false;
