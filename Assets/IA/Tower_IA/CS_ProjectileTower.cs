@@ -33,8 +33,12 @@ public class CS_ProjectileTower : MonoBehaviour
         if (other.gameObject == player)
         {
             player.GetComponent<CS_PlayerLife>().LoseLife();
-            DestroyMe();
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        DestroyMe();
     }
 
     void DestroyMe()
