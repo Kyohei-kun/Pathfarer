@@ -61,8 +61,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 4096
-  UnagroDistance: 5
-  radiusMessageZone: 8
+  UnagroDistance: 29.07
+  radiusMessageZone: 5.51
 --- !u!114 &2216677869211596520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 256950be73bd29241a9f00bcadd26648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radiusCone: 6
+  radiusCone: 5.51
   angleCone: 160
 --- !u!195 &2216677869211596500
 NavMeshAgent:
@@ -90,8 +90,8 @@ NavMeshAgent:
   m_Speed: 2.5
   m_Acceleration: 15
   avoidancePriority: 50
-  m_AngularSpeed: 500
-  m_StoppingDistance: 1.5
+  m_AngularSpeed: 300
+  m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -126,7 +126,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 6
+  m_Radius: 5.51
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &1601761042344861415
 Animator:
@@ -161,6 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2cf50534281c144e985636316dfc850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pref_effectPV: {fileID: 8127741540072857944, guid: a9ed2cfc1b3d97d45be0a54e6735dba5,
+    type: 3}
   untargetingDist: 18
 --- !u!1 &2216677869644569923
 GameObject:
@@ -396,7 +398,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4c4e4839eaee70b4b9f3987785cfce57, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4c4e4839eaee70b4b9f3987785cfce57, type: 3}
       propertyPath: m_LocalRotation.w
@@ -428,7 +430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4c4e4839eaee70b4b9f3987785cfce57, type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -6860895033569716450, guid: 4c4e4839eaee70b4b9f3987785cfce57, type: 3}
@@ -482,6 +484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knockbackForce: 100
   enemy: {fileID: 2216677869211596521}
+  makeDamage: 0
 --- !u!4 &5453651467678141622 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 4c4e4839eaee70b4b9f3987785cfce57,

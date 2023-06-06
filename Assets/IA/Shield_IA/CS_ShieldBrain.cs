@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using static CS_AnimationEnum;
+using static CS_F_HeavyAttack;
 
 public class CS_ShieldBrain : CS_Enemy
 {
@@ -52,7 +53,6 @@ public class CS_ShieldBrain : CS_Enemy
             agent.speed = 0;
             canMove = !pasBouger;
         }
-        
     }
 
     protected override void OnStartStunning()
@@ -75,7 +75,7 @@ public class CS_ShieldBrain : CS_Enemy
 
     private void Update()
     {
-       
+
         if (!trackPlayer && !lastPlayerIsVisible && (perceptron.PlayerIsVisible || touched))
         {
             trackPlayer = true;
@@ -113,9 +113,19 @@ public class CS_ShieldBrain : CS_Enemy
         {
             if (Vector3.Distance(transform.position, playerTransform.position) < 1.5f)
             {
-                canMove = false;
-                attacking = true;
-                animator.SetBool("_Attack", true);
+                Vector3 playerDirection = (playerTransform.position - transform.position).normalized; //IA to Player
+                playerDirection = Vector3.ProjectOnPlane(playerDirection, Vector3.up);
+
+                if (Vector3.Dot(transform.forward, playerDirection) > 0.5f)
+                {
+                    canMove = false;
+                    attacking = true;
+                    animator.SetBool("_Attack", true);
+                }
+                else
+                {
+
+                }
             }
         }
     }
@@ -128,10 +138,17 @@ public class CS_ShieldBrain : CS_Enemy
             {
                 if (trackPlayer)
                 {
-                    agent.SetDestination(playerTransform.position);
-                    if (agent.path.Lenght() > UnagroDistance) //Si le joueur est trop loin
+                    Vector3 playerDirection = (playerTransform.position - transform.position).normalized; //IA to Player
+                    playerDirection = Vector3.ProjectOnPlane(playerDirection, Vector3.up);
+
+
+                    if (agent.path.Lenght() > UnagroDistance) //Si le joueur est trop loin et face au joueur
                     {
                         StopHuntPlayer();
+                    }
+                    if ((agent.path.Lenght() > 1.5f || agent.path.Lenght() == -1 ))
+                    {
+                        agent.SetDestination(playerTransform.position);
                     }
                 }
             }
@@ -187,5 +204,44 @@ public class CS_ShieldBrain : CS_Enemy
             default:
                 break;
         }
+    }
+
+    public override void TakeDamage(float damage, PlayerAttackType type)
+    {
+
+        touched = true;
+
+        Vector3 attackDirection = (transform.position - playerTransform.position).normalized;
+        attackDirection = Vector3.ProjectOnPlane(attackDirection, Vector3.up);
+
+        if (Vector3.Dot(transform.forward, attackDirection) > 0)
+        {
+            PV -= damage;
+            Stun(0.5f);
+        }
+        else
+        {
+            Debug.Log("Shield");
+        }
+
+        switch (type)
+        {
+            case PlayerAttackType.Simple:
+                Push(GameObject.FindGameObjectWithTag("Player").transform.forward * 15 / 3);
+                break;
+            case PlayerAttackType.Heavy:
+                Push(GameObject.FindGameObjectWithTag("Player").transform.forward * 60 / 3);
+                break;
+            case PlayerAttackType.Pilon:
+                Push((transform.position - GameObject.FindGameObjectWithTag("Player").transform.position).normalized * 15 / 3);
+                break;
+            case PlayerAttackType.Epines:
+                Push((transform.position - GameObject.FindGameObjectWithTag("Player").transform.position).normalized * 30 / 3);
+                break;
+            default:
+                break;
+        }
+        if (PV <= 0)
+            Death();
     }
 }

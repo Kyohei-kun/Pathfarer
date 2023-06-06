@@ -5,6 +5,6 @@ using static CS_F_HeavyAttack;
 
 public interface CS_I_Attackable
 {
-    void TakeDamage(float damage, PlayerAttackType type);
+    abstract void TakeDamage(float damage, PlayerAttackType type);
 
 }

@@ -8,15 +8,19 @@ public class CS_SimpleAttackSender : MonoBehaviour
 {
     [MinValue(0)][SerializeField] float knockbackForce = 100;
     [Required][SerializeField] Transform enemy;
+    [SerializeField] bool makeDamage = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        CS_PlayerLife playerLife = other.GetComponent<CS_PlayerLife>();
-        if(playerLife != null)
+        if (makeDamage)
         {
-            playerLife.LoseLife();
-            Vector3 pushVector = enemy.forward;
-            other.GetComponent<ThirdPersonController>().Push(pushVector, knockbackForce);
+            CS_PlayerLife playerLife = other.GetComponent<CS_PlayerLife>();
+            if (playerLife != null)
+            {
+                playerLife.LoseLife();
+                Vector3 pushVector = enemy.forward;
+                other.GetComponent<ThirdPersonController>().Push(pushVector, knockbackForce);
+            }
         }
     }
 }

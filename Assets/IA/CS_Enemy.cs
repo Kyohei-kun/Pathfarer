@@ -88,7 +88,7 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
         Destroy(gameObject);
     }
 
-    public void TakeDamage(float damage, PlayerAttackType type)
+    virtual public void TakeDamage(float damage, PlayerAttackType type)
     {
         touched = true;
         PV -= damage;

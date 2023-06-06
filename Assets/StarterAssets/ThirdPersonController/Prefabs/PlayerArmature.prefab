@@ -605,6 +605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88ea4a9a1b67c4e45943a88fb85d4507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActive: 0
   simpleDamage: 1
   HeavyDamage: 3
   berserkerValue: 1
@@ -914,6 +915,7 @@ MonoBehaviour:
   cdDuration: 1
   targetingMaxHauteur: 10
   targetingMargeHauteur: 2
+  cdUntargeting: 0.6
 --- !u!114 &842122935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1119,6 +1121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e54e5a728a9234ab24fcf1460ed8a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  f_Targeting: {fileID: 6871455249889516932}
   momentumVerticalVelocity: -0.5
   moveSpeed: 4
   airMoveSpeed: 0.5
