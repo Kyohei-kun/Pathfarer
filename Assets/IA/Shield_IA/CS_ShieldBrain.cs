@@ -208,7 +208,7 @@ public class CS_ShieldBrain : CS_Enemy
 
     public override void TakeDamage(float damage, PlayerAttackType type)
     {
-
+        Debug.Log("BONJOUR");
         touched = true;
 
         Vector3 attackDirection = (transform.position - playerTransform.position).normalized;
@@ -218,29 +218,45 @@ public class CS_ShieldBrain : CS_Enemy
         {
             PV -= damage;
             Stun(0.5f);
+            switch (type)
+            {
+                case PlayerAttackType.Simple:
+                    Push(GameObject.FindGameObjectWithTag("Player").transform.forward * 15);
+                    break;
+                case PlayerAttackType.Heavy:
+                    Push(GameObject.FindGameObjectWithTag("Player").transform.forward * 60);
+                    break;
+                case PlayerAttackType.Pilon:
+                    Push((transform.position - GameObject.FindGameObjectWithTag("Player").transform.position).normalized * 15);
+                    break;
+                case PlayerAttackType.Epines:
+                    Push((transform.position - GameObject.FindGameObjectWithTag("Player").transform.position).normalized * 30);
+                    break;
+                default:
+                    break;
+            }
         }
         else
         {
-            Debug.Log("Shield");
+            switch (type)
+            {
+                case PlayerAttackType.Simple:
+                    Push(GameObject.FindGameObjectWithTag("Player").transform.forward * 15/2);
+                    break;
+                case PlayerAttackType.Heavy:
+                    Push(GameObject.FindGameObjectWithTag("Player").transform.forward * 60/2);
+                    break;
+                case PlayerAttackType.Pilon:
+                    Push((transform.position - GameObject.FindGameObjectWithTag("Player").transform.position).normalized * 15/2);
+                    break;
+                case PlayerAttackType.Epines:
+                    Push((transform.position - GameObject.FindGameObjectWithTag("Player").transform.position).normalized * 30/2);
+                    break;
+                default:
+                    break;
+            }
         }
 
-        switch (type)
-        {
-            case PlayerAttackType.Simple:
-                Push(GameObject.FindGameObjectWithTag("Player").transform.forward * 15 / 3);
-                break;
-            case PlayerAttackType.Heavy:
-                Push(GameObject.FindGameObjectWithTag("Player").transform.forward * 60 / 3);
-                break;
-            case PlayerAttackType.Pilon:
-                Push((transform.position - GameObject.FindGameObjectWithTag("Player").transform.position).normalized * 15 / 3);
-                break;
-            case PlayerAttackType.Epines:
-                Push((transform.position - GameObject.FindGameObjectWithTag("Player").transform.position).normalized * 30 / 3);
-                break;
-            default:
-                break;
-        }
         if (PV <= 0)
             Death();
     }
