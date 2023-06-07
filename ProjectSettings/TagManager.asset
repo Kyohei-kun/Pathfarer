@@ -9,6 +9,7 @@ TagManager:
   - GlobalVolume
   - EntriesLights
   - GameManager
+  - SceneManager
   layers:
   - Default
   - TransparentFX

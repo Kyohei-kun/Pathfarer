@@ -10530,6 +10530,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 65532706, guid: e6e026c61be6ee7458f9d2e9f4935509, type: 3}
+      propertyPath: makeDamage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 646726045265677453, guid: e6e026c61be6ee7458f9d2e9f4935509,
         type: 3}
       propertyPath: m_RootOrder
@@ -11928,6 +11932,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2216677869211596501, guid: d8682a91d0affe94fb59d3022e357275,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2216677869211596503, guid: d8682a91d0affe94fb59d3022e357275,
         type: 3}
       propertyPath: m_Name
