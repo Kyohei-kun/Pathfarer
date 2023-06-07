@@ -5,7 +5,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.VFX;
-using static UnityEditor.PlayerSettings;
 
 public class CS_Door : MonoBehaviour
 {

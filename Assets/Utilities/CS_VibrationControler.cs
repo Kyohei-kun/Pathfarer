@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.ShaderKeywordFilter;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 public static class CS_VibrationControler
