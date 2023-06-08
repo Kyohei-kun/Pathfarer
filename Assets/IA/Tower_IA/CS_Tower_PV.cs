@@ -12,8 +12,6 @@ public class CS_Tower_PV : CS_Enemy
 
     CS_TowerIA myTower;
 
-    bool aggro;
-    bool forceAggro;
     Vector3 newRot;
     [BoxGroup("Aggro")][MinValue(0)][SerializeField] float rotSpeed = 4;
     [BoxGroup("Aggro")][OnValueChanged("OnRadiusUnagroChange")][MinValue(0)][SerializeField] float distUnAggro = 6;
@@ -41,10 +39,10 @@ public class CS_Tower_PV : CS_Enemy
 
     private void Update()
     {
-        if ((!aggro && perceptron.PlayerIsVisible) || forceAggro) Aggro(); 
-        else if (aggro && Vector3.Distance(playerTransform.position, myTower.transform.position) > distUnAggro) UnAggro();
+        if ((!isAggro && perceptron.PlayerIsVisible) || forceAggro) Aggro(); 
+        else if (isAggro && Vector3.Distance(playerTransform.position, myTower.transform.position) > distUnAggro) UnAggro();
 
-        if (!aggro)
+        if (!isAggro)
         {
             newRot.y += Time.deltaTime * rotSpeed;
             transform.eulerAngles = newRot;
@@ -58,19 +56,17 @@ public class CS_Tower_PV : CS_Enemy
 
     void Aggro()
     {
-        aggro = true;
+        isAggro = true;
         animCanon.SetFloat("_Offset", animOffset);
-        animCanon.SetBool("_Aggro", aggro);
-
-        ShareMessage(new List<CS_Enemy>());
+        animCanon.SetBool("_Aggro", isAggro);
 
         forceAggro = false;
     }
 
     void UnAggro()
     {
-        aggro = false;
-        animCanon.SetBool("_Aggro", aggro);
+        isAggro = false;
+        animCanon.SetBool("_Aggro", isAggro);
 
         GetComponentInChildren<Transform>().localEulerAngles = Vector3.zero;
     }
@@ -78,35 +74,6 @@ public class CS_Tower_PV : CS_Enemy
     void Attack()
     {
         Instantiate(projo, transform.position + (transform.forward * 1f), Quaternion.Euler(gameObject.transform.eulerAngles));
-    }
-
-    override public void ShareMessage(List<CS_Enemy> ennemiesMessaged)
-    {
-        forceAggro = true;
-        List<Collider> colliders = Physics.OverlapSphere(transform.position, radiusMessageZone, enemyLayerMask).ToList();
-
-        foreach (Collider collider in colliders)
-        {
-            CS_Enemy tempEnemy;
-            Debug.Log($"Parent : {collider.transform.parent.gameObject.name}");
-            Debug.Log($"Moi : {collider.gameObject.name}");
-
-            if (collider.transform.parent.GetComponent<CS_Enemy>() != null)
-            {
-                tempEnemy = collider.transform.parent.GetComponent<CS_Enemy>(); Debug.Log("Script sur parent !");
-            }
-            else if (collider.GetComponent<CS_Enemy>() != null)
-            {
-                tempEnemy = collider.GetComponent<CS_Enemy>(); Debug.Log("Script sur moi");
-            }
-            else tempEnemy = null; Debug.Log("Script nulle part ! ");
-
-            if (tempEnemy != null && !ennemiesMessaged.Contains(tempEnemy))
-            {
-                ennemiesMessaged.Add(tempEnemy);
-                tempEnemy.ShareMessage(ennemiesMessaged);
-            }
-        }
     }
 
     protected override void Death()

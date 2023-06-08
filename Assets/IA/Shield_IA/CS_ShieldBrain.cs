@@ -18,7 +18,6 @@ public class CS_ShieldBrain : CS_Enemy
 
     bool canRotatePlayer = false;
 
-    bool trackPlayer = false;
     [SerializeField] LayerMask layerMask;
 
     NavMeshAgent agent;
@@ -76,10 +75,10 @@ public class CS_ShieldBrain : CS_Enemy
     private void Update()
     {
 
-        if (!trackPlayer && !lastPlayerIsVisible && (perceptron.PlayerIsVisible || touched))
+        if (!isAggro && !lastPlayerIsVisible && (perceptron.PlayerIsVisible || touched || forceAggro))
         {
-            trackPlayer = true;
-            ShareMessage(new List<CS_Enemy>());
+            isAggro = true;
+            forceAggro = false;
         }
 
         StunUpdate();
@@ -136,7 +135,7 @@ public class CS_ShieldBrain : CS_Enemy
         {
             if (canMove)
             {
-                if (trackPlayer)
+                if (isAggro)
                 {
                     Vector3 playerDirection = (playerTransform.position - transform.position).normalized; //IA to Player
                     playerDirection = Vector3.ProjectOnPlane(playerDirection, Vector3.up);
@@ -164,28 +163,9 @@ public class CS_ShieldBrain : CS_Enemy
 
     private void StopHuntPlayer()
     {
-        trackPlayer = false;
+        isAggro = false;
         touched = false;
         agent.SetDestination(startPosition);
-    }
-
-    override public void ShareMessage(List<CS_Enemy> ennemiesMessaged)
-    {
-        trackPlayer = true;
-        List<Collider> colliders = Physics.OverlapSphere(transform.position, radiusMessageZone, layerMask).ToList();
-
-        foreach (Collider collider in colliders)
-        {
-            if (collider.transform.parent != null)
-            {
-                CS_Enemy tempEnemy = collider.transform.parent.GetComponent<CS_Enemy>();
-                if (tempEnemy != null && !ennemiesMessaged.Contains(tempEnemy))
-                {
-                    ennemiesMessaged.Add(tempEnemy);
-                    tempEnemy.ShareMessage(ennemiesMessaged);
-                }
-            }
-        }
     }
 
     public void AnimationEvent(StateSimpleAttack state)

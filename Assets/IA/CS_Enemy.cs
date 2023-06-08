@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using static CS_F_HeavyAttack;
 
@@ -24,6 +25,9 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
     [BoxGroup("Stun")][SerializeField] Renderer currentRenderer;
     [BoxGroup("Stun")][ShowIf("stunnable")][SerializeField] Material stunningMaterial;
     Material normalMaterial;
+
+    protected bool isAggro;
+    protected bool forceAggro;
 
     protected virtual void Start()
     {
@@ -67,8 +71,6 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
         animator.SetBool("Stun", false);
         currentRenderer.sharedMaterial = normalMaterial;
     }
-
-    virtual public void ShareMessage(List<CS_Enemy> ennemiesMessaged) { }
 
     virtual public void Push(Vector3 force)
     {
@@ -117,5 +119,33 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
 
         if (PV <= 0)
             Death();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isAggro) return;
+
+        if (other.TryGetComponent(out CS_Enemy scriptEnemy) && scriptEnemy.isAggro)
+        {
+            forceAggro = true;
+        }
+        else if (other.transform.parent && other.transform.parent.TryGetComponent(out scriptEnemy) && scriptEnemy.isAggro)
+        {
+            forceAggro = true;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (isAggro) return;
+
+        if (other.TryGetComponent(out CS_Enemy scriptEnemy) && scriptEnemy.isAggro)
+        {
+            forceAggro = true;
+        }
+        else if (other.transform.parent && other.transform.parent.TryGetComponent(out scriptEnemy) && scriptEnemy.isAggro)
+        {
+            forceAggro = true;
+        }
     }
 }

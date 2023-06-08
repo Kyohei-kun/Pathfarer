@@ -30,7 +30,6 @@ public class CS_SimpleBrain : CS_Enemy
 
     [OnValueChanged("OnRadiusMessageChange")][SerializeField] float radiusMessageZone = 5;
 
-    bool trackPlayer = false;
     [SerializeField] LayerMask enemyLayerMask;
     
 
@@ -60,10 +59,10 @@ public class CS_SimpleBrain : CS_Enemy
 
     private void Update()
     {
-        if (!trackPlayer && !lastPlayerIsVisible && (perceptron.PlayerIsVisible || touched))
+        if (!isAggro && !lastPlayerIsVisible && (perceptron.PlayerIsVisible || touched || forceAggro))
         {
-            trackPlayer = true;
-            ShareMessage(new List<CS_Enemy>());
+            isAggro = true;
+            forceAggro = false;
         }
 
         StunUpdate();
@@ -123,7 +122,7 @@ public class CS_SimpleBrain : CS_Enemy
         {
             if (canMove)
             {
-                if (trackPlayer)
+                if (isAggro)
                 {
                     agent.SetDestination(playerTransform.position);
                     if (agent.path.Lenght() > UnagroDistance) //Si le joueur est trop loin
@@ -144,36 +143,9 @@ public class CS_SimpleBrain : CS_Enemy
 
     private void StopHuntPlayer()
     {
-        trackPlayer = false;
+        isAggro = false;
         touched = false;
         agent.SetDestination(startPosition);
-    }
-
-    override public void ShareMessage(List<CS_Enemy> ennemiesMessaged)
-    {
-        trackPlayer = true;
-        List<Collider> colliders = Physics.OverlapSphere(transform.position, radiusMessageZone, enemyLayerMask).ToList();
-
-        foreach (Collider collider in colliders)
-        {
-            CS_Enemy tempEnemy;
-
-            if (collider.transform.parent.GetComponent<CS_Enemy>() != null)
-            {
-                tempEnemy = collider.transform.parent.GetComponent<CS_Enemy>();
-            }
-            else if (collider.GetComponent<CS_Enemy>() != null)
-            {
-                tempEnemy = collider.GetComponent<CS_Enemy>();
-            }
-            else tempEnemy = null;
-
-            if (tempEnemy != null && !ennemiesMessaged.Contains(tempEnemy))
-            {
-                ennemiesMessaged.Add(tempEnemy);
-                tempEnemy.ShareMessage(ennemiesMessaged);
-            }
-        }
     }
 
     public void AnimationEvent(StateSimpleAttack state)
