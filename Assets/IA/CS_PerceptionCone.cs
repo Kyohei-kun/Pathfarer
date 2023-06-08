@@ -12,10 +12,19 @@ public class CS_PerceptionCone : CS_Perception
     bool showPermanentGizmo;
 
     //Parameters
-    [OnValueChanged("OnTriggerChange")][SerializeField] float radiusCone = 3;
-    [OnValueChanged("OnTriggerChange")][Range(0.0f, 180f)][SerializeField] float angleCone = 45;
+    [BoxGroup("Parameters")][OnValueChanged("OnTriggerChange")][MinValue(0)][SerializeField] float radiusCone = 3;
+    [BoxGroup("Parameters")][OnValueChanged("OnTriggerChange")][Range(0.0f, 180f)][SerializeField] float angleCone = 45;
+
+    //Exeptions
+    [BoxGroup("Exeptions")][SerializeField] bool overhideConePos = false;
+    [BoxGroup("Exeptions")][ShowIf("overhideConePos")][SerializeField] Vector3 overhidePos = Vector3.zero;
 
     bool playerIsInTriger;
+
+    private void Start()
+    {
+        if (!overhideConePos) overhidePos = Vector3.zero;
+    }
 
     private void Update()
     {
@@ -62,7 +71,7 @@ public class CS_PerceptionCone : CS_Perception
 
             for (int i = 0; i < 10; i++)
             {
-                GizmosExtensions.DrawWireArc(transform.position + ((Vector3.up * 0.2f) * i), transform.forward, angleCone, radiusCone);
+                GizmosExtensions.DrawWireArc(transform.position + ((Vector3.up * 0.2f) * i) + overhidePos, transform.forward, angleCone, radiusCone);
             }
         }
     }
@@ -76,6 +85,7 @@ public class CS_PerceptionCone : CS_Perception
         try
         {
             GetComponent<SphereCollider>().radius = radiusCone;
+            GetComponent<SphereCollider>().center = overhidePos + (Vector3.up * 0.8f);
         }
         catch (System.Exception)
         {

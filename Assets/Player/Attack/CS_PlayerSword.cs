@@ -31,19 +31,15 @@ public class CS_PlayerSword : MonoBehaviour
         {
             CS_I_Attackable attackableObject;
 
-            if (other.transform.parent != null && other.transform.parent.GetComponent<CS_I_Attackable>() != null) //Ennemy
+            if (other.transform.parent != null && other.transform.parent.GetComponent<CS_I_Attackable>() != null) // Ennemy de cédric
             {
                 attackableObject = other.transform.parent.GetComponent<CS_I_Attackable>();
                 GiveDamage(attackableObject);
             }
-            else if (other.GetComponent<CS_Enemy>() == null) //Object
+            else if (other.GetComponent<CS_I_Attackable>() != null) // Object ou ennemy de Armelle
             {
                 attackableObject = other.GetComponent<CS_I_Attackable>();
-
-                if (attackableObject != null)
-                {
-                    GiveDamage(attackableObject);
-                }
+                GiveDamage(attackableObject);
             }
         }
     }

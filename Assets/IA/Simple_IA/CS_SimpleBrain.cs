@@ -31,7 +31,7 @@ public class CS_SimpleBrain : CS_Enemy
     [OnValueChanged("OnRadiusMessageChange")][SerializeField] float radiusMessageZone = 5;
 
     bool trackPlayer = false;
-    [SerializeField] LayerMask layerMask;
+    [SerializeField] LayerMask enemyLayerMask;
     
 
     protected override void Start()
@@ -152,18 +152,26 @@ public class CS_SimpleBrain : CS_Enemy
     override public void ShareMessage(List<CS_Enemy> ennemiesMessaged)
     {
         trackPlayer = true;
-        List<Collider> colliders = Physics.OverlapSphere(transform.position, radiusMessageZone, layerMask).ToList();
+        List<Collider> colliders = Physics.OverlapSphere(transform.position, radiusMessageZone, enemyLayerMask).ToList();
 
         foreach (Collider collider in colliders)
         {
-            if (collider.transform.parent != null)
+            CS_Enemy tempEnemy;
+
+            if (collider.transform.parent.GetComponent<CS_Enemy>() != null)
             {
-                CS_Enemy tempEnemy = collider.transform.parent.GetComponent<CS_Enemy>();
-                if (tempEnemy != null && !ennemiesMessaged.Contains(tempEnemy))
-                {
-                    ennemiesMessaged.Add(tempEnemy);
-                    tempEnemy.ShareMessage(ennemiesMessaged);
-                }
+                tempEnemy = collider.transform.parent.GetComponent<CS_Enemy>();
+            }
+            else if (collider.GetComponent<CS_Enemy>() != null)
+            {
+                tempEnemy = collider.GetComponent<CS_Enemy>();
+            }
+            else tempEnemy = null;
+
+            if (tempEnemy != null && !ennemiesMessaged.Contains(tempEnemy))
+            {
+                ennemiesMessaged.Add(tempEnemy);
+                tempEnemy.ShareMessage(ennemiesMessaged);
             }
         }
     }

@@ -16,11 +16,13 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
     protected Transform playerTransform;
     protected Animator animator;
 
-    [SerializeField] protected float PV = 3;
-    [SerializeField] protected GameObject prefab_DeathFX;
+    [BoxGroup("General")][SerializeField] protected float PV = 3;
+    [BoxGroup("General")][SerializeField] protected GameObject prefab_DeathFX;
+    [BoxGroup("General")][SerializeField] bool pushable = true;
 
-    [SerializeField] Material stunningMaterial;
-    [SerializeField] Renderer currentRenderer;
+    [BoxGroup("Stun")][SerializeField] bool stunnable = true;
+    [BoxGroup("Stun")][SerializeField] Renderer currentRenderer;
+    [BoxGroup("Stun")][ShowIf("stunnable")][SerializeField] Material stunningMaterial;
     Material normalMaterial;
 
     protected virtual void Start()
@@ -92,24 +94,27 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
     {
         touched = true;
         PV -= damage;
-        Stun(0.5f);
-        switch (type)
-        {
-            case PlayerAttackType.Simple:
-                Push(GameObject.FindGameObjectWithTag("Player").transform.forward * 15);
-                break;
-            case PlayerAttackType.Heavy:
-                Push(GameObject.FindGameObjectWithTag("Player").transform.forward * 60);
-                break;
-            case PlayerAttackType.Pilon:
-                Push((transform.position - GameObject.FindGameObjectWithTag("Player").transform.position).normalized * 15);
-                break;
-            case PlayerAttackType.Epines:
-                Push((transform.position - GameObject.FindGameObjectWithTag("Player").transform.position).normalized * 30);
-                break;
-            default:
-                break;
-        }
+        if (stunnable) Stun(0.5f);
+
+        if (pushable) 
+            switch (type)
+            {
+                case PlayerAttackType.Simple:
+                    Push(GameObject.FindGameObjectWithTag("Player").transform.forward * 15);
+                    break;
+                case PlayerAttackType.Heavy:
+                    Push(GameObject.FindGameObjectWithTag("Player").transform.forward * 60);
+                    break;
+                case PlayerAttackType.Pilon:
+                    Push((transform.position - GameObject.FindGameObjectWithTag("Player").transform.position).normalized * 15);
+                    break;
+                case PlayerAttackType.Epines:
+                    Push((transform.position - GameObject.FindGameObjectWithTag("Player").transform.position).normalized * 30);
+                    break;
+                default:
+                    break;
+            }
+
         if (PV <= 0)
             Death();
     }
