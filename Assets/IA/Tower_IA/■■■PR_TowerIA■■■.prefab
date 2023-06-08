@@ -274,8 +274,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8446471271756658783}
   - component: {fileID: 3483167765439911146}
+  - component: {fileID: 8521054955979161563}
   m_Layer: 12
-  m_Name: "\u25A0\u25A0\u25A0\u25A0PR_TowerIA\u25A0\u25A0\u25A0\u25A0"
+  m_Name: "\u25A0\u25A0\u25A0PR_TowerIA\u25A0\u25A0\u25A0"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -319,6 +320,21 @@ MonoBehaviour:
   - {fileID: 368969670669502537}
   - {fileID: 7249017290572885970}
   deathFX: {fileID: 1072499274819581310, guid: 825097386cfdddf46a12e13d90cde3f8, type: 3}
+--- !u!114 &8521054955979161563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7896022199128420553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2cf50534281c144e985636316dfc850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pref_effectPV: {fileID: 8127741540072857944, guid: a9ed2cfc1b3d97d45be0a54e6735dba5,
+    type: 3}
+  untargetingDist: 18
 --- !u!1001 &1881926061927744565
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -414,7 +430,7 @@ PrefabInstance:
     - target: {fileID: 6077523855252260164, guid: 5388ca09136e978469f9983d8cd59fd4,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 564
+      value: 618
       objectReference: {fileID: 0}
     - target: {fileID: 7814582047371554064, guid: 5388ca09136e978469f9983d8cd59fd4,
         type: 3}
@@ -546,7 +562,7 @@ PrefabInstance:
     - target: {fileID: 6077523855252260164, guid: 5388ca09136e978469f9983d8cd59fd4,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 564
+      value: 621
       objectReference: {fileID: 0}
     - target: {fileID: 7814582047371554064, guid: 5388ca09136e978469f9983d8cd59fd4,
         type: 3}
@@ -673,7 +689,7 @@ PrefabInstance:
     - target: {fileID: 6077523855252260164, guid: 5388ca09136e978469f9983d8cd59fd4,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 564
+      value: 618
       objectReference: {fileID: 0}
     - target: {fileID: 7814582047371554064, guid: 5388ca09136e978469f9983d8cd59fd4,
         type: 3}

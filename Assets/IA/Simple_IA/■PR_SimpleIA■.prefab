@@ -496,7 +496,7 @@ GameObject:
   - component: {fileID: 349709443}
   - component: {fileID: 1411121976}
   m_Layer: 12
-  m_Name: "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0PR_SimpleIA\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0"
+  m_Name: "\u25A0PR_SimpleIA\u25A0"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -539,10 +539,8 @@ MonoBehaviour:
   stunnable: 1
   currentRenderer: {fileID: 646726044769593124}
   stunningMaterial: {fileID: 2100000, guid: e9dff570c3713db498769b7384b3836e, type: 2}
-  speed: 3.5
-  angularSpeed: 300
-  UnagroDistance: 5
-  radiusMessageZone: 8.04
+  distUnAggro: 7
+  radiusMessageZone: 5.5
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 4096
@@ -558,7 +556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 256950be73bd29241a9f00bcadd26648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radiusCone: 4
+  radiusCone: 5.5
   angleCone: 130
   overhideConePos: 0
   overhidePos: {x: 0, y: 0, z: 0}
@@ -611,8 +609,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 5.5
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!95 &349709443
 Animator:
   serializedVersion: 5

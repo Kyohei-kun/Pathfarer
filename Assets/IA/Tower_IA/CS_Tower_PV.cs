@@ -7,26 +7,15 @@ using UnityEngine;
 
 public class CS_Tower_PV : CS_Enemy
 {
+    Animator animCanon;
+
     [BoxGroup("Tirs")][Range(0,1)][SerializeField] float animOffset = 0;
     [BoxGroup("Tirs")][Required][SerializeField] GameObject projo;
 
     CS_TowerIA myTower;
 
     Vector3 newRot;
-    [BoxGroup("Aggro")][MinValue(0)][SerializeField] float rotSpeed = 4;
-    [BoxGroup("Aggro")][OnValueChanged("OnRadiusUnagroChange")][MinValue(0)][SerializeField] float distUnAggro = 6;
-    [BoxGroup("Aggro")][OnValueChanged("OnRadiusMessageChange")][SerializeField] float radiusMessageZone = 5;
-    [BoxGroup("Aggro")][SerializeField] LayerMask enemyLayerMask;
-
-    #region Gizmo Parameters
-    float timerShowGizmoMessage = 5;
-    float currenTimerShowGizmoMessage;
-
-    float timerShowGizmoUnagro = 5;
-    float currenTimerShowGizmoUnagro;
-    #endregion
-
-    Animator animCanon;
+    [MinValue(0)][SerializeField] float rotSpeed = 4;
 
     protected override void Start()
     {
@@ -37,11 +26,14 @@ public class CS_Tower_PV : CS_Enemy
         newRot = transform.eulerAngles;
     }
 
-    private void Update()
+    protected override void Update()
     {
-        if ((!IsAggro && perceptron.PlayerIsVisible) || ForceAggro) Aggro(); 
-        else if (IsAggro && Vector3.Distance(playerTransform.position, myTower.transform.position) > distUnAggro) UnAggro();
+        base.Update();
 
+        // Aggro
+        if (IsAggro && Vector3.Distance(playerTransform.position, myTower.transform.position) > distUnAggro) UnAggro();
+
+        // Animations
         if (!IsAggro)
         {
             newRot.y += Time.deltaTime * rotSpeed;
@@ -54,26 +46,29 @@ public class CS_Tower_PV : CS_Enemy
         }
     }
 
-    void Aggro()
+    #region Aggro
+    protected override void Aggro()
     {
-        IsAggro = true;
+        base.Aggro();
+
         animCanon.SetFloat("_Offset", animOffset);
         animCanon.SetBool("_Aggro", IsAggro);
-
-        ForceAggro = false;
     }
 
-    void UnAggro()
+    protected override void UnAggro()
     {
-        IsAggro = false;
+        base.UnAggro();
+
         animCanon.SetBool("_Aggro", IsAggro);
 
         GetComponentInChildren<Transform>().localEulerAngles = Vector3.zero;
     }
+    #endregion
 
+    #region Combat
     void Attack()
     {
-        Instantiate(projo, transform.position + (transform.forward * 1f), Quaternion.Euler(gameObject.transform.eulerAngles));
+        Instantiate(projo, transform.position + (GetComponentInChildren<Transform>().forward * 1f), Quaternion.Euler(GetComponentInChildren<Transform>().eulerAngles));
     }
 
     protected override void Death()
@@ -81,34 +76,6 @@ public class CS_Tower_PV : CS_Enemy
         base.Death();
 
         myTower.RemovePV(this);
-    }
-
-    #region Gizmos
-    private void OnDrawGizmos()
-    {
-        if (currenTimerShowGizmoMessage < timerShowGizmoMessage)
-        {
-            currenTimerShowGizmoMessage += Time.deltaTime;
-            Gizmos.color = Color.white;
-            Gizmos.DrawWireSphere(transform.position, radiusMessageZone);
-        }
-
-        if (currenTimerShowGizmoUnagro < timerShowGizmoUnagro)
-        {
-            currenTimerShowGizmoUnagro += Time.deltaTime;
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(transform.position, distUnAggro);
-        }
-    }
-
-    private void OnRadiusMessageChange()
-    {
-        currenTimerShowGizmoMessage = 0;
-    }
-
-    private void OnRadiusUnagroChange()
-    {
-        currenTimerShowGizmoUnagro = 0;
     }
     #endregion
 }

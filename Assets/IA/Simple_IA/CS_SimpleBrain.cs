@@ -9,100 +9,48 @@ using static CS_AnimationEnum;
 
 public class CS_SimpleBrain : CS_Enemy
 {
-    //Gizmo parameter
-    float timerShowGizmoMessage = 5;
-    float currenTimerShowGizmoMessage;
-
-    float timerShowGizmoUnagro = 5;
-    float currenTimerShowGizmoUnagro;
-
     NavMeshAgent agent;
     
-    bool lastPlayerIsVisible = false;
     bool canMove = true;
     bool attacking = false;
     
     bool canRotatePlayer = false;
 
-    [SerializeField] float speed;
-    [SerializeField] float angularSpeed;
-    [OnValueChanged("OnRadiusUnagroChange")][SerializeField] float UnagroDistance = 15;
-
-    [OnValueChanged("OnRadiusMessageChange")][SerializeField] float radiusMessageZone = 5;
-
-    [SerializeField] LayerMask enemyLayerMask;
-    
-
     protected override void Start()
     {
         base.Start();
-        agent = GetComponent<NavMeshAgent>(); if (agent == null) Debug.LogError("Pas de navmeshAgent");
-        agent.speed = speed;
-        agent.angularSpeed = angularSpeed;
+
+        if (!TryGetComponent(out agent)) Debug.LogError($"{gameObject.name} n'a pas de navmeshAgent !");
     }
+    protected override void Update()
+    {
+        base.Update();
+
+        CellMove();
+        CellAttack();
+    }
+
+    #region Stun
     protected override void OnStartStunning()
     {
         base.OnStartStunning();
+
         agent.isStopped = false;
-        GetComponent<NavMeshAgent>().enabled = false;
+        agent.enabled = false;
         _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     protected override void OnStopStunning()
     {
         base.OnStopStunning();
-        GetComponent<NavMeshAgent>().enabled = true;
+
+        agent.enabled = true;
         _rigidbody.constraints = RigidbodyConstraints.None;
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        _rigidbody.velocity = Vector3.zero;
     }
+    #endregion
 
-
-    private void Update()
-    {
-        if (!IsAggro && !lastPlayerIsVisible && (perceptron.PlayerIsVisible || touched || ForceAggro))
-        {
-            IsAggro = true;
-            ForceAggro = false;
-        }
-
-        StunUpdate();
-
-        CellMove();
-        CellAttack();
-
-        lastPlayerIsVisible = perceptron.PlayerIsVisible;
-    }
-
-  
-
-
-    private void OnDrawGizmos()
-    {
-        if (currenTimerShowGizmoMessage < timerShowGizmoMessage)
-        {
-            currenTimerShowGizmoMessage += Time.deltaTime;
-            Gizmos.color = Color.white;
-            Gizmos.DrawWireSphere(transform.position, radiusMessageZone);
-        }
-
-        if (currenTimerShowGizmoUnagro < timerShowGizmoUnagro)
-        {
-            currenTimerShowGizmoUnagro += Time.deltaTime;
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(transform.position, UnagroDistance);
-        }
-    }
-
-    private void OnRadiusMessageChange()
-    {
-        currenTimerShowGizmoMessage = 0;
-    }
-
-    private void OnRadiusUnagroChange()
-    {
-        currenTimerShowGizmoUnagro = 0;
-    }
-
+    #region Combat
     private void CellAttack()
     {
         if (!isStun)
@@ -115,7 +63,18 @@ public class CS_SimpleBrain : CS_Enemy
             }
         }
     }
+    #endregion
 
+    #region Aggro
+    protected override void UnAggro()
+    {
+        base.UnAggro();
+
+        agent.SetDestination(startPosition);
+    }
+    #endregion
+
+    #region Comportement
     private void CellMove()
     {
         if (!isStun)
@@ -125,9 +84,10 @@ public class CS_SimpleBrain : CS_Enemy
                 if (IsAggro)
                 {
                     agent.SetDestination(playerTransform.position);
-                    if (agent.path.Lenght() > UnagroDistance) //Si le joueur est trop loin
+
+                    if (agent.path.Lenght() > distUnAggro) //Si le joueur est trop loin
                     {
-                        StopHuntPlayer();
+                        UnAggro();
                     }
                 }
             }
@@ -139,13 +99,6 @@ public class CS_SimpleBrain : CS_Enemy
                 }
             }
         }
-    }
-
-    private void StopHuntPlayer()
-    {
-        IsAggro = false;
-        touched = false;
-        agent.SetDestination(startPosition);
     }
 
     public void AnimationEvent(StateSimpleAttack state)
@@ -165,4 +118,5 @@ public class CS_SimpleBrain : CS_Enemy
                 break;
         }
     }
+    #endregion
 }
