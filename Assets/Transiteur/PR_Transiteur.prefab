@@ -49,8 +49,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d73478f40f274fc4b9d8c3af8d375cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scenesToLoad: []
-  scenesToUnload: []
+  scenesToLoad:
+  - Scene_B
+  scenesToUnload:
+  - Main_Personnal
   socketPlayerTP: {fileID: 8515765117003346457}
 --- !u!33 &2547098198630445503
 MeshFilter:
@@ -67,7 +69,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2547098198630445498}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -155,7 +157,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2867738184810281633}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.813, y: -0.4735, z: -0.115}
+  m_LocalPosition: {x: -2.64, y: -0.4735, z: 0}
   m_LocalScale: {x: 1.320132, y: 0.14285713, z: 0.125}
   m_ConstrainProportionsScale: 0
   m_Children: []

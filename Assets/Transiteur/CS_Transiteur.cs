@@ -1,8 +1,6 @@
 using NaughtyAttributes;
-using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,22 +19,35 @@ public class CS_Transiteur : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            //FadeOUT
-            foreach (string nameScene in scenesToLoad) { SceneManager.LoadScene(nameScene, LoadSceneMode.Additive); }
-
-            //TP
-            other.gameObject.GetComponent<CharacterController>().enabled = false;
-            other.gameObject.transform.position = socketPlayerTP.position;
-            other.gameObject.GetComponent<CharacterController>().enabled = true;
-
-            foreach (string nameScene in scenesToUnload) { SceneManager.UnloadSceneAsync(nameScene); }
+           StartCoroutine(Transition(other.gameObject));
         }
+    }
+
+    private IEnumerator Transition(GameObject player)
+    {
+        CS_CameraFade FadeUtilitie = Camera.main.GetComponent<CS_CameraFade>();
+        FadeUtilitie.FadeIn();
+        player.GetComponent<CharacterController>().enabled = false;
+
+        while (FadeUtilitie.InFade()) { yield return null; }
+
+        foreach (string nameScene in scenesToLoad) { SceneManager.LoadScene(nameScene, LoadSceneMode.Additive); }
+
+        //TP
+        player.gameObject.transform.position = socketPlayerTP.position;
+        player.gameObject.GetComponent<CharacterController>().enabled = true;
+
+        foreach (string nameScene in scenesToUnload) { SceneManager.UnloadSceneAsync(nameScene); }
+
+        FadeUtilitie.FadeOut();
     }
 
     private void OnDrawGizmos()
     {
         if (drawGizmo)
         {
+            Gizmos.color = new Color(0.3f, 0f, 0.9f, 0.5f);
+            Gizmos.DrawCube(transform.position, transform.localScale);
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(socketPlayerTP.position, 0.3f);
             Gizmos.color = Color.white;
