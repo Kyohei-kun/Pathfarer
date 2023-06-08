@@ -59,10 +59,10 @@ public class CS_SimpleBrain : CS_Enemy
 
     private void Update()
     {
-        if (!isAggro && !lastPlayerIsVisible && (perceptron.PlayerIsVisible || touched || forceAggro))
+        if (!IsAggro && !lastPlayerIsVisible && (perceptron.PlayerIsVisible || touched || ForceAggro))
         {
-            isAggro = true;
-            forceAggro = false;
+            IsAggro = true;
+            ForceAggro = false;
         }
 
         StunUpdate();
@@ -122,7 +122,7 @@ public class CS_SimpleBrain : CS_Enemy
         {
             if (canMove)
             {
-                if (isAggro)
+                if (IsAggro)
                 {
                     agent.SetDestination(playerTransform.position);
                     if (agent.path.Lenght() > UnagroDistance) //Si le joueur est trop loin
@@ -143,7 +143,7 @@ public class CS_SimpleBrain : CS_Enemy
 
     private void StopHuntPlayer()
     {
-        isAggro = false;
+        IsAggro = false;
         touched = false;
         agent.SetDestination(startPosition);
     }

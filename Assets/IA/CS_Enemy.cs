@@ -26,8 +26,11 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
     [BoxGroup("Stun")][ShowIf("stunnable")][SerializeField] Material stunningMaterial;
     Material normalMaterial;
 
-    protected bool isAggro;
-    protected bool forceAggro;
+    private bool isAggro;
+    private bool forceAggro;
+
+    protected bool IsAggro { get => isAggro; set => isAggro = value; }
+    protected bool ForceAggro { get => forceAggro; set => forceAggro = value; }
 
     protected virtual void Start()
     {
@@ -125,13 +128,13 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
     {
         if (isAggro) return;
 
-        if (other.TryGetComponent(out CS_Enemy scriptEnemy) && scriptEnemy.isAggro)
+        if (other.TryGetComponent(out CS_Enemy scriptEnemy) && scriptEnemy.IsAggro)
         {
-            forceAggro = true;
+            ForceAggro = true;
         }
-        else if (other.transform.parent && other.transform.parent.TryGetComponent(out scriptEnemy) && scriptEnemy.isAggro)
+        else if (other.transform.parent && other.transform.parent.TryGetComponent(out scriptEnemy) && scriptEnemy.IsAggro)
         {
-            forceAggro = true;
+            ForceAggro = true;
         }
     }
 
@@ -139,13 +142,13 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
     {
         if (isAggro) return;
 
-        if (other.TryGetComponent(out CS_Enemy scriptEnemy) && scriptEnemy.isAggro)
+        if (other.TryGetComponent(out CS_Enemy scriptEnemy) && scriptEnemy.IsAggro)
         {
-            forceAggro = true;
+            ForceAggro = true;
         }
-        else if (other.transform.parent && other.transform.parent.TryGetComponent(out scriptEnemy) && scriptEnemy.isAggro)
+        else if (other.transform.parent && other.transform.parent.TryGetComponent(out scriptEnemy) && scriptEnemy.IsAggro)
         {
-            forceAggro = true;
+            ForceAggro = true;
         }
     }
 }

@@ -75,10 +75,10 @@ public class CS_ShieldBrain : CS_Enemy
     private void Update()
     {
 
-        if (!isAggro && !lastPlayerIsVisible && (perceptron.PlayerIsVisible || touched || forceAggro))
+        if (!IsAggro && !lastPlayerIsVisible && (perceptron.PlayerIsVisible || touched || ForceAggro))
         {
-            isAggro = true;
-            forceAggro = false;
+            IsAggro = true;
+            ForceAggro = false;
         }
 
         StunUpdate();
@@ -135,7 +135,7 @@ public class CS_ShieldBrain : CS_Enemy
         {
             if (canMove)
             {
-                if (isAggro)
+                if (IsAggro)
                 {
                     Vector3 playerDirection = (playerTransform.position - transform.position).normalized; //IA to Player
                     playerDirection = Vector3.ProjectOnPlane(playerDirection, Vector3.up);
@@ -163,7 +163,7 @@ public class CS_ShieldBrain : CS_Enemy
 
     private void StopHuntPlayer()
     {
-        isAggro = false;
+        IsAggro = false;
         touched = false;
         agent.SetDestination(startPosition);
     }

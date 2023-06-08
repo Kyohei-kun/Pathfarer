@@ -39,10 +39,10 @@ public class CS_Tower_PV : CS_Enemy
 
     private void Update()
     {
-        if ((!isAggro && perceptron.PlayerIsVisible) || forceAggro) Aggro(); 
-        else if (isAggro && Vector3.Distance(playerTransform.position, myTower.transform.position) > distUnAggro) UnAggro();
+        if ((!IsAggro && perceptron.PlayerIsVisible) || ForceAggro) Aggro(); 
+        else if (IsAggro && Vector3.Distance(playerTransform.position, myTower.transform.position) > distUnAggro) UnAggro();
 
-        if (!isAggro)
+        if (!IsAggro)
         {
             newRot.y += Time.deltaTime * rotSpeed;
             transform.eulerAngles = newRot;
@@ -56,17 +56,17 @@ public class CS_Tower_PV : CS_Enemy
 
     void Aggro()
     {
-        isAggro = true;
+        IsAggro = true;
         animCanon.SetFloat("_Offset", animOffset);
-        animCanon.SetBool("_Aggro", isAggro);
+        animCanon.SetBool("_Aggro", IsAggro);
 
-        forceAggro = false;
+        ForceAggro = false;
     }
 
     void UnAggro()
     {
-        isAggro = false;
-        animCanon.SetBool("_Aggro", isAggro);
+        IsAggro = false;
+        animCanon.SetBool("_Aggro", IsAggro);
 
         GetComponentInChildren<Transform>().localEulerAngles = Vector3.zero;
     }
