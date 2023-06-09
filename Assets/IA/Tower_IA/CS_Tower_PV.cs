@@ -68,7 +68,7 @@ public class CS_Tower_PV : CS_Enemy
     #region Combat
     void Attack()
     {
-        Instantiate(projo, transform.position + (GetComponentInChildren<Transform>().forward * 1f), Quaternion.Euler(GetComponentInChildren<Transform>().eulerAngles));
+        Instantiate(projo, transform.position + (GetComponent<Transform>().forward * 0.9f), Quaternion.identity);
     }
 
     protected override void Death()

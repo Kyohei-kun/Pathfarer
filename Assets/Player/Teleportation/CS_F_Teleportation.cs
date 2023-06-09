@@ -34,6 +34,7 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
     bool GreaterThan(float value) { return value >= margeHauteurEscaliers; }
 
     float hauteurTP;
+    [SerializeField] LayerMask groundLayers;
 
     int tpLevel;
     public int TpLevel { get => tpLevel; set => tpLevel = Mathf.Clamp(value, 0, 2); }
@@ -136,13 +137,11 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
 
         Vector3 margeH = Vector3.up * margeHauteurEscaliers;
 
-        LayerMask layer = LayerMask.GetMask("Ground");
-
         bool wall;
         bool empty;
 
         Debug.DrawRay(playerPos + margeH, dir * (dist + margeDistanceMurs), Color.blue);
-        if (Physics.Raycast(playerPos + margeH, dir, dist + margeDistanceMurs, layer))
+        if (Physics.Raycast(playerPos + margeH, dir, dist + margeDistanceMurs, groundLayers))
         {
             wall = true;
         }
@@ -152,7 +151,7 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
         }
 
         Debug.DrawRay(PreviewPosition(true) + margeH, Vector3.down * hauteurVideOK, Color.red);
-        if (Physics.Raycast(PreviewPosition(true) + margeH, Vector3.down, out RaycastHit hit, hauteurVideOK, layer))
+        if (Physics.Raycast(PreviewPosition(true) + margeH, Vector3.down, out RaycastHit hit, hauteurVideOK, groundLayers))
         {
             empty = false;
             hauteurTP = hit.point.y;

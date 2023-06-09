@@ -967,6 +967,9 @@ MonoBehaviour:
   margeHauteurEscaliers: 1
   margeDistanceMurs: 0.4
   hauteurVideOK: 1
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 254016
 --- !u!114 &508876918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1417,7 +1420,7 @@ MonoBehaviour:
   nails: []
   layerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 254016
 --- !u!114 &472713426
 MonoBehaviour:
   m_ObjectHideFlags: 0
