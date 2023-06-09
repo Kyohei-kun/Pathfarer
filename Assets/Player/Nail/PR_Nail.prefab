@@ -245,6 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381bc75400107484b823d003bca54be1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nbMaxProjoTank: 3
 --- !u!114 &8474111450088368716
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -60,7 +60,11 @@ public class CS_ProjectileTower : MonoBehaviour
         }
         else if (other.gameObject.name.Contains("Vacuum"))
         {
-            ChangeTarget(other.gameObject);
+            if (other.GetComponentInParent<CS_Nail>().CanRedirect())
+            {
+                ChangeTarget(other.gameObject);
+                other.GetComponentInParent<CS_Nail>().AbsorbeProjo();
+            }
         }
     }
 

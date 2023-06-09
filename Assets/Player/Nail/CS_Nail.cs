@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,9 @@ public class CS_Nail : MonoBehaviour
     VisualEffect fx;
 
     RaycastHit hit;
+
+    [MinValue(0)][SerializeField] int nbMaxProjoTank = 3;
+    int nbActualProjoTank = 0;
 
     public RaycastHit Hit { get => hit; set => hit = value; }
 
@@ -37,5 +41,22 @@ public class CS_Nail : MonoBehaviour
                 interactObject.InteractNail(this);
             }
         }
+    }
+
+    /// <summary>
+    /// True si le Nail peux encore rediriger des projectiles.
+    /// </summary>
+    /// <returns>nbActualProjoTank plus petit (strict) nbMaxProjoTank</returns>
+    public bool CanRedirect ()
+    {
+        return nbActualProjoTank < nbMaxProjoTank;
+    }
+
+    /// <summary>
+    /// Incrémente le nombre de projectiles absorbés par le clou. (nbActualProjoTank++)
+    /// </summary>
+    public void AbsorbeProjo()
+    {
+        nbActualProjoTank++;
     }
 }
