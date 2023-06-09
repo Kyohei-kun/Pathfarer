@@ -6,7 +6,7 @@ public class CS_Pickable_Heal : CS_Pickable
 {
     public override void PickEffect()
     {
-        if(!player.GetComponent<CS_PlayerLife>().FullLife())
+        if(!player.GetComponent<CS_PlayerLife>().IsFullLife())
         {
             base.PickEffect();
 

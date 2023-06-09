@@ -9,6 +9,7 @@ public class CS_Checkpoints : MonoBehaviour
 {
     public static List<CS_Checkpoints> checkpointsConnus = new();
     public static CS_Checkpoints actualCheckpoint;
+    [SerializeField] [Scene] List<string> sceneOfCheckpoint = new List<string>();
 
     List<CS_Torche> myTorches = new();
     GameObject player;
@@ -21,6 +22,8 @@ public class CS_Checkpoints : MonoBehaviour
     [SerializeField] Material mtOFF;
     [MinMaxSlider(0.0f, 70000.0f)][SerializeField] Vector2 intensityFlash;
     [SerializeField] Color flatColor;
+
+    public List<string> SceneOfCheckpoint { get => sceneOfCheckpoint; set => sceneOfCheckpoint = value; }
 
     private void Start()
     {

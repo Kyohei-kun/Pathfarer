@@ -31,13 +31,13 @@ public class CS_Transiteur : MonoBehaviour
 
         while (FadeUtilitie.InFade()) { yield return null; }
 
-        foreach (string nameScene in scenesToLoad) { SceneManager.LoadScene(nameScene, LoadSceneMode.Additive); }
+        foreach (string nameScene in scenesToLoad) { CS_SceneManager.LoadScene(nameScene, LoadSceneMode.Additive); }
 
         //TP
         player.gameObject.transform.position = socketPlayerTP.position;
         player.gameObject.GetComponent<CharacterController>().enabled = true;
 
-        foreach (string nameScene in scenesToUnload) { SceneManager.UnloadSceneAsync(nameScene); }
+        foreach (string nameScene in scenesToUnload) { CS_SceneManager.UnloadScene(nameScene); }
 
         FadeUtilitie.FadeOut();
     }

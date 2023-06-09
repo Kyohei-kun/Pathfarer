@@ -13,6 +13,8 @@ public class CS_SceneManager : MonoBehaviour
 
     [Scene][ReorderableList] public List<string> startScenes_LD = new List<string>();
 
+    static List<string> currentScenesLD = new List<string>();
+
     private void Start()
     {
         if (GameObject.FindGameObjectsWithTag("SceneManager").Count() > 1)
@@ -30,7 +32,7 @@ public class CS_SceneManager : MonoBehaviour
         SetActiveCoreScene();
         foreach (var scene in startScenes_LD)
         {
-            SceneManager.LoadScene(scene, LoadSceneMode.Additive);
+            LoadScene(scene, LoadSceneMode.Additive);
         }
     }
 
@@ -42,5 +44,51 @@ public class CS_SceneManager : MonoBehaviour
     public void StartGameWithDelay()
     {
         Invoke("StartGame", 1.5f);
+    }
+
+    public List<AsyncOperation> UnloadCurrentLDScenes()
+    {
+        List<AsyncOperation> result = new List<AsyncOperation>();
+        foreach (var item in currentScenesLD)
+        {
+            result.Add(SceneManager.UnloadSceneAsync(item));
+        }
+        currentScenesLD.Clear();
+        return result;
+    }
+
+    public List<AsyncOperation> UnloadScenes(List<string> scenes)
+    {
+        List<AsyncOperation> result = new List<AsyncOperation>();
+        foreach (var item in scenes)
+        {
+            result.Add(SceneManager.UnloadSceneAsync(item));
+            if(currentScenesLD.Contains(item))
+            {
+                currentScenesLD.Remove(item);
+            }
+        }
+        return result;
+    }
+
+    public void LoadScenes(List<string> scenes)
+    {
+        foreach (var item in scenes)
+        {
+            SceneManager.LoadScene(item, LoadSceneMode.Additive);
+            currentScenesLD.Add(item);
+        }
+    }
+
+    public static void LoadScene(string sceneName, LoadSceneMode mode)
+    {
+        SceneManager.LoadScene(sceneName, mode);
+        currentScenesLD.Add(sceneName);
+    }
+
+    public static void UnloadScene(string sceneName)
+    {
+        SceneManager.UnloadSceneAsync(sceneName);
+        currentScenesLD.Remove(sceneName);
     }
 }

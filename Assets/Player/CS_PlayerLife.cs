@@ -1,10 +1,8 @@
 using NaughtyAttributes;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
-using UnityEngine.VFX;
 
 public class CS_PlayerLife : MonoBehaviour
 {
@@ -70,7 +68,10 @@ public class CS_PlayerLife : MonoBehaviour
             //animatorSplash.Play(animSquishPlane);
 
             epines.Dmg();
-
+            if (currentLife == 0)
+            {
+                GameObject.FindGameObjectWithTag("GameManager").GetComponent<CS_GameManager>().OnPlayerDeath();
+            }
         }
     }
 
@@ -91,6 +92,12 @@ public class CS_PlayerLife : MonoBehaviour
         UpdateFXs();
     }
 
+    public void FullLife()
+    {
+        currentLife = lifeMax;
+        UpdateFXs();
+    }
+
     private void UpdateFXs()
     {
         mentor.UpdateVisuel_Life(currentLife);
@@ -99,10 +106,6 @@ public class CS_PlayerLife : MonoBehaviour
     // Update temporaire pour boutton clavier !
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.C))
-        {
-            GoToCheckpoint();
-        }
         if (Time.unscaledTime < timeStartSlowDown + durationEffect)
         {
             float alpha = Time.unscaledTime.Remap(timeStartSlowDown, timeStartSlowDown + durationEffect, 0, 1);
@@ -118,7 +121,7 @@ public class CS_PlayerLife : MonoBehaviour
         }
     }
 
-    public bool FullLife()
+    public bool IsFullLife()
     {
         return currentLife == lifeMax;
     }
