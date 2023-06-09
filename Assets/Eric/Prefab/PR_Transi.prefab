@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 373663063522479239}
   - component: {fileID: 8000089996419744747}
   - component: {fileID: 6787857697555933929}
-  - component: {fileID: -2012466145249103936}
   m_Layer: 0
   m_Name: PR_Transi
   m_TagString: Untagged
@@ -84,15 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-2012466145249103936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5185858934400489146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ca33a0ff54254e45b09508239955653, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
