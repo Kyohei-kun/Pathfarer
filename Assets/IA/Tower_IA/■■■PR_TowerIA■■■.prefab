@@ -174,10 +174,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8446471271756658783}
     m_Modifications:
+    - target: {fileID: 111077097394755896, guid: 5388ca09136e978469f9983d8cd59fd4,
+        type: 3}
+      propertyPath: m_Center.y
+      value: -2.3
+      objectReference: {fileID: 0}
     - target: {fileID: 170694481429834475, guid: 5388ca09136e978469f9983d8cd59fd4,
         type: 3}
       propertyPath: m_Name
       value: PR_TowerPV (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 470124395863589378, guid: 5388ca09136e978469f9983d8cd59fd4,
+        type: 3}
+      propertyPath: overhidePos.y
+      value: -2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 470124395863589378, guid: 5388ca09136e978469f9983d8cd59fd4,
+        type: 3}
+      propertyPath: overhideConePos
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1020695631672537310, guid: 5388ca09136e978469f9983d8cd59fd4,
         type: 3}
@@ -306,10 +321,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8446471271756658783}
     m_Modifications:
+    - target: {fileID: 111077097394755896, guid: 5388ca09136e978469f9983d8cd59fd4,
+        type: 3}
+      propertyPath: m_Center.y
+      value: -0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 170694481429834475, guid: 5388ca09136e978469f9983d8cd59fd4,
         type: 3}
       propertyPath: m_Name
       value: PR_TowerPV
+      objectReference: {fileID: 0}
+    - target: {fileID: 470124395863589378, guid: 5388ca09136e978469f9983d8cd59fd4,
+        type: 3}
+      propertyPath: overhidePos.y
+      value: -0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 470124395863589378, guid: 5388ca09136e978469f9983d8cd59fd4,
+        type: 3}
+      propertyPath: overhideConePos
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1020695631672537310, guid: 5388ca09136e978469f9983d8cd59fd4,
         type: 3}
@@ -438,10 +468,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8446471271756658783}
     m_Modifications:
+    - target: {fileID: 111077097394755896, guid: 5388ca09136e978469f9983d8cd59fd4,
+        type: 3}
+      propertyPath: m_Center.y
+      value: -3.8
+      objectReference: {fileID: 0}
     - target: {fileID: 170694481429834475, guid: 5388ca09136e978469f9983d8cd59fd4,
         type: 3}
       propertyPath: m_Name
       value: PR_TowerPV (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 470124395863589378, guid: 5388ca09136e978469f9983d8cd59fd4,
+        type: 3}
+      propertyPath: overhidePos.y
+      value: -3.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 470124395863589378, guid: 5388ca09136e978469f9983d8cd59fd4,
+        type: 3}
+      propertyPath: overhideConePos
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1020695631672537310, guid: 5388ca09136e978469f9983d8cd59fd4,
         type: 3}

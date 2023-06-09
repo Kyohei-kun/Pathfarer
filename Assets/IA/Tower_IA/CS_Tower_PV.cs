@@ -61,14 +61,14 @@ public class CS_Tower_PV : CS_Enemy
 
         animCanon.SetBool("_Aggro", IsAggro);
 
-        GetComponentInChildren<Transform>().localEulerAngles = Vector3.zero;
+        transform.GetChild(0).GetComponent<Transform>().localEulerAngles = Vector3.zero;
     }
     #endregion
 
     #region Combat
     void Attack()
     {
-        Instantiate(projo, transform.position + (GetComponent<Transform>().forward * 0.9f), Quaternion.identity);
+        Instantiate(projo, transform.position + (transform.GetChild(0).GetComponent<Transform>().forward * 0.9f), Quaternion.identity);
     }
 
     protected override void Death()

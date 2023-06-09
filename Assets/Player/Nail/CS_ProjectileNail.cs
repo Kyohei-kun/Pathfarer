@@ -21,10 +21,10 @@ public class CS_ProjectileNail : MonoBehaviour
 
     void Start()
     {
-        Collider[] enearmies = Physics.OverlapSphere(transform.position, 3.5f, enemiesMask);
-        target = enearmies[Random.Range(0, enearmies.Length)].gameObject;
+        Collider[] enearmies = Physics.OverlapSphere(transform.position, 5f, enemiesMask);
+        if (enearmies.Length > 0) target = enearmies[Random.Range(0, enearmies.Length)].gameObject; else target = null;
 
-        transform.LookAt(target.transform.position + Vector3.up);
+        if (target != null) transform.LookAt(target.transform.position + Vector3.up);
 
         GetComponent<Rigidbody>().velocity = transform.forward * speed;
     }
@@ -33,7 +33,7 @@ public class CS_ProjectileNail : MonoBehaviour
     {
         currentLife += Time.deltaTime;
 
-        if (currentLife >= lifeTime || Vector3.Distance(transform.position, target.transform.position) <= 0.1f)
+        if (currentLife >= lifeTime || (target != null && Vector3.Distance(transform.position, target.transform.position) <= 0.1f))
         {
             DestroyMe();
         }

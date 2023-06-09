@@ -20,8 +20,9 @@ public class CS_Nail : MonoBehaviour
     int nbActualProjoTank = 0;
 
     [SerializeField] GameObject myProjo;
-
+    [SerializeField] Material[] v1Mat = new Material[3];
     [SerializeField] Material[] v2Mat = new Material[3];
+    [SerializeField] GameObject fxTir;
 
     public RaycastHit Hit { get => hit; set => hit = value; }
 
@@ -73,6 +74,11 @@ public class CS_Nail : MonoBehaviour
     {
         nbActualProjoTank++;
 
-        if (gameManager.State_Nail_V2 && !CanRedirect()) Instantiate(myProjo, transform.position, Quaternion.identity);
+        if (gameManager.State_Nail_V2 && !CanRedirect())
+        {
+            Instantiate(myProjo, transform.position, Quaternion.identity);
+            GetComponentInChildren<MeshRenderer>().materials = v1Mat;
+            Instantiate(fxTir, transform.position, Quaternion.identity);
+        }
     }
 }

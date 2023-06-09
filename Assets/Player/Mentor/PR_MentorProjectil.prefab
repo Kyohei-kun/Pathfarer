@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4082187087733078789}
   - component: {fileID: 7819035539524087737}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 8684906665209981721}
   - component: {fileID: 1804562257827796619}
   - component: {fileID: -2024536710277514386}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PR_MentorProjectil
   m_TagString: Untagged
   m_Icon: {fileID: 0}

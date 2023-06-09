@@ -474,7 +474,7 @@ GameObject:
   - component: {fileID: 1321548021}
   - component: {fileID: 216762291}
   - component: {fileID: 216762290}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1705,17 +1705,17 @@ PrefabInstance:
     - target: {fileID: 6626758016126941952, guid: 4e507ab137499dc49b3fcac0c00f1465,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 7.012775e-14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6626758016126941952, guid: 4e507ab137499dc49b3fcac0c00f1465,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000374507
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6626758016126941952, guid: 4e507ab137499dc49b3fcac0c00f1465,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000001872535
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6626758016126941952, guid: 4e507ab137499dc49b3fcac0c00f1465,
         type: 3}
@@ -2274,17 +2274,17 @@ PrefabInstance:
     - target: {fileID: 7407108860983517933, guid: fffac857edfe5a748935456394ae23bd,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.00000018725329
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7407108860983517933, guid: fffac857edfe5a748935456394ae23bd,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000005617606
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7407108860983517933, guid: fffac857edfe5a748935456394ae23bd,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00000037450712
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7407108861598251320, guid: fffac857edfe5a748935456394ae23bd,
         type: 3}

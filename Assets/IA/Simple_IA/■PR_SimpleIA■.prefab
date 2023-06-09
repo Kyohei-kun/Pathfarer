@@ -489,10 +489,8 @@ GameObject:
   m_Component:
   - component: {fileID: 646726045265677453}
   - component: {fileID: 646726045265677455}
-  - component: {fileID: 646726045265677452}
   - component: {fileID: 646726045265677488}
   - component: {fileID: 646726045265677489}
-  - component: {fileID: 5026357628582507161}
   - component: {fileID: 349709443}
   - component: {fileID: 1411121976}
   m_Layer: 12
@@ -517,6 +515,7 @@ Transform:
   - {fileID: 646726044769593126}
   - {fileID: 941466228}
   - {fileID: 87933102}
+  - {fileID: 7202534113423861164}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -544,22 +543,6 @@ MonoBehaviour:
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 4096
---- !u!114 &646726045265677452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 646726045265677491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 256950be73bd29241a9f00bcadd26648, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radiusCone: 5.5
-  angleCone: 130
-  overhideConePos: 0
-  overhidePos: {x: 0, y: 0, z: 0}
 --- !u!195 &646726045265677488
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -598,19 +581,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &5026357628582507161
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 646726045265677491}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 5.5
-  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!95 &349709443
 Animator:
   serializedVersion: 5
@@ -647,3 +617,65 @@ MonoBehaviour:
   pref_effectPV: {fileID: 8127741540072857944, guid: a9ed2cfc1b3d97d45be0a54e6735dba5,
     type: 3}
   untargetingDist: 18
+--- !u!1 &2324432671484250236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7202534113423861164}
+  - component: {fileID: 8422298683155921795}
+  - component: {fileID: 5160882121378831283}
+  m_Layer: 18
+  m_Name: Perceptron
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7202534113423861164
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2324432671484250236}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 646726045265677453}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8422298683155921795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2324432671484250236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256950be73bd29241a9f00bcadd26648, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radiusCone: 5.5
+  angleCone: 130
+  overhideConePos: 0
+  overhidePos: {x: 0, y: 0, z: 0}
+--- !u!135 &5160882121378831283
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2324432671484250236}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5.5
+  m_Center: {x: 0, y: 0.8, z: 0}

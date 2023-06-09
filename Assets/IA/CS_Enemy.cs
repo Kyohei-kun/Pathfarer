@@ -64,7 +64,7 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
 
         normalMaterial = currentRenderer.sharedMaterial;
 
-        perceptron = GetComponent<CS_Perception>();
+        perceptron = GetComponentInChildren<CS_Perception>();
         perceptron.Initialisation(playerTransform);
     }
 
