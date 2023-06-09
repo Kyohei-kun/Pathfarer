@@ -35,7 +35,7 @@ public class CS_ProjectileTower : MonoBehaviour
             DestroyMe();
         }
 
-        if (target != player) // Pour un auto target constant enlever le if()
+        if (target != null && target != player) // Pour un auto target constant enlever le if(target != player)
         {
             autoTargetLerp += Time.deltaTime * (autoTargetForce / 100);
 
@@ -57,6 +57,7 @@ public class CS_ProjectileTower : MonoBehaviour
         if (other.gameObject == player)
         {
             player.GetComponent<CS_PlayerLife>().LoseLife();
+            DestroyMe();
         }
         else if (other.gameObject.name.Contains("Vacuum"))
         {

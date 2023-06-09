@@ -19,12 +19,13 @@ public class CS_FeatureUnlocker : MonoBehaviour
     [BoxGroup("Unlock")][SerializeField] bool state_Attack;
     [BoxGroup("Unlock")][SerializeField] bool state_HeavyAttack;
     [BoxGroup("Unlock")][SerializeField] bool state_FireFlies;
-    [BoxGroup("Unlock")][SerializeField] bool state_Nail_Lvl1;
-    [BoxGroup("Unlock")][SerializeField] bool state_Nail_Lvl2;
-    [BoxGroup("Unlock")][SerializeField] bool state_Nail_Lvl3;
-    [BoxGroup("Unlock")][SerializeField] bool state_Nail_Lvl4;
+    [BoxGroup("Unlock")][SerializeField] bool state_Nail_Nb1;
+    [BoxGroup("Unlock")][SerializeField] bool state_Nail_Nb2;
+    [BoxGroup("Unlock")][SerializeField] bool state_Nail_Nb3;
+    [BoxGroup("Unlock")][SerializeField] bool state_Nail_Nb4;
+    [BoxGroup("Unlock")][SerializeField] bool state_Nail_V2;
     [BoxGroup("Unlock")][SerializeField] bool state_Jump;
-    [BoxGroup("Unlock")][SerializeField] bool state_Teleportation_Lvl1;
+    [BoxGroup("Unlock")][SerializeField] bool state_Teleportation_V1;
     [BoxGroup("Unlock")][SerializeField] bool state_Teleportation_Lvl2;
 
     [BoxGroup("Inventaire")][ShowNonSerializedField] List<string> items = new();
@@ -33,12 +34,13 @@ public class CS_FeatureUnlocker : MonoBehaviour
     public bool State_Attack { get => state_Attack; set => state_Attack = value; }
     public bool State_HeavyAttack { get => state_HeavyAttack; set => state_HeavyAttack = value; }
     public bool State_FireFlies { get => state_FireFlies; set => state_FireFlies = value; }
-    public bool State_Nail_Lvl1 { get => state_Nail_Lvl1; set => state_Nail_Lvl1 = value; }
-    public bool State_Nail_Lvl2 { get => state_Nail_Lvl2; set => state_Nail_Lvl2 = value; }
-    public bool State_Nail_Lvl3 { get => state_Nail_Lvl3; set => state_Nail_Lvl3 = value; }
-    public bool State_Nail_Lvl4 { get => state_Nail_Lvl4; set => state_Nail_Lvl4 = value; }
+    public bool State_Nail_Lvl1 { get => state_Nail_Nb1; set => state_Nail_Nb1 = value; }
+    public bool State_Nail_Lvl2 { get => state_Nail_Nb2; set => state_Nail_Nb2 = value; }
+    public bool State_Nail_Lvl3 { get => state_Nail_Nb3; set => state_Nail_Nb3 = value; }
+    public bool State_Nail_Lvl4 { get => state_Nail_Nb4; set => state_Nail_Nb4 = value; }
+    public bool State_Nail_V2 { get => state_Nail_V2; set => state_Nail_V2 = value; }
     public bool State_Jump { get => state_Jump; set => state_Jump = value; }
-    public bool State_Teleportation_Lvl1 { get => state_Teleportation_Lvl1; set => state_Teleportation_Lvl1 = value; }
+    public bool State_Teleportation_Lvl1 { get => state_Teleportation_V1; set => state_Teleportation_V1 = value; }
     public bool State_Teleportation_Lvl2 { get => state_Teleportation_Lvl2; set => state_Teleportation_Lvl2 = value; }
 
     private void Start()
@@ -84,22 +86,22 @@ public class CS_FeatureUnlocker : MonoBehaviour
 
     private void UpdateNail()
     {
-        if (state_Nail_Lvl4)
+        if (state_Nail_Nb4)
         {
             f_Nail.NailLevel = 4;
             return;
         }
-        else if (state_Nail_Lvl3)
+        else if (state_Nail_Nb3)
         {
             f_Nail.NailLevel = 3;
             return;
         }
-        else if (state_Nail_Lvl2)
+        else if (state_Nail_Nb2)
         {
             f_Nail.NailLevel = 2;
             return;
         }
-        else if (state_Nail_Lvl1)
+        else if (state_Nail_Nb1)
         {
             f_Nail.NailLevel = 1;
             return;
@@ -123,7 +125,7 @@ public class CS_FeatureUnlocker : MonoBehaviour
             return;
         }
 
-        f_Teleportation.TpLevel = state_Teleportation_Lvl1 ? 1:0;
+        f_Teleportation.TpLevel = state_Teleportation_V1 ? 1:0;
     }
 
     #region Inventaire

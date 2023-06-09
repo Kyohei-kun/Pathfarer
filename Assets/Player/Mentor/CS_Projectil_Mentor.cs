@@ -22,7 +22,8 @@ public class CS_Projectil_Mentor : MonoBehaviour
         lifeTime -= Time.deltaTime;
 
         _rigidbody.velocity = transform.forward * Time.deltaTime * speed ;
-        transform.LookAt(Target);
+        
+        if (Target != null) transform.LookAt(Target);
 
         if (Vector3.Distance(transform.position, target.position) < 1 || lifeTime < 0 || target == null)
         {

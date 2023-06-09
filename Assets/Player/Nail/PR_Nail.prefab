@@ -246,6 +246,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nbMaxProjoTank: 3
+  myProjo: {fileID: 3274758196708351143, guid: 3bfa42454c94da443b3092f80bacca61, type: 3}
+  v2Mat:
+  - {fileID: 2100000, guid: 570be33613c0f3346a6d9a0f0dc7e609, type: 2}
+  - {fileID: 2100000, guid: 8e7c88a284d19634d80340ddff5c34b3, type: 2}
+  - {fileID: 2100000, guid: e54be412408fa5a4aab944a1027855cc, type: 2}
 --- !u!114 &8474111450088368716
 MonoBehaviour:
   m_ObjectHideFlags: 0
