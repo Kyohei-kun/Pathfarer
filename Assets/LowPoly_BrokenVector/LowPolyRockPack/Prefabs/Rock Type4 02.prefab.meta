@@ -1,15 +1,15 @@
 fileFormatVersion: 2
 guid: 3a699487877e77b439ff09deb77625e5
 labels:
-- lowpoly
-- rock
-- low-poly
-- rocks
+- Environment
 - art
+- low-poly
+- lowpoly
 - pack
-timeCreated: 1457638034
-licenseType: Store
-NativeFormatImporter:
+- rock
+- rocks
+PrefabImporter:
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

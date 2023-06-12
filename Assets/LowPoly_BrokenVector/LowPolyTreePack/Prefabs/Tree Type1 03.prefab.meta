@@ -1,16 +1,16 @@
 fileFormatVersion: 2
 guid: 55ca4401075700d46a23ae8179a79579
 labels:
+- Environment
 - dead
-- plant
-- pack
 - low-poly
-- set
 - lowpoly
+- pack
+- plant
+- set
 - tree
-timeCreated: 1457642253
-licenseType: Store
-NativeFormatImporter:
+PrefabImporter:
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
