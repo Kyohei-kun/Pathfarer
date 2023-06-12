@@ -16,21 +16,33 @@ public class CS_ProjectileNail : MonoBehaviour
     Vector3 autoTargetStart = Vector3.zero;
     Vector3 autoTargetEnd = Vector3.zero;
 
+    [MinValue(0)][SerializeField] float targetingRange = 5;
+
     [MinValue(0)][SerializeField] float damage = 2;
-    [SerializeField] LayerMask enemiesMask;
+    [SerializeField] LayerMask targetableMask;
 
-    void Start()
+    bool startEnd;
+
+    /// <summary>
+    /// Initialise les valeurs du projectile.
+    /// </summary>
+    /// <param name="cible">Cible du projectile. Annule l'initialisation si null.</param>
+    public void StartProjoNail(GameObject cible)
     {
-        Collider[] enearmies = Physics.OverlapSphere(transform.position, 5f, enemiesMask);
-        if (enearmies.Length > 0) target = enearmies[Random.Range(0, enearmies.Length)].gameObject; else target = null;
+        if (cible == null) {Debug.LogError($"La target de {gameObject.name} est null !"); return; }
 
-        if (target != null) transform.LookAt(target.transform.position + Vector3.up);
+        target = cible;
+        transform.LookAt(target.transform.position + Vector3.up);
 
         GetComponent<Rigidbody>().velocity = transform.forward * speed;
+
+        startEnd = true;
     }
 
     private void Update()
     {
+        if (!startEnd) return;
+
         currentLife += Time.deltaTime;
 
         if (currentLife >= lifeTime || (target != null && Vector3.Distance(transform.position, target.transform.position) <= 0.1f))
@@ -51,6 +63,7 @@ public class CS_ProjectileNail : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!startEnd) return;
         if (other.gameObject.name.Contains("Herb")) return; // Pas les herbes
 
         CS_I_Attackable attackableObject;
@@ -73,6 +86,7 @@ public class CS_ProjectileNail : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (!startEnd) return;
         DestroyMe();
     }
 

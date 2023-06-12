@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 5903015762214370455}
   m_Layer: 12
   m_Name: "\u25A0\u25A0\u25A0PR_TowerIA\u25A0\u25A0\u25A0"
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -277,7 +277,7 @@ PrefabInstance:
     - target: {fileID: 6077523855252260164, guid: 5388ca09136e978469f9983d8cd59fd4,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 618
+      value: 891
       objectReference: {fileID: 0}
     - target: {fileID: 7814582047371554064, guid: 5388ca09136e978469f9983d8cd59fd4,
         type: 3}
@@ -424,7 +424,7 @@ PrefabInstance:
     - target: {fileID: 6077523855252260164, guid: 5388ca09136e978469f9983d8cd59fd4,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 621
+      value: 894
       objectReference: {fileID: 0}
     - target: {fileID: 7814582047371554064, guid: 5388ca09136e978469f9983d8cd59fd4,
         type: 3}
@@ -566,7 +566,7 @@ PrefabInstance:
     - target: {fileID: 6077523855252260164, guid: 5388ca09136e978469f9983d8cd59fd4,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 618
+      value: 891
       objectReference: {fileID: 0}
     - target: {fileID: 7814582047371554064, guid: 5388ca09136e978469f9983d8cd59fd4,
         type: 3}

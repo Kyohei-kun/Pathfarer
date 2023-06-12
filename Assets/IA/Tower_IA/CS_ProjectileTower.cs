@@ -17,6 +17,8 @@ public class CS_ProjectileTower : MonoBehaviour
     Vector3 autoTargetStart = Vector3.zero;
     Vector3 autoTargetEnd = Vector3.zero;
 
+    bool redirected;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -59,12 +61,13 @@ public class CS_ProjectileTower : MonoBehaviour
             player.GetComponent<CS_PlayerLife>().LoseLife();
             DestroyMe();
         }
-        else if (other.gameObject.name.Contains("Vacuum"))
+        else if (other.gameObject.name.Contains("Vacuum") && !redirected)
         {
             if (other.GetComponentInParent<CS_Nail>().CanRedirect())
             {
                 ChangeTarget(other.gameObject);
                 other.GetComponentInParent<CS_Nail>().AbsorbeProjo();
+                redirected = true;
             }
         }
     }

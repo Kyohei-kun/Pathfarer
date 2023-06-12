@@ -75,6 +75,8 @@ public class CS_F_Teleportation : MonoBehaviour, CS_I_Subscriber
 
         if (previewON)
         {
+            if (actualTarget == null) {EndPreviewTP(); lastInputState = inputState; return; }
+
             if (actualTime > cdTP && !CheckSiWallOrEmpty())
             {
                 if (!tpPossible)
