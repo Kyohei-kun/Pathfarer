@@ -65,10 +65,14 @@ MonoBehaviour:
   f_Jump: {fileID: 0}
   f_Teleportation: {fileID: 0}
   state_Mentor: 0
-  state_Attack: 0
+  state_Attack: 1
   state_HeavyAttack: 0
   state_FireFlies: 0
-  state_Nail: 0
+  state_Nail_Nb1: 0
+  state_Nail_Nb2: 0
+  state_Nail_Nb3: 0
+  state_Nail_Nb4: 0
+  state_Nail_V2: 0
   state_Jump: 0
-  state_Teleportation_Lvl1: 0
+  state_Teleportation_V1: 0
   state_Teleportation_Lvl2: 0
