@@ -113,6 +113,7 @@ MonoBehaviour:
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 4096
+  freezeTime: 2
   animOffset: 0
   projo: {fileID: 3274758196708351143, guid: 3e9c513b65c4ebe4b91a8fd841a28c77, type: 3}
   rotSpeed: 4

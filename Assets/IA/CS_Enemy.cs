@@ -39,7 +39,8 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
 
     // Mentor
     protected float baseSpeed = 0;
-    [BoxGroup("Mentor")][MinValue(0)][SerializeField] float freezeTime = 2;
+    bool freezed = false;
+    [BoxGroup("Mentor")][MinValue(0)][SerializeField] protected float freezeTime = 2;
 
     #region Gizmo Parameters
     bool showPermanentGizmo;
@@ -81,6 +82,12 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
         
         // Stun
         StunUpdate();
+
+        // Mentor
+        if (freezed && !gameObject.name.Contains("Tower"))
+        {
+            transform.rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(playerTransform.position - transform.position, Vector3.up));
+        }
     }
 
     private void LateUpdate()
@@ -224,6 +231,7 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
     #region Mentor
     virtual public void FreezeMentor()
     {
+        freezed = true;
         StartCoroutine(WaitUnfreeze());
     }
 
@@ -234,7 +242,7 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
         UnfreezeMentor();
     }
 
-    protected virtual void UnfreezeMentor() {}
+    protected virtual void UnfreezeMentor() { freezed = false; }
     #endregion
 
     #region Gizmos
