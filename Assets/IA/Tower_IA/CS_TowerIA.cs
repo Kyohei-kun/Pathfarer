@@ -9,6 +9,8 @@ public class CS_TowerIA : MonoBehaviour
 
     GameObject player;
 
+    public int ActualNbPv { get => myPV.Count; }
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");

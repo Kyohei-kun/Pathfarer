@@ -531,7 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37851b9a008ffe442b47b183ec97fc5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PV: 5
+  pV: 5
   prefab_DeathFX: {fileID: 1072499274819581310, guid: 825097386cfdddf46a12e13d90cde3f8,
     type: 3}
   pushable: 1
@@ -543,6 +543,7 @@ MonoBehaviour:
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 4096
+  freezeTime: 2
 --- !u!195 &646726045265677488
 NavMeshAgent:
   m_ObjectHideFlags: 0

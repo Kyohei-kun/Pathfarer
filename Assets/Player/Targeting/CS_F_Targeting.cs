@@ -90,11 +90,14 @@ public class CS_F_Targeting : MonoBehaviour
     {
         foreach (GameObject g in targetableObjects.Keys.ToList())
         {
-            g.TryGetComponent(out CS_Targetable scriptWright);
-
-            if (scriptWright != null)
+            if (g != null)
             {
-                scriptWright.enabled = false;
+                g.TryGetComponent(out CS_Targetable scriptWright);
+
+                if (scriptWright != null)
+                {
+                    scriptWright.enabled = false;
+                }
             }
         }
 
@@ -129,6 +132,16 @@ public class CS_F_Targeting : MonoBehaviour
                 scriptWright.enabled = true;
                 targetableObjects.Add(colliders[i].gameObject, scriptWright.GetTargetingWeight());
             }
+            else if (colliders[i].transform.parent)
+            {
+                colliders[i].transform.parent.TryGetComponent(out CS_Targetable scriptWrightInParent);
+
+                if (scriptWrightInParent != null && OnSameLevel(colliders[i].transform.parent.gameObject) && !targetableObjects.ContainsKey(colliders[i].transform.parent.gameObject))
+                {
+                    scriptWrightInParent.enabled = true;
+                    targetableObjects.Add(colliders[i].transform.parent.gameObject, scriptWrightInParent.GetTargetingWeight());
+                }
+            }
         }
     }
 
@@ -151,7 +164,7 @@ public class CS_F_Targeting : MonoBehaviour
         bool isNotUnder = g.transform.position.y > gameObject.transform.position.y - targetingMargeHauteur;
         bool isNotUpper = g.transform.position.y < gameObject.transform.position.y + targetingMaxHauteur;
 
-        if (isNotUnder && isNotUpper) return true; else return false;
+        return isNotUnder && isNotUpper;
     }
 
     void SetActualIndex(bool plus)

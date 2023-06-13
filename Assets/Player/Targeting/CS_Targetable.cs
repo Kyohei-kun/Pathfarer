@@ -18,11 +18,11 @@ public class CS_Targetable : MonoBehaviour
 
     private void Awake()
     {
-        GameObject prefabfx = GameObject.Instantiate(pref_effectPV, transform);
+        GameObject prefabfx = Instantiate(pref_effectPV, transform);
         prefabfx.gameObject.name = "PR_Target";
 
         effectPV = prefabfx.transform.Find("FX_TargetPV").GetComponent<VisualEffect>();
-        effectPV.SetInt("Amount", 5);
+        UpdateAmountFX();
 
         enabled = false;
     }
@@ -60,5 +60,17 @@ public class CS_Targetable : MonoBehaviour
     {
         SetTargetingWeight();
         return targetingWeight;
+    }
+
+    /// <summary>
+    /// Met a jour le nombre de cubes qui tournent dans le FX. Ils indiquent les PVs de l'ennemis.
+    /// </summary>
+    public void UpdateAmountFX()
+    {
+        int pvTarget;
+        if (!gameObject.name.Contains("Tower")) pvTarget = Mathf.RoundToInt(GetComponent<CS_Enemy>().PV);
+        else pvTarget = GetComponent<CS_TowerIA>().ActualNbPv;
+
+        effectPV.SetInt("Amount", pvTarget);
     }
 }

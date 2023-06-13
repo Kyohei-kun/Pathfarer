@@ -16,7 +16,7 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
 
     // Combat
     protected bool touched = false;
-    [BoxGroup("Combat")][MinValue(0)][SerializeField] protected float PV = 3;
+    [BoxGroup("Combat")][MinValue(0)][SerializeField] private float pV = 3;
     [BoxGroup("Combat")][SerializeField] protected GameObject prefab_DeathFX;
     [BoxGroup("Combat")][SerializeField] bool pushable = true;
 
@@ -58,6 +58,7 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
     #region Accesseurs
     protected bool IsAggro { get => isAggro; set => isAggro = value; }
     protected bool LastPlayerIsVisible { get => lastPlayerIsVisible; set => lastPlayerIsVisible = value; }
+    public float PV { get => pV; set => pV = value; }
     #endregion
 
     protected virtual void Start()
@@ -175,6 +176,9 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
 
         if (PV <= 0)
             Death();
+
+        if (!gameObject.name.Contains("Tower")) GetComponent<CS_Targetable>().UpdateAmountFX();
+        else transform.parent.GetComponent<CS_Targetable>().UpdateAmountFX();
     }
 
     virtual protected void Death()

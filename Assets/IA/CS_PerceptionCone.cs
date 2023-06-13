@@ -35,7 +35,7 @@ public class CS_PerceptionCone : CS_Perception
 
             Vector3 IAtoPlayer = Vector3.ProjectOnPlane((playerTransform.position - transform.position).normalized, Vector3.up);
 
-            if (Vector3.Angle(IAtoPlayer, transform.forward)*2 < angleCone || Vector3.Distance(transform.position, playerTransform.position) < 1.3f)
+            if (Vector3.Angle(IAtoPlayer, transform.forward) * 2 < angleCone || Vector3.Distance(transform.position, playerTransform.position) < 1.3f)
                 playerIsVisible = true;
             else
                 playerIsVisible = false;

@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b7561d9626566499da032a990f3c99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PV: 1
+  pV: 1
   prefab_DeathFX: {fileID: 1072499274819581310, guid: 825097386cfdddf46a12e13d90cde3f8,
     type: 3}
   pushable: 0
