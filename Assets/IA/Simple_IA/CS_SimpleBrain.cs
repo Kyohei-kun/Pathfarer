@@ -21,6 +21,8 @@ public class CS_SimpleBrain : CS_Enemy
         base.Start();
 
         if (!TryGetComponent(out agent)) Debug.LogError($"{gameObject.name} n'a pas de navmeshAgent !");
+
+        baseSpeed = agent.speed;
     }
     protected override void Update()
     {
@@ -71,6 +73,22 @@ public class CS_SimpleBrain : CS_Enemy
         base.UnAggro();
 
         agent.SetDestination(startPosition);
+    }
+    #endregion
+
+    #region Mentor
+    public override void FreezeMentor()
+    {
+        agent.speed = 0;
+
+        base.FreezeMentor();
+    }
+
+    protected override void UnfreezeMentor()
+    {
+        base.UnfreezeMentor();
+
+        agent.speed = baseSpeed;
     }
     #endregion
 

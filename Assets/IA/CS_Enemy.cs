@@ -37,6 +37,10 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
     [BoxGroup("Aggro")][SerializeField] LayerMask enemyLayerMask;
     bool lastPlayerIsVisible;
 
+    // Mentor
+    protected float baseSpeed = 0;
+    [BoxGroup("Mentor")][MinValue(0)][SerializeField] float freezeTime = 2;
+
     #region Gizmo Parameters
     bool showPermanentGizmo;
 
@@ -215,6 +219,22 @@ public class CS_Enemy : MonoBehaviour , CS_I_Attackable
             Aggro();
         }
     }
+    #endregion
+
+    #region Mentor
+    virtual public void FreezeMentor()
+    {
+        StartCoroutine(WaitUnfreeze());
+    }
+
+    IEnumerator WaitUnfreeze()
+    {
+        yield return new WaitForSeconds(freezeTime);
+
+        UnfreezeMentor();
+    }
+
+    protected virtual void UnfreezeMentor() {}
     #endregion
 
     #region Gizmos

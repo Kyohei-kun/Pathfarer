@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CS_ProjectileNail : MonoBehaviour
 {
-    [MinValue(0)][SerializeField] float speed = 5;
+    [MinValue(0)][SerializeField] float speed = 10;
     [MinValue(0)][SerializeField] float lifeTime = 10;
     float currentLife = 0;
 

@@ -29,6 +29,8 @@ public class CS_ShieldBrain : CS_Enemy
             agent.speed = 0;
             canMove = !pasBouger;
         }
+
+        baseSpeed = agent.speed;
     }
     protected override void Update()
     {
@@ -139,6 +141,22 @@ public class CS_ShieldBrain : CS_Enemy
         base.UnAggro();
 
         agent.SetDestination(startPosition);
+    }
+    #endregion
+
+    #region Mentor
+    public override void FreezeMentor()
+    {
+        agent.speed = 0;
+
+        base.FreezeMentor();
+    }
+
+    protected override void UnfreezeMentor()
+    {
+        base.UnfreezeMentor();
+
+        agent.speed = baseSpeed;
     }
     #endregion
 

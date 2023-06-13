@@ -12,6 +12,9 @@ public class CS_F_Mentor : MonoBehaviour
     bool drawDebugGizmo;
 
     [ReorderableList] [SerializeField] List<CS_Enemy> enemies = new();
+    GameObject targetTir;
+    [MinValue(0)][SerializeField] float targetingRange = 10;
+    [SerializeField] LayerMask targetableMask;
 
     [BoxGroup("Parameters")] [SerializeField] float cadence;
     [BoxGroup("Parameters")] [SerializeField] Transform socketShoot;
@@ -23,20 +26,20 @@ public class CS_F_Mentor : MonoBehaviour
     [BoxGroup("FeedBack")] [SerializeField] GameObject bodySphere;
     [BoxGroup("FeedBack")] [SerializeField] Light light;
 
-
     [BoxGroup("LifeVisuel")] [SerializeField] Gradient gradient_live1;
     [BoxGroup("LifeVisuel")] [SerializeField] Gradient gradient_live2;
     [BoxGroup("LifeVisuel")] [SerializeField] Gradient gradient_live3;
-    [Space][BoxGroup("LifeVisuel")] [SerializeField] Material mt_live1;
+    [Space]
+    [BoxGroup("LifeVisuel")] [SerializeField] Material mt_live1;
     [BoxGroup("LifeVisuel")] [SerializeField] Material mt_live2;
     [BoxGroup("LifeVisuel")] [SerializeField] Material mt_live3;
-    [Space][BoxGroup("LifeVisuel")] [SerializeField] Color lightColor_live1;
+    [Space]
+    [BoxGroup("LifeVisuel")] [SerializeField] Color lightColor_live1;
     [BoxGroup("LifeVisuel")] [SerializeField] Color lightColor_live2;
     [BoxGroup("LifeVisuel")] [SerializeField] Color lightColor_live3;
 
     private float currentCooldown = 0;
-    private bool isCooldown = false;
-    private bool canAttack = true;
+    private bool isCooldown = true;
 
     private void Start()
     {
@@ -51,28 +54,72 @@ public class CS_F_Mentor : MonoBehaviour
         if (isCooldown)
         {
             currentCooldown += Time.deltaTime;
+
             if (currentCooldown >= cadence)
             {
-                canAttack = true;
                 isCooldown = false;
             }
         }
-
-        if (enemies.Count != 0)
+        else
         {
-            SortEnemies();
-            if (canAttack)
-            {
-                Shoot(enemies[0]);
-                currentCooldown = 0;
-                canAttack = false;
-                isCooldown = true;
-
-                eyes.SetActive(true);
-                Invoke("ActivateFX", cadence / 2);
-                fx_mentor.Stop();
-            }
+            CheckEnemiesNear();
         }
+    }
+
+    void CheckEnemiesNear()
+    {
+        Collider[] enearmies = Physics.OverlapSphere(transform.position, targetingRange, targetableMask);
+
+        if (enearmies.Length > 0)
+        {
+            // Premier set pour pas de NullReference
+            for (int i = 0; i < enearmies.Length; i++)
+            {
+                if (enearmies[i].CompareTag("Enemy"))
+                {
+                    targetTir = enearmies[i].gameObject;
+                }
+                else if (enearmies[i].transform.parent && enearmies[i].transform.parent.CompareTag("Enemy"))
+                {
+                    targetTir = enearmies[i].transform.parent.gameObject;
+                }
+            }
+
+            // Si aucun ennemis dans les colliders
+            if (targetTir == null) return;
+
+            // Vrai set avec distance
+            for (int i = 0; i < enearmies.Length; i++)
+            {
+                float distNearest = Vector3.Distance(targetTir.transform.position, transform.position);
+                float distList = Vector3.Distance(enearmies[i].transform.position, transform.position);
+
+                if (distList < distNearest && enearmies[i].CompareTag("Enemy"))
+                {
+                    targetTir = enearmies[i].gameObject;
+                }
+                else if (distList < distNearest && enearmies[i].transform.parent && enearmies[i].transform.parent.CompareTag("Enemy"))
+                {
+                    targetTir = enearmies[i].transform.parent.gameObject;
+                }
+            }
+
+            Shoot();
+        }
+        else targetTir = null;
+    }
+
+    private void Shoot()
+    {
+        GameObject projo = Instantiate(pref_Projectile, transform.position, Quaternion.identity);
+        projo.GetComponent<CS_Projectil_Mentor>().StartProjoMentor(targetTir);
+
+        currentCooldown = 0;
+        isCooldown = true;
+
+        eyes.SetActive(true);
+        Invoke("ActivateFX", cadence / 2);
+        fx_mentor.Stop();
     }
 
     private void ActivateFX()
@@ -81,25 +128,6 @@ public class CS_F_Mentor : MonoBehaviour
         fx_explodeMentor.Play();
         eyes.SetActive(false);
     }
-
-    private void Shoot(CS_Enemy target)
-    {
-        GameObject projectil = Instantiate(pref_Projectile);
-        projectil.transform.localPosition = socketShoot.position;
-        projectil.transform.LookAt(target.transform.position);
-        projectil.GetComponent<CS_Projectil_Mentor>().Target = target.transform;
-    }
-
-    private void SortEnemies()
-    {
-        foreach (CS_Enemy item in enemies.ToList()) //Clean dead IA
-        {
-            if(item == null)
-                enemies.Remove(item);
-        }
-        enemies = enemies.OrderBy(go => Vector3.Distance(transform.position, go.transform.position)).ToList<CS_Enemy>();
-    }
-
 
     /// <summary>
     /// Update fx, fx_Explode, light, material
@@ -129,26 +157,6 @@ public class CS_F_Mentor : MonoBehaviour
                 break;
             default:
                 break;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        CS_Enemy tempEnemy = other.GetComponent<CS_Enemy>();
-
-        if (tempEnemy != null)
-        {
-            enemies.Add(tempEnemy);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        CS_Enemy tempEnemy = other.GetComponent<CS_Enemy>();
-
-        if (tempEnemy != null && enemies.Contains(tempEnemy))
-        {
-            _ = enemies.Remove(tempEnemy);
         }
     }
 
