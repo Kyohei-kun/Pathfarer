@@ -6,16 +6,22 @@ using UnityEngine;
 
 public class CS_SwitchRoomHider : MonoBehaviour
 {
-    [SerializeField] GameObject toHide;
-    [SerializeField] GameObject toShow;
+    [SerializeField] List<GameObject> toHide = new List<GameObject>();
+    [SerializeField] List<GameObject> toShow = new List<GameObject>();
 
     List<Renderer> renderersToHide = new List<Renderer>();
     List<Renderer> renderersToShow = new List<Renderer>();
 
     void Start()
     {
-        renderersToHide = toHide.GetComponentsInChildren<Renderer>().ToList<Renderer>();
-        renderersToShow = toShow.GetComponentsInChildren<Renderer>().ToList<Renderer>();
+        foreach (var item in toHide)
+        {
+            renderersToHide.AddRange(item.GetComponentsInChildren<Renderer>().ToList<Renderer>());
+        }
+        foreach (var item in toShow)
+        {
+            renderersToShow.AddRange(item.GetComponentsInChildren<Renderer>().ToList<Renderer>());
+        }
     }
 
     private void OnTriggerEnter(Collider other)
