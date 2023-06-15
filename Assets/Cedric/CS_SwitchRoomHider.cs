@@ -14,27 +14,39 @@ public class CS_SwitchRoomHider : MonoBehaviour
 
     void Start()
     {
-        foreach (var item in toHide)
+        if (toHide.Count != 0)
         {
-            renderersToHide.AddRange(item.GetComponentsInChildren<Renderer>().ToList<Renderer>());
+            foreach (var item in toHide)
+            {
+                renderersToHide.AddRange(item.GetComponentsInChildren<Renderer>().ToList<Renderer>());
+            }
         }
-        foreach (var item in toShow)
+        if (toShow.Count != 0)
         {
-            renderersToShow.AddRange(item.GetComponentsInChildren<Renderer>().ToList<Renderer>());
+            foreach (var item in toShow)
+            {
+                renderersToShow.AddRange(item.GetComponentsInChildren<Renderer>().ToList<Renderer>());
+            }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
-            foreach (Renderer r in renderersToHide)
+            if (toHide.Count != 0)
             {
-                r.enabled = false;
+                foreach (Renderer r in renderersToHide)
+                {
+                    r.enabled = false;
+                }
             }
-            foreach (Renderer r in renderersToShow)
+            if (toShow.Count != 0)
             {
-                r.enabled = true;
+                foreach (Renderer r in renderersToShow)
+                {
+                    r.enabled = true;
+                }
             }
         }
     }
