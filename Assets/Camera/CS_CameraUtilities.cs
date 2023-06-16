@@ -57,12 +57,12 @@ public class CS_CameraUtilities : MonoBehaviour
         try
         {
             noise = cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+            noise.m_AmplitudeGain = 0;
+            noise.m_FrequencyGain = 0;
         }
         catch (System.Exception)
         {
             return;
         }
-        noise.m_AmplitudeGain = 0;
-        noise.m_FrequencyGain = 0;
     }
 }

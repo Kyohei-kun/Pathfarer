@@ -136,7 +136,7 @@ MonoBehaviour:
   pickUpHeart: {fileID: 5788882851493816383, guid: f7c3bd63f000458498d0c9179eb7f5a9,
     type: 3}
   forceDrop: 0
-  tauxDrop: 30
+  tauxDrop: 0.5
   myGrass:
   - {fileID: 7120061975898716950}
   - {fileID: 1053038428874722508}

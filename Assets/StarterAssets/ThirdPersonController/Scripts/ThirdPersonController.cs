@@ -17,6 +17,7 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
+        float timeBeforeLastGrounded = 0;
         [SerializeField] CS_F_Targeting f_Targeting;
         Vector3 impact = Vector3.zero;
 
@@ -246,8 +247,14 @@ namespace StarterAssets
                 _animator.SetBool(_animIDGrounded, grounded);
             }
 
+            timeBeforeLastGrounded += Time.deltaTime;
+
             if (grounded && !lastGrounded) //Atterissage
-                CS_VibrationControler.SetVibration(1f, 0, 0.1f);
+            {
+                if (timeBeforeLastGrounded > 0.2f)//On fait une chute de plus de 0.2 secondes
+                    CS_VibrationControler.SetVibration(1f, 0, 0.1f);
+            }
+            if (grounded) timeBeforeLastGrounded = 0;
 
             lastGrounded = grounded;
         }
